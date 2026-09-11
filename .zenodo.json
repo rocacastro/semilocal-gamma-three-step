@@ -1,0 +1,43 @@
+{
+  "title": "Semilocal convergence beyond exact majorization for an efficient three-step method under gamma conditions: supplementary material and reproducibility package",
+  "upload_type": "software",
+  "description": "Research compendium containing Supplementary Material S1-S6, exact rational and symbolic verification programs, high-precision numerical experiments, and generated data for the sufficient criterion beta*gamma <= 0.1547.",
+  "creators": [
+    {
+      "name": "Castro Marín, Rodrigo",
+      "orcid": "0000-0003-0010-7775",
+      "affiliation": "Universidad de Valparaíso"
+    },
+    {
+      "name": "Guzmán Pinto, Lía Paz",
+      "affiliation": "Universidad de Valparaíso"
+    },
+    {
+      "name": "Echeverri Delgado, Luis Fernando",
+      "orcid": "0000-0002-5185-6074",
+      "affiliation": "Universidad de Antioquia"
+    },
+    {
+      "name": "Restrepo Gutiérrez, Óscar Antonio",
+      "orcid": "0000-0001-8546-0687",
+      "affiliation": "Universidad de Antioquia"
+    },
+    {
+      "name": "Honorato Gutiérrez, Gerardo Andrés",
+      "orcid": "0009-0006-1647-5600",
+      "affiliation": "Universidad de Valparaíso"
+    }
+  ],
+  "keywords": [
+    "semilocal convergence",
+    "gamma conditions",
+    "perturbed majorization",
+    "summable defects",
+    "Banach spaces",
+    "multipoint methods"
+  ],
+  "version": "1.0.0",
+  "language": "eng",
+  "access_right": "open",
+  "license": "other-open"
+}
