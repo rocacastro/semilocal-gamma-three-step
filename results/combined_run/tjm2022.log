@@ -1,0 +1,10 @@
+1. Equivalence of the steps and expansion through degree five: OK.
+   T(t,2t) = Matrix([[224*t**5 + 28*t**4, 70*t**5 - 56*t**4]]) + O(t^6)
+   Limit ||T(t,2t)||_inf / ||(t,2t)||_inf^4 = 7/2
+2. Homogeneous term Q4(e) = 4(v^3-u^3)(u,-v): OK.
+3. Bound (2.6), after extending the domain of phi: FALSE.
+   For a=1/10, the left-hand side is 5/32 > 121/1000.
+4. Bound (2.7) under the natural repair phi(s)=s: FALSE.
+   x1-(1+h(a)) = a^2(3a+2)/5 > 0.
+   For a=1/10: 1.055625 > 1.051025.
+The exact checks completed successfully.

@@ -1,0 +1,8 @@
+All EXACT assertions were verified.
+Numerical results (not intervals): /mnt/data/semilocal-gamma-three-step_repository/results/audit/audit_results.json
+Last ACOC values of the 2015 reproduction:
+3 4.7225706004665312641694333811256487
+4 3.8727238968996513566010652619805964
+5 4.0306205065185573965624469831014941
+6 3.9925100904538303636210821274648999
+The current radial comparison is run in verify_gamma_criterion.py.

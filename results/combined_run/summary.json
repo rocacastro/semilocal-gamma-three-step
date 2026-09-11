@@ -1,0 +1,42 @@
+[
+  {
+    "test": "criterion",
+    "returncode": 0,
+    "seconds": 0.5992301320002298
+  },
+  {
+    "test": "comparison_2015",
+    "returncode": 0,
+    "seconds": 0.607555173000037
+  },
+  {
+    "test": "obstruction",
+    "returncode": 0,
+    "seconds": 0.6133491649998177
+  },
+  {
+    "test": "algebra",
+    "returncode": 0,
+    "seconds": 9.292539310000393
+  },
+  {
+    "test": "symbolic_majorant",
+    "returncode": 0,
+    "seconds": 5.517954552000447
+  },
+  {
+    "test": "audit",
+    "returncode": 0,
+    "seconds": 2.246557518999907
+  },
+  {
+    "test": "tjm2022",
+    "returncode": 0,
+    "seconds": 1.4923649720003596
+  },
+  {
+    "test": "additional_2022",
+    "returncode": 0,
+    "seconds": 1.0298087329992995
+  }
+]

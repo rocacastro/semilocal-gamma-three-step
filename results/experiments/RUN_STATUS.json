@@ -1,0 +1,95 @@
+{
+  "script_sha256": "991c8ea534efc8ebe4e303f64b48a949b46bb606722d2e72aa8aa5f2c0a4b1ef",
+  "all_present": true,
+  "all_script_hashes_match": true,
+  "experiments": [
+    {
+      "experiment": "bratu_N20_dps1000",
+      "present": true,
+      "script_sha256_matches": true,
+      "cycles": 5,
+      "precision_digits": 1000,
+      "N": 20
+    },
+    {
+      "experiment": "bratu_N30_dps1000",
+      "present": true,
+      "script_sha256_matches": true,
+      "cycles": 5,
+      "precision_digits": 1000,
+      "N": 30
+    },
+    {
+      "experiment": "bratu_N40_dps1000",
+      "present": true,
+      "script_sha256_matches": true,
+      "cycles": 5,
+      "precision_digits": 1000,
+      "N": 40
+    },
+    {
+      "experiment": "bratu_N60_dps1000",
+      "present": true,
+      "script_sha256_matches": true,
+      "cycles": 5,
+      "precision_digits": 1000,
+      "N": 60
+    },
+    {
+      "experiment": "chandrasekhar_N20_dps1000",
+      "present": true,
+      "script_sha256_matches": true,
+      "cycles": 5,
+      "precision_digits": 1000,
+      "N": 20
+    },
+    {
+      "experiment": "chandrasekhar_N30_dps1000",
+      "present": true,
+      "script_sha256_matches": true,
+      "cycles": 5,
+      "precision_digits": 1000,
+      "N": 30
+    },
+    {
+      "experiment": "chandrasekhar_N40_dps1000",
+      "present": true,
+      "script_sha256_matches": true,
+      "cycles": 5,
+      "precision_digits": 1000,
+      "N": 40
+    },
+    {
+      "experiment": "chandrasekhar_N60_dps1000",
+      "present": true,
+      "script_sha256_matches": true,
+      "cycles": 5,
+      "precision_digits": 1000,
+      "N": 60
+    },
+    {
+      "experiment": "nonseparable_N30_dps1000",
+      "present": true,
+      "script_sha256_matches": true,
+      "cycles": 5,
+      "precision_digits": 1000,
+      "N": 30
+    },
+    {
+      "experiment": "polynomial_N30_dps1000",
+      "present": true,
+      "script_sha256_matches": true,
+      "cycles": 5,
+      "precision_digits": 1000,
+      "N": 30
+    },
+    {
+      "experiment": "reciprocal_N30_dps1000",
+      "present": true,
+      "script_sha256_matches": true,
+      "cycles": 5,
+      "precision_digits": 1000,
+      "N": 30
+    }
+  ]
+}

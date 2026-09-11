@@ -1,0 +1,3323 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{amsmath,amssymb,amsfonts,amsthm,mathtools}
+\usepackage{lmodern,microtype,booktabs,array,longtable}
+\usepackage[margin=25mm]{geometry}
+\usepackage{xcolor,xurl}
+\usepackage[hidelinks,unicode,pdfencoding=auto,bookmarksnumbered]{hyperref}
+\usepackage{fancyhdr,etoolbox}
+\makeatletter
+\patchcmd{\l@section}{1.5em}{2em}{}{}
+\makeatother
+\setlength{\headheight}{14pt}
+\pagestyle{fancy}\fancyhf{}
+\fancyhead[L]{\small Supplementary material: gamma condition}
+\fancyhead[R]{\small $\alpha_{\rm c}=0.1547$}
+\fancyfoot[C]{\thepage}
+\setlength{\emergencystretch}{2em}
+\allowdisplaybreaks[3]
+\raggedbottom
+\renewcommand{\thesection}{S\arabic{section}}
+\numberwithin{equation}{section}
+\numberwithin{table}{section}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}\newtheorem{remark}[theorem]{Remark}
+\newcommand{\norm}[1]{\left\|#1\right\|}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\pospart}[1]{\left[#1\right]_+}
+\newcommand{\R}{\mathbb R}
+\newcommand{\N}{\mathbb N}
+\addto\captionsenglish{\renewcommand{\tablename}{Table}\renewcommand{\proofname}{Proof}}
+\hypersetup{pdftitle={Supplementary material: semilocal convergence under gamma conditions},
+ pdfauthor={Rodrigo Castro Marin; Lia Paz Guzman Pinto; Luis Fernando Echeverri Delgado; Oscar Antonio Restrepo Gutierrez; Gerardo Andres Honorato Gutierrez}}
+\title{Supplementary material\\[4pt]\large
+Semilocal convergence beyond exact majorization for an efficient three-step method under gamma conditions}
+\author{Rodrigo Castro Marín$^1$ \quad Lía Paz Guzmán Pinto$^1$\\
+Luis Fernando Echeverri Delgado$^2$\\
+Óscar Antonio Restrepo Gutiérrez$^3$ \quad Gerardo Andrés Honorato Gutiérrez$^4$}
+\date{}
+\begin{document}
+\maketitle
+\noindent\small
+$^1$Institute of Mathematics, Universidad de Valparaíso, Valparaíso, Chile.\\
+$^2$Institute of Mathematics, Universidad de Antioquia, Medellín, Colombia.\\
+$^3$Institute of Physics, Universidad de Antioquia, Medellín, Colombia.\\
+$^4$Institute of Mathematical Engineering, Faculty of Engineering,
+Universidad de Valparaíso, Valparaíso, Chile.\\[3pt]
+\textbf{Journal:} Numerical Algorithms.\\
+\textbf{Corresponding author:} Rodrigo Castro Marín,
+\href{mailto:rodrigo.castrom@uv.cl}{rodrigo.castrom@uv.cl}.\\
+\normalsize\medskip
+
+This document brings together the algebraic derivations, rational
+checks, analysis of previous work, numerical experiments, and generated
+data for the semilocal convergence study under gamma conditions.
+The programs, data, and execution outputs accompany the document.
+Exact comparisons are distinguished from multiprecision floating-point
+results.
+
+\setcounter{tocdepth}{2}
+\tableofcontents
+\clearpage
+\section{Derivation of the local error expansion}\label{supp:local-error}
+This section derives the local expansion for the three-step method.
+The calculation is presented by homogeneous degrees, retaining the
+order of the multilinear compositions. Let $X,Y$ be Banach spaces,
+$x_*$ a simple solution of $F(x)=0$, and $F\in C^5$ in a neighborhood
+of $x_*$. We define
+\[
+ A=F'(x_*)^{-1},\qquad H_j=\frac1{j!}AF^{(j)}(x_*),\quad j=2,3,4,
+ \qquad h_j=H_j(e,\ldots,e),\quad e=x-x_*.
+\]
+The estimates $O(\|e\|^k)$ are understood in the norm of $X$ or, for
+linear operators, in the induced norm. Normalization at the root gives
+\begin{equation}
+ AF(x_*+e)=e+h_2+h_3+h_4+O(\|e\|^5).
+ \label{supp:eq:local-F}
+\end{equation}
+Likewise,
+\[
+ AF'(x_*+e)=I+L_1+L_2+L_3+O(\|e\|^4),
+\]
+\[
+ L_1v=2H_2(e,v),\quad L_2v=3H_3(e,e,v),\quad L_3v=4H_4(e,e,e,v).
+\]
+The Neumann series gives
+\begin{equation}
+ \begin{aligned}
+ B(e):=[AF'(x_*+e)]^{-1}
+ ={}&I-L_1+(L_1^2-L_2)\\
+ &+(-L_3+L_1L_2+L_2L_1-L_1^3)+O(\|e\|^4).
+ \end{aligned}\label{supp:eq:local-inverse}
+\end{equation}
+We have $F'(x_*+e)^{-1}F(x_*+u)=B(e)AF(x_*+u)$.
+
+\subsection{First stage}
+Let $e_y=y-x_*$. Substituting
+\eqref{supp:eq:local-F}--\eqref{supp:eq:local-inverse} into the Newton
+step,
+\begin{equation}
+ \begin{aligned}
+ e_y={}&h_2+\bigl[2h_3-2H_2(e,h_2)\bigr]\\
+ &+\bigl[3h_4-4H_2(e,h_3)+4H_2(e,H_2(e,h_2))-3H_3(e,e,h_2)\bigr]
+ +O(\|e\|^5).
+ \end{aligned}\label{supp:eq:local-y}
+\end{equation}
+In particular, $e_y=O(\|e\|^2)$. Since
+$AF(y)=e_y+H_2(e_y,e_y)+O(\|e\|^5)$, another application of
+\eqref{supp:eq:local-inverse} yields
+\begin{equation}
+ \begin{aligned}
+ B(e)AF(y)={}&h_2+\bigl[2h_3-4H_2(e,h_2)\bigr]\\
+ &+\bigl[3h_4-8H_2(e,h_3)+12H_2(e,H_2(e,h_2))\\
+ &\hspace{16mm}-6H_3(e,e,h_2)+H_2(h_2,h_2)\bigr]+O(\|e\|^5).
+ \end{aligned}\label{supp:eq:local-correction-y}
+\end{equation}
+
+\subsection{Second stage}
+The second point satisfies $e_z=e_y-5B(e)AF(y)$. By the preceding
+identities,
+\begin{equation}
+ \begin{aligned}
+ e_z={}&-4h_2+\bigl[-8h_3+18H_2(e,h_2)\bigr]\\
+ &+\bigl[-12h_4+36H_2(e,h_3)-56H_2(e,H_2(e,h_2))\\
+ &\hspace{16mm}+27H_3(e,e,h_2)-5H_2(h_2,h_2)\bigr]+O(\|e\|^5).
+ \end{aligned}\label{supp:eq:local-z}
+\end{equation}
+Since $e_z=O(\|e\|^2)$, the only quadratic term contributing up to
+degree four in $AF(z)=e_z+H_2(e_z,e_z)+O(\|e\|^5)$ is
+$H_2(-4h_2,-4h_2)=16H_2(h_2,h_2)$. Therefore,
+\begin{equation}
+ \begin{aligned}
+ AF(z)={}&-4h_2+\bigl[-8h_3+18H_2(e,h_2)\bigr]\\
+ &+\bigl[-12h_4+36H_2(e,h_3)-56H_2(e,H_2(e,h_2))\\
+ &\hspace{16mm}+27H_3(e,e,h_2)+11H_2(h_2,h_2)\bigr]+O(\|e\|^5).
+ \end{aligned}\label{supp:eq:local-Fz}
+\end{equation}
+
+\subsection{Third stage and fourth-degree term}
+Relation \eqref{supp:eq:local-y} also gives
+$AF(y)=e_y+H_2(h_2,h_2)+O(\|e\|^5)$. Combining this with
+\eqref{supp:eq:local-Fz},
+\begin{equation}
+ \begin{aligned}
+ 9AF(y)+AF(z)={}&5h_2+10h_3\\
+ &+15h_4-20H_2(e,H_2(e,h_2))+20H_2(h_2,h_2)+O(\|e\|^5).
+ \end{aligned}\label{supp:eq:local-combination}
+\end{equation}
+Applying $B(e)/5$ and retaining the terms up to degree four,
+\begin{equation}
+ \begin{aligned}
+ \tfrac15B(e)(9AF(y)+AF(z))={}&h_2+2h_3-2H_2(e,h_2)\\
+ &+3h_4-4H_2(e,h_3)-3H_3(e,e,h_2)+4H_2(h_2,h_2)
+ +O(\|e\|^5).
+ \end{aligned}\label{supp:eq:local-last-correction}
+\end{equation}
+Subtracting \eqref{supp:eq:local-last-correction} from
+\eqref{supp:eq:local-y} cancels all terms of degrees two and three
+and gives
+\begin{equation}
+ e^+=\mathcal Q_4(e)+O(\|e\|^5),\qquad
+ \mathcal Q_4(e)=4\bigl[H_2(e,H_2(e,H_2(e,e)))-H_2(H_2(e,e),H_2(e,e))\bigr].
+ \label{supp:eq:quartic}
+\end{equation}
+No associativity of $H_2$ has been assumed. In dimension one,
+$H_2(p,q)=c_2pq$, and the two compositions in \eqref{supp:eq:quartic}
+coincide; the remainder provides order at least five. In
+higher-dimensional spaces, this cancellation is not automatic.
+
+For example, for $F(u,v)=(u+v^2,v+u^2)$, we have
+$H_2(p,q)=(p_2q_2,p_1q_1)$ and
+$\mathcal Q_4(u,v)=4(v^3-u^3)(u,-v)$. An iteration from $(t,2t)$ gives
+\begin{equation}
+ T(t,2t)=(28t^4+224t^5,-56t^4+70t^5)+O(t^6).
+ \label{supp:eq:path-expansion}
+\end{equation}
+The program \path{code/verify_audit.py} checks this expansion
+and the equivalence of the two expressions for the third stage exactly.
+
+The condition $\mathcal Q_4\not\equiv0$ rules out uniform local order
+five for the entire class, but does not determine the order of each
+trajectory. If $e_n\neq0$ and
+$\liminf\|\mathcal Q_4(e_n)\|/\|e_n\|^4>0$, the remainder bound allows
+$O(\|e_n\|^5)$ to be absorbed, yielding
+$c\|e_n\|^4\leq\|e_{n+1}\|\leq C\|e_n\|^4$ from some index onward.
+The $Q$-order is exactly four when, in addition, the quotient has a
+positive finite limit. This distinction is used throughout this document.
+
+\subsection{Exact majorization: consequence for the order and a gamma counterexample}
+\label{supp:exact-obstruction}
+
+Two assertions are distinguished. A residual bound along all indices
+has consequences for the complete sequence. An expansion of a single
+iteration in a direction proves a property of the iteration map, but
+does not automatically determine the order of every sequence. The
+this distinction is retained throughout the analysis.
+
+\noindent\textbf{Consequence of exact majorization.}
+Let $A_0=F'(x_0)^{-1}$, $G=A_0F$, and let $x_*$ be a simple root.
+If $x_n\to x_*$, differentiability and the invertibility of $G'(x_*)$
+provide constants $c,C>0$ such that
+\[
+ c\|x_n-x_*\|\leq\|G(x_n)\|\leq C\|x_n-x_*\|
+\]
+for every sufficiently large index. If $g(t_*)=0$, $g'(t_*)<0$,
+$t_n\uparrow t_*$, and $\delta_n=t_*-t_n$, then
+$g(t_n)=-g'(t_*)\delta_n+O(\delta_n^2)$.
+Therefore, $\|G(x_n)\|\leq g(t_n)$ implies
+$\|x_n-x_*\|\leq C_0\delta_n$.
+
+If $\delta_n$ has $Q$-order five, this domination gives $R$-order at
+least five. It does not by itself provide $Q$-order five for $x_n$.
+The additional bound $\delta_n\leq C_1\|x_n-x_*\|$ would suffice to
+obtain the corresponding $Q$-order inequality.
+
+The incompatibility with a fourth-degree lower bound can be seen
+without an informal comparison of orders. If $u_{n+1}\geq c u_n^4>0$
+and $\delta_{n+1}\leq C\delta_n^5$, where $u_n=\|x_n-x_*\|$, choose
+an index $N$ with $c^{1/3}u_N<1$ and $C^{1/4}\delta_N<1$.
+For $a=-\log(c^{1/3}u_N)>0$ and
+$b=-\log(C^{1/4}\delta_N)>0$, we obtain
+\[
+ u_{N+j}\geq c^{-1/3}e^{-a4^j},\qquad
+ \delta_{N+j}\leq C^{-1/4}e^{-b5^j}.
+\]
+Hence $u_{N+j}/\delta_{N+j}\to+\infty$. This contradicts domination
+by $C_0\delta_n$. The lower-bound assumption must be checked for the
+sequence under consideration; it does not follow from $\mathcal Q_4$
+being nonzero in some direction.
+
+\medskip\noindent\textbf{A counterexample to universal validity under gamma conditions.}
+Consider $F(u,v)=(u+v^2,v+u^2)$, the maximum norm, and $x_0=(h,2h)$,
+with $0<h<1/4$. We have
+\[
+ F'(x_0)=\begin{pmatrix}1&4h\\2h&1\end{pmatrix},\qquad
+ A_0=\frac1{1-8h^2}
+       \begin{pmatrix}1&-4h\\-2h&1\end{pmatrix}.
+\]
+From $\|I-F'(x_0)\|_\infty=4h$ and
+$\|F(x_0)\|_\infty=2h+h^2$, we obtain the valid choices
+\begin{equation}
+ \beta_h=\frac{2h+h^2}{1-4h},\qquad
+ \gamma_h=\frac1{1-4h},\qquad
+ \alpha_h=\frac{2h+h^2}{(1-4h)^2}.
+ \label{supp:eq:obstruction-data}
+\end{equation}
+The map $F''[p,q]=(2p_2q_2,2p_1q_1)$ has norm two and is constant.
+Thus $\|A_0F''\|\leq2\gamma_h$ and all its differences are zero.
+The gamma condition holds on the required ball, since the domain is
+$\mathbb R^2$.
+
+The local expansion obtained in S1 gives
+\[
+ x_1=(28h^4+224h^5,-56h^4+70h^5)+O(h^6).
+\]
+Since $A_0=I+O(h)$ and $F(x_1)=x_1+O(h^8)$,
+\begin{equation}
+ \|A_0F(x_1)\|_\infty=56h^4+O(h^5).
+ \label{supp:eq:obstruction-real-residual}
+\end{equation}
+To compute the scalar residual, we use
+$\widetilde g_\alpha(t)=\alpha-t+t^2/(1-t)$ and denote the first
+complete iterate from zero by $\widehat t_1$. Substituting the
+stages of the method,
+\[
+ \widehat s_0=\alpha,\qquad
+ \widehat v_0=\frac{\alpha(1+4\alpha)}{1-\alpha},\qquad
+ \widehat t_1=
+ \frac{\alpha(1-2\alpha)(1-2\alpha^2)}
+ {(1-\alpha)(1-2\alpha-4\alpha^2)}.
+\]
+An exact rational simplification yields
+\begin{equation}
+ \widetilde g_\alpha(\widehat t_1)=
+ \frac{2\alpha^5(5-4\alpha-8\alpha^2+8\alpha^3)}
+ {(1-\alpha)(1-2\alpha-4\alpha^2)
+  (1-4\alpha+6\alpha^3-4\alpha^4)}
+ =10\alpha^5+O(\alpha^6).
+ \label{supp:eq:obstruction-scalar-residual}
+\end{equation}
+With \eqref{supp:eq:obstruction-data}, $\alpha_h=2h+O(h^2)$ and
+$\gamma_h=1+O(h)$. Since
+$\gamma_h g_h(t_1)=\widetilde g_{\alpha_h}(\widehat t_1)$, we obtain
+\[
+ g_h(t_1)=320h^5+O(h^6),\qquad
+ \frac{\|A_0F(x_1)\|_\infty}{g_h(t_1)}
+ =\frac{7}{40h}+O(1)\longrightarrow+\infty.
+\]
+Thus, exact majorization fails at the first iteration for every
+sufficiently small $h>0$.
+
+\medskip\noindent\textbf{Rational verification for fixed data.}\par
+For $h=1/1000$, the program
+\path{code/verify_exact_obstruction.py} computes the stages
+using fractions and checks
+\[
+ \alpha_h=\frac{667}{330672}<\frac{1547}{10000},\qquad
+ \|A_0F(x_1)\|_\infty>\frac5{10^{11}},\qquad
+ 0<g_h(t_1)<\frac4{10^{13}}.
+\]
+The approximate values, for presentation only, are
+\[
+ \|A_0F(x_1)\|_\infty\simeq5.599035405559621\,10^{-11},\qquad
+ g_h(t_1)\simeq3.367867749356755\,10^{-13}.
+\]
+The conclusion does not depend on these decimals. The program compares
+integer numerators and denominators. The example lies within the
+interval of our criterion and refutes universal exact domination by
+the proposed majorant; it is not a counterexample to convergence of
+the method.
+
+
+
+\section{Complete proof for the majorant sequences}\label{supp:scalar}
+The algebraic sign proof for the scalar maps is retained. All formulas
+in this section correspond to the rational majorant, not to the hatted
+controls of the semilocal criterion.
+\subsection{Majorant function and normalization}
+
+Let $\beta>0$ and $\gamma>0$. Consider the majorant function 
+\begin{equation*}
+g(u)=\beta-u+\frac{\gamma u^2}{1-\gamma u}, \qquad 0\leq u<\frac1\gamma.
+\end{equation*}
+We write 
+\begin{equation*}
+\alpha=\beta\gamma
+\end{equation*}
+and assume throughout what follows that 
+\begin{equation*}
+\alpha<3-2\sqrt2.
+\end{equation*}
+We denote the small positive root of $g$ by $t_*$.
+
+We also introduce the constant 
+\begin{equation*}
+\rho=1-\frac1{\sqrt2}.
+\end{equation*}
+
+\begin{lemma}[Basic signs of the majorant]\label{supp:s2lemma1}
+We have 
+\begin{equation*}
+0<t_*<\frac{\rho}{\gamma}.
+\end{equation*}
+Moreover, for every $u\in[0,t_*)$, we have 
+\begin{equation*}
+g(u)>0,
+\end{equation*}
+\begin{equation*}
+g^{\prime}(u)<0,
+\end{equation*}
+and 
+\begin{equation*}
+g^{\prime\prime}(u)>0.
+\end{equation*}
+\end{lemma}
+
+\begin{proof}
+We define the normalized variable 
+\begin{equation*}
+x=\gamma u.
+\end{equation*}
+Then 
+\begin{equation*}
+G(x)=\gamma g\left(\frac{x}{\gamma}\right) =\alpha-x+\frac{x^2}{1-x}.
+\end{equation*}
+Since 
+\begin{equation*}
+(1-x)G(x)=\alpha-(1+\alpha)x+2x^2,
+\end{equation*}
+the assumption 
+\begin{equation*}
+\alpha<3-2\sqrt2
+\end{equation*}
+implies that the small positive root $r=\gamma t_*$ satisfies 
+\begin{equation*}
+0<r<1-\frac1{\sqrt2}=\rho.
+\end{equation*}
+Therefore, 
+\begin{equation*}
+0<t_*<\frac{\rho}{\gamma}.
+\end{equation*}
+
+Moreover, 
+\begin{equation*}
+g^{\prime}(u)=-\frac{2\gamma^2u^2-4\gamma u+1}{(1-\gamma u)^2}
+\end{equation*}
+and 
+\begin{equation*}
+g^{\prime\prime}(u)=\frac{2\gamma}{(1-\gamma u)^3}>0.
+\end{equation*}
+If $0\leq u<t_*$, then 
+\begin{equation*}
+0\leq \gamma u<\gamma t_*=r<\rho.
+\end{equation*}
+Consequently, 
+\begin{equation*}
+2\gamma^2u^2-4\gamma u+1>0.
+\end{equation*}
+It follows that 
+\begin{equation*}
+g^{\prime}(u)<0.
+\end{equation*}
+Finally, since $t_*$ is the first positive root of $g$, we have 
+\begin{equation*}
+g(u)>0, \qquad 0\leq u<t_*.
+\end{equation*}
+\end{proof}
+
+We define the auxiliary functions 
+\begin{equation*}
+S(u)=u-\frac{g(u)}{g^{\prime}(u)},
+\end{equation*}
+\begin{equation*}
+V(u)=S(u)-5\frac{g(S(u))}{g^{\prime}(u)},
+\end{equation*}
+and 
+\begin{equation*}
+T(u)=S(u)-\frac{9g(S(u))+g(V(u))}{5g^{\prime}(u)}.
+\end{equation*}
+We also write 
+\begin{equation*}
+H(u)=g(S(u)), \qquad K(u)=g(V(u)).
+\end{equation*}
+
+In the normalized variable 
+\begin{equation*}
+x=\gamma u, \qquad r=\gamma t_*,
+\end{equation*}
+we have 
+\begin{equation*}
+0<r<\rho<\frac12.
+\end{equation*}
+Since $G(r)=0$, we obtain 
+\begin{equation*}
+\alpha=r-\frac{r^2}{1-r}=\frac{r(1-2r)}{1-r}.
+\end{equation*}
+We use the same letters for the normalized functions: 
+\begin{equation*}
+S(x)=x-\frac{G(x)}{G^{\prime}(x)},
+\end{equation*}
+\begin{equation*}
+V(x)=S(x)-5\frac{G(S(x))}{G^{\prime}(x)},
+\end{equation*}
+and 
+\begin{equation*}
+T(x)=S(x)-\frac{9G(S(x))+G(V(x))}{5G^{\prime}(x)}.
+\end{equation*}
+The relation between the two scales is 
+\begin{equation*}
+S(\gamma u)=\gamma S(u),
+\end{equation*}
+\begin{equation*}
+V(\gamma u)=\gamma V(u),
+\end{equation*}
+and 
+\begin{equation*}
+T(\gamma u)=\gamma T(u),
+\end{equation*}
+where the normalized functions appear on the left-hand side and the
+original functions on the right-hand side.
+
+\subsection{Properties of \texorpdfstring{$S$, $H$ and $V$}{S, H and V}}
+
+\begin{lemma}[Elementary properties of $S$ and $H$]\label{supp:s2lemma2}
+For every $u\in[0,t_*)$, we have 
+\begin{equation*}
+u<S(u)<t_*.
+\end{equation*}
+Moreover, 
+\begin{equation*}
+H(u)>0
+\end{equation*}
+and 
+\begin{equation*}
+H^{\prime}(u)<0.
+\end{equation*}
+\end{lemma}
+
+\begin{proof}
+Since 
+\begin{equation*}
+g(u)>0
+\end{equation*}
+and 
+\begin{equation*}
+g^{\prime}(u)<0,
+\end{equation*}
+we have 
+\begin{equation*}
+S(u)-u=-\frac{g(u)}{g^{\prime}(u)}>0.
+\end{equation*}
+Therefore, 
+\begin{equation*}
+u<S(u).
+\end{equation*}
+
+On the other hand, 
+\begin{equation*}
+S(u)=u-\frac{g(u)}{g^{\prime}(u)}.
+\end{equation*}
+Differentiating, 
+\begin{equation*}
+S^{\prime}(u)=1-\frac{\left(g^{\prime}(u)\right)^2-g(u)g^{\prime\prime}(u)}{%
+\left(g^{\prime}(u)\right)^2}.
+\end{equation*}
+Hence 
+\begin{equation*}
+S^{\prime}(u)=\frac{g(u)g^{\prime\prime}(u)}{\left(g^{\prime}(u)\right)^2}.
+\end{equation*}
+By the preceding lemma, 
+\begin{equation*}
+g(u)>0,
+\end{equation*}
+\begin{equation*}
+g^{\prime\prime}(u)>0,
+\end{equation*}
+and 
+\begin{equation*}
+\left(g^{\prime}(u)\right)^2>0.
+\end{equation*}
+Thus, 
+\begin{equation*}
+S^{\prime}(u)>0.
+\end{equation*}
+The function $S$ is therefore strictly increasing on $[0,t_*]$.
+Moreover, 
+\begin{equation*}
+S(t_*)=t_*-\frac{g(t_*)}{g^{\prime}(t_*)}=t_*.
+\end{equation*}
+Consequently, if $0\leq u<t_*$, then 
+\begin{equation*}
+S(u)<S(t_*)=t_*.
+\end{equation*}
+This proves 
+\begin{equation*}
+u<S(u)<t_*.
+\end{equation*}
+
+Now, 
+\begin{equation*}
+H(u)=g(S(u)).
+\end{equation*}
+Since $S(u)<t_*$ and $g>0$ on $[0,t_*)$, we obtain 
+\begin{equation*}
+H(u)>0.
+\end{equation*}
+Moreover, 
+\begin{equation*}
+H^{\prime}(u)=g^{\prime}(S(u))S^{\prime}(u).
+\end{equation*}
+Since $S(u)<t_*$, we have 
+\begin{equation*}
+g^{\prime}(S(u))<0.
+\end{equation*}
+Since also $S^{\prime}(u)>0$, we conclude that 
+\begin{equation*}
+H^{\prime}(u)<0.
+\end{equation*}
+\end{proof}
+
+\begin{lemma}[An auxiliary polynomial for the monotonicity of $V$]\label{supp:s2lemma3}
+For $0\leq x\leq r$, we have 
+\begin{equation*}
+R_r(x)>0,
+\end{equation*}
+where 
+\begin{equation*}
+\begin{array}{l}
+R_r(x)=32r^4x^4-128r^4x^3+216r^4x^2-176r^4x+56r^4 \\ 
+\phantom{R_r(x)=}{}-128r^3x^4+428r^3x^3-612r^3x^2+414r^3x-102r^3 \\ 
+\phantom{R_r(x)=}{}+204r^2x^4-564r^2x^3+708r^2x^2-426r^2x+87r^2 \\ 
+\phantom{R_r(x)=}{}-152rx^4+314rx^3-318rx^2+169rx-31r \\ 
+\phantom{R_r(x)=}{}+52x^4-82x^3+60x^2-25x+4.%
+\end{array}%
+\end{equation*}
+\end{lemma}
+
+\begin{proof}
+First, 
+\begin{equation*}
+R_r(r)=4(1-r)^2(2r^2-4r+1)^3>0,
+\end{equation*}
+because 
+\begin{equation*}
+2r^2-4r+1>0.
+\end{equation*}
+Moreover, 
+\begin{equation*}
+R_r^{\prime}(r)=(r-1)(2r^2-4r+1)^2(32r^2-64r+25).
+\end{equation*}
+Since 
+\begin{equation*}
+32r^2-64r+25=16(2r^2-4r+1)+9>0
+\end{equation*}
+and 
+\begin{equation*}
+r-1<0,
+\end{equation*}
+we obtain 
+\begin{equation*}
+R_r^{\prime}(r)<0.
+\end{equation*}
+
+Differentiating three times, 
+\begin{equation*}
+R_r^{\prime\prime\prime}(x)=12(A(r)x-B(r)),
+\end{equation*}
+where 
+\begin{equation*}
+A(r)=64r^4-256r^3+408r^2-304r+104
+\end{equation*}
+and 
+\begin{equation*}
+B(r)=64r^4-214r^3+282r^2-157r+41.
+\end{equation*}
+We have 
+\begin{equation*}
+A(r)=(2r^2-4r+1)(32r^2-64r+60)+44>0.
+\end{equation*}
+Moreover, 
+\begin{equation*}
+B(r)-rA(r)=(1-r)(64r^4-256r^3+366r^2-220r+41).
+\end{equation*}
+But 
+\begin{equation*}
+64r^4-256r^3+366r^2-220r+41=(2r^2-4r+1)(32r^2-64r+39)+2>0.
+\end{equation*}
+Hence 
+\begin{equation*}
+B(r)-rA(r)>0.
+\end{equation*}
+If $0\leq x\leq r$, then 
+\begin{equation*}
+A(r)x-B(r)\leq A(r)r-B(r)<0.
+\end{equation*}
+Therefore, 
+\begin{equation*}
+R_r^{\prime\prime\prime}(x)<0, \qquad 0\leq x\leq r.
+\end{equation*}
+Thus, $R_r^{\prime\prime}$ is decreasing on $[0,r]$.
+
+On the other hand, 
+\begin{equation*}
+R_r^{\prime\prime}(r)=12(2r^2-4r+1)(16r^4-64r^3+91r^2-54r+10).
+\end{equation*}
+The second factor satisfies 
+\begin{equation*}
+16r^4-64r^3+91r^2-54r+10=(2r^2-4r+1)\left(8r^2-16r+\frac{19}{2}%
+\right)+\frac12>0.
+\end{equation*}
+It follows that 
+\begin{equation*}
+R_r^{\prime\prime}(r)>0.
+\end{equation*}
+Since $R_r^{\prime\prime}$ is decreasing, for $0\leq x\leq r$ we have 
+\begin{equation*}
+R_r^{\prime\prime}(x)\geq R_r^{\prime\prime}(r)>0.
+\end{equation*}
+Hence $R_r^{\prime}$ is increasing. Since $R_r^{\prime}(r)<0$, we obtain 
+\begin{equation*}
+R_r^{\prime}(x)\leq R_r^{\prime}(r)<0, \qquad 0\leq x\leq r.
+\end{equation*}
+Therefore, $R_r$ is decreasing on $[0,r]$. Finally, 
+\begin{equation*}
+R_r(x)\geq R_r(r)>0, \qquad 0\leq x\leq r.
+\end{equation*}
+\end{proof}
+
+\begin{lemma}[Monotonicity of $V$]\label{supp:s2lemma4}
+The function $V$ is strictly decreasing on $[0,r)$. In particular, 
+\begin{equation*}
+V^{\prime}(x)<0, \qquad 0\leq x<r.
+\end{equation*}
+\end{lemma}
+
+\begin{proof}
+A direct calculation gives 
+\begin{equation*}
+V^{\prime}(x)=\frac{2(r-x)(1-2r-2x+2rx)R_r(x)}{(r-1)(2x^2-4x+1)^3D_r(x)^2},
+\end{equation*}
+where 
+\begin{equation*}
+D_r(x)=2r^2x-2r^2-4rx+2r+3x-1.
+\end{equation*}
+That is, 
+\begin{equation*}
+D_r(x)=x(2r^2-4r+3)-(2r^2-2r+1).
+\end{equation*}
+Since 
+\begin{equation*}
+2r^2-4r+3>0
+\end{equation*}
+and 
+\begin{equation*}
+x\leq r,
+\end{equation*}
+we have 
+\begin{equation*}
+D_r(x)\leq D_r(r).
+\end{equation*}
+Now, 
+\begin{equation*}
+D_r(r)=(r-1)(2r^2-4r+1)<0.
+\end{equation*}
+Hence 
+\begin{equation*}
+D_r(x)<0,
+\end{equation*}
+and, in particular, 
+\begin{equation*}
+D_r(x)^2>0.
+\end{equation*}
+
+For $0\leq x<r$, we have 
+\begin{equation*}
+r-x>0.
+\end{equation*}
+Moreover, 
+\begin{equation*}
+1-2r-2x+2rx\geq1-4r+2r^2=2r^2-4r+1>0.
+\end{equation*}
+By the preceding lemma, 
+\begin{equation*}
+R_r(x)>0.
+\end{equation*}
+Also, 
+\begin{equation*}
+r-1<0,
+\end{equation*}
+\begin{equation*}
+2x^2-4x+1>0,
+\end{equation*}
+and 
+\begin{equation*}
+D_r(x)^2>0.
+\end{equation*}
+Therefore, the numerator of $V^{\prime}(x)$ is positive and its
+denominator is negative. It follows that 
+\begin{equation*}
+V^{\prime}(x)<0, \qquad 0\leq x<r.
+\end{equation*}
+\end{proof}
+
+\begin{lemma}[Location of $V$]\label{supp:s2lemma5}
+For every $0\leq x<r$, we have 
+\begin{equation*}
+r<V(x)<1.
+\end{equation*}
+Equivalently, for every $0\leq u<t_*$, 
+\begin{equation*}
+t_*<V(u)<\frac1\gamma.
+\end{equation*}
+\end{lemma}
+
+\begin{proof}
+Since 
+\begin{equation*}
+G(r)=0,
+\end{equation*}%
+we have 
+\begin{equation*}
+S(r)=r.
+\end{equation*}
+Hence 
+\begin{equation*}
+V(r)=S(r)-5\frac{G(S(r))}{G^{\prime }(r)}=r.
+\end{equation*}%
+By the preceding lemma, $V$ is decreasing. Therefore, if $0\leq x<r$,
+then 
+\begin{equation*}
+V(x)>V(r)=r.
+\end{equation*}
+
+It remains to prove that $V(x)<1$. Since $V$ is decreasing and $x\geq0$,
+it suffices to prove 
+\begin{equation*}
+V(0)<1.
+\end{equation*}
+A direct calculation gives 
+\begin{equation*}
+1-V(0)=\frac{16r^4-12r^3-3r^2+4r-1}{(r-1)(2r^2-2r+1)}.
+\end{equation*}
+Let 
+\begin{equation*}
+N(r)=16r^4-12r^3-3r^2+4r-1.
+\end{equation*}
+Then 
+\begin{equation*}
+N^{\prime}(r)=64r^3-36r^2-6r+4.
+\end{equation*}
+Factoring, 
+\begin{equation*}
+N^{\prime}(r)=2(2r-1)(16r^2-r-2).
+\end{equation*}
+Since 
+\begin{equation*}
+0<r<\rho<\frac12,
+\end{equation*}
+we have 
+\begin{equation*}
+2r-1<0.
+\end{equation*}
+Moreover, 
+\begin{equation*}
+16r^2-r-2<16\rho^2-2=22-16\sqrt2<0.
+\end{equation*}
+Therefore, 
+\begin{equation*}
+N^{\prime}(r)>0.
+\end{equation*}
+Thus, $N$ is increasing on $(0,\rho)$. Hence 
+\begin{equation*}
+N(r)<N(\rho).
+\end{equation*}
+Now, 
+\begin{equation*}
+N(\rho)=\frac{73-52\sqrt2}{2}<0.
+\end{equation*}
+It follows that 
+\begin{equation*}
+N(r)<0.
+\end{equation*}
+Since 
+\begin{equation*}
+r-1<0
+\end{equation*}
+and 
+\begin{equation*}
+2r^2-2r+1>0,
+\end{equation*}
+the denominator of $1-V(0)$ is negative. Consequently, 
+\begin{equation*}
+1-V(0)>0.
+\end{equation*}
+This proves that 
+\begin{equation*}
+V(0)<1.
+\end{equation*}
+Since $V(x)\leq V(0)$, we obtain 
+\begin{equation*}
+V(x)<1.
+\end{equation*}
+Therefore, 
+\begin{equation*}
+r<V(x)<1.
+\end{equation*}
+Dividing by $\gamma>0$ gives 
+\begin{equation*}
+t_*<V(u)<\frac1\gamma.
+\end{equation*}
+\end{proof}
+
+\subsection{Properties of \texorpdfstring{$T$}{T}}
+
+\begin{lemma}[An inequality for $K=g\circ V$]\label{supp:s2lemma6}
+For every $u\in[0,t_*)$, we have 
+\begin{equation*}
+K(u)>-4H(u).
+\end{equation*}
+Consequently, 
+\begin{equation*}
+9H(u)+K(u)>0.
+\end{equation*}
+\end{lemma}
+
+\begin{proof}
+Since 
+\begin{equation*}
+V(u)<\frac1\gamma,
+\end{equation*}
+the quantity $g(V(u))$ is well defined. By the convexity of $g$, 
+\begin{equation*}
+g(V(u))\geq g(S(u))+g^{\prime}(S(u))(V(u)-S(u)).
+\end{equation*}
+That is, 
+\begin{equation*}
+K(u)\geq H(u)+g^{\prime}(S(u))(V(u)-S(u)).
+\end{equation*}
+But 
+\begin{equation*}
+V(u)-S(u)=-5\frac{g(S(u))}{g^{\prime}(u)}=-5\frac{H(u)}{g^{\prime}(u)}.
+\end{equation*}
+Substituting, 
+\begin{equation*}
+K(u)\geq H(u)-5g^{\prime}(S(u))\frac{H(u)}{g^{\prime}(u)}.
+\end{equation*}
+Therefore, 
+\begin{equation*}
+K(u)\geq H(u)\left(1-5\frac{g^{\prime}(S(u))}{g^{\prime}(u)}\right).
+\end{equation*}
+Since 
+\begin{equation*}
+u<S(u)<t_*,
+\end{equation*}
+and $g^{\prime\prime}>0$, the function $g^{\prime}$ is strictly
+increasing. Thus, 
+\begin{equation*}
+g^{\prime}(u)<g^{\prime}(S(u))<0.
+\end{equation*}
+Dividing by $g^{\prime}(u)<0$ gives 
+\begin{equation*}
+0<\frac{g^{\prime}(S(u))}{g^{\prime}(u)}<1.
+\end{equation*}
+Hence 
+\begin{equation*}
+1-5\frac{g^{\prime}(S(u))}{g^{\prime}(u)}>-4.
+\end{equation*}
+Since $H(u)>0$, we conclude that 
+\begin{equation*}
+K(u)>-4H(u).
+\end{equation*}
+Consequently, 
+\begin{equation*}
+9H(u)+K(u)>9H(u)-4H(u)=5H(u)>0.
+\end{equation*}
+\end{proof}
+
+\begin{lemma}[The inequality $S<T$]\label{supp:s2lemma7}
+For every $u\in[0,t_*)$, we have 
+\begin{equation*}
+S(u)<T(u).
+\end{equation*}
+\end{lemma}
+
+\begin{proof}
+By definition, 
+\begin{equation*}
+T(u)-S(u)=-\frac{9g(S(u))+g(V(u))}{5g^{\prime}(u)}.
+\end{equation*}
+Using 
+\begin{equation*}
+H(u)=g(S(u))
+\end{equation*}
+and 
+\begin{equation*}
+K(u)=g(V(u)),
+\end{equation*}
+we obtain 
+\begin{equation*}
+T(u)-S(u)=-\frac{9H(u)+K(u)}{5g^{\prime}(u)}.
+\end{equation*}
+By the preceding lemma, 
+\begin{equation*}
+9H(u)+K(u)>0.
+\end{equation*}
+Moreover, 
+\begin{equation*}
+g^{\prime}(u)<0.
+\end{equation*}
+Therefore, 
+\begin{equation*}
+T(u)-S(u)>0.
+\end{equation*}
+That is, 
+\begin{equation*}
+S(u)<T(u).
+\end{equation*}
+\end{proof}
+
+\begin{lemma}[Sign of $Q_r$]\label{supp:s2lemma8}
+For every $0\leq x\leq r$, we have 
+\begin{equation*}
+Q_r(x)>0,
+\end{equation*}
+where 
+\begin{equation*}
+\begin{array}{l}
+Q_r(x)=8r^4x^4-32r^4x^3+24r^4x^2+16r^4x-16r^4 \\ 
+\phantom{Q_r(x)=}{}-32r^3x^4+152r^3x^3-168r^3x^2+36r^3x+12r^3 \\ 
+\phantom{Q_r(x)=}{}+36r^2x^4-216r^2x^3+252r^2x^2-84r^2x+3r^2 \\ 
+\phantom{Q_r(x)=}{}-8rx^4+116rx^3-132rx^2+46rx-4r \\ 
+\phantom{Q_r(x)=}{}-2x^4-28x^3+30x^2-10x+1.%
+\end{array}%
+\end{equation*}
+\end{lemma}
+
+\begin{proof}
+Evaluating at $x=r$ gives 
+\begin{equation*}
+Q_r(r)=(1-r)^2(2r^2-4r+1)^3>0.
+\end{equation*}
+We make the change 
+\begin{equation*}
+y=r-x.
+\end{equation*}
+Then 
+\begin{equation*}
+Q_r^{\prime}(r-y)=-2\widehat H_r(y),
+\end{equation*}
+where 
+\begin{equation*}
+\widehat H_r(y)=4A(r)y^3+3B(r)y^2+2C(r)y+E(r),
+\end{equation*}
+with 
+\begin{equation*}
+A(r)=4r^4-16r^3+18r^2-4r-1,
+\end{equation*}
+\begin{equation*}
+B(r)=-16r^5+80r^4-148r^3+124r^2-54r+14,
+\end{equation*}
+\begin{equation*}
+C(r)=24r^6-144r^5+348r^4-432r^3+294r^2-108r+15,
+\end{equation*}
+and 
+\begin{equation*}
+E(r)=-16r^7+112r^6-324r^5+500r^4-440r^3+216r^2-53r+5.
+\end{equation*}
+
+First we prove that 
+\begin{equation*}
+A(r)<0.
+\end{equation*}
+Indeed, 
+\begin{equation*}
+A^{\prime}(r)=4(r-1)(4r^2-8r+1).
+\end{equation*}
+The function $A$ decreases and then increases on $[0,\rho]$.
+Moreover, 
+\begin{equation*}
+A(0)=-1
+\end{equation*}
+and 
+\begin{equation*}
+A(\rho)=-1.
+\end{equation*}
+Consequently, 
+\begin{equation*}
+A(r)\leq -1<0.
+\end{equation*}
+
+Now, 
+\begin{equation*}
+\widehat H_r^{\prime}(y)=12A(r)y^2+6B(r)y+2C(r).
+\end{equation*}
+Since 
+\begin{equation*}
+A(r)<0,
+\end{equation*}
+the function $\widehat H_r^{\prime}$ is concave in $y$. Moreover, 
+\begin{equation*}
+\widehat H_r^{\prime}(0)=2C(r).
+\end{equation*}
+Factoring, 
+\begin{equation*}
+\widehat H_r^{\prime}(0)=6(2r^2-6r+5)(2r^2-4r+1)(2r^2-2r+1)>0.
+\end{equation*}
+Also, 
+\begin{equation*}
+\widehat H_r^{\prime}(r)=6(4r^4-28r^3+42r^2-22r+5)>0.
+\end{equation*}
+To justify the last inequality, we define 
+\begin{equation*}
+M(r)=4r^4-28r^3+42r^2-22r+5.
+\end{equation*}
+Then 
+\begin{equation*}
+M(\rho)=-7+6\sqrt2>0.
+\end{equation*}
+Moreover, 
+\begin{equation*}
+M^{\prime}(r)=16r^3-84r^2+84r-22
+\end{equation*}
+and 
+\begin{equation*}
+M^{\prime\prime}(r)=48r^2-168r+84>0
+\end{equation*}
+on $[0,\rho]$. Thus, $M^{\prime}$ is increasing on $[0,\rho]$,
+and therefore 
+\begin{equation*}
+M^{\prime}(r)\leq M^{\prime}(\rho)=-24+14\sqrt2<0.
+\end{equation*}
+Hence $M$ is decreasing and, since $r<\rho$, we obtain 
+\begin{equation*}
+M(r)>M(\rho)>0.
+\end{equation*}
+It follows that 
+\begin{equation*}
+\widehat H_r^{\prime}(r)>0.
+\end{equation*}
+
+Since $\widehat H_r^{\prime}$ is concave and positive at the endpoints
+of $[0,r]$, we obtain 
+\begin{equation*}
+\widehat H_r^{\prime}(y)>0, \qquad 0\leq y\leq r.
+\end{equation*}
+Hence $\widehat H_r$ is increasing. Moreover, 
+\begin{equation*}
+\widehat H_r(0)=E(r).
+\end{equation*}
+But 
+\begin{equation*}
+E(r)=-(r-1)(2r^2-4r+1)^2(4r^2-8r+5)>0.
+\end{equation*}
+Therefore, 
+\begin{equation*}
+\widehat H_r(y)>0, \qquad 0\leq y\leq r.
+\end{equation*}
+Thus, 
+\begin{equation*}
+Q_r^{\prime}(r-y)=-2\widehat H_r(y)<0.
+\end{equation*}
+Hence $Q_r$ is decreasing with respect to $x$. If $0\leq x<r$, then 
+\begin{equation*}
+Q_r(x)>Q_r(r)>0.
+\end{equation*}
+For $x=r$, we already know that $Q_r(r)>0$. This completes the proof.
+\end{proof}
+
+\begin{lemma}[Sign of $P_{r}$]\label{supp:s2lemma9}
+For every $0\leq x\leq r$, we have 
+\begin{equation*}
+P_{r}(x)<0,
+\end{equation*}%
+where 
+\begin{equation*}
+\begin{array}{l}
+P_{r}(x)=8r^{3}x^{5}-40r^{3}x^{4}+56r^{3}x^{3}-8r^{3}x^{2}-32r^{3}x+16r^{3}
+\\ 
+\phantom{P_r(x)=}{}%
++24r^{2}x^{6}-168r^{2}x^{5}+424r^{2}x^{4}-424r^{2}x^{3}+100r^{2}x^{2}+72r^{2}x-28r^{2}
+\\ 
+\phantom{P_r(x)=}{}-48rx^{6}+276rx^{5}-548rx^{4}+382rx^{3}-2rx^{2}-79rx+19r
+\\ 
+\phantom{P_r(x)=}{}+20x^{6}-92x^{5}+122x^{4}-6x^{3}-63x^{2}+33x-5.%
+\end{array}%
+\end{equation*}
+\end{lemma}
+
+\begin{proof}
+We write 
+\begin{equation*}
+a=1-r, \qquad z=1-x.
+\end{equation*}
+Then 
+\begin{equation*}
+\frac1{\sqrt2}<a<1, \qquad a\leq z\leq 1.
+\end{equation*}
+In these variables, 
+\begin{equation*}
+P_r(x)=\Pi(a,z),
+\end{equation*}
+where 
+\begin{equation*}
+\begin{array}{l}
+\Pi(a,z)=8a^3z^5-24a^3z^3+24a^2z^6-56a^2z^4+52a^2z^2 \\ 
+\phantom{\Pi(a,z)=}{}-36az^5+62az^3-37az-4z^6+18z^4-21z^2+9.%
+\end{array}%
+\end{equation*}
+Evaluating at $z=a$, we obtain 
+\begin{equation*}
+\Pi(a,a)=(2a-3)(2a+3)(2a^2-1)^3<0.
+\end{equation*}
+Therefore, it suffices to prove that $\Pi(a,z)$ is strictly decreasing
+with respect to $z$ on the interval $[a,1]$.
+
+Differentiating, 
+\begin{equation*}
+\begin{array}{l}
+\dfrac{\partial \Pi}{\partial z}%
+(a,z)=40a^3z^4-72a^3z^2+144a^2z^5-224a^2z^3+104a^2z \\ 
+\phantom{\dfrac{\partial \Pi}{\partial z}(a,z)=}{}%
+-180az^4+186az^2-37a-24z^5+72z^3-42z.%
+\end{array}%
+\end{equation*}
+We prove that 
+\begin{equation*}
+-\frac{\partial \Pi}{\partial z}(a,z)>0.
+\end{equation*}
+Since $a\leq z$, we set 
+\begin{equation*}
+y=\frac{a}{z}.
+\end{equation*}
+Then 
+\begin{equation*}
+0<y\leq1,
+\end{equation*}
+and, since $a>1/\sqrt2$, we have 
+\begin{equation*}
+y>\frac1{\sqrt2 z}.
+\end{equation*}
+Moreover, $1/\sqrt2<z\leq1$. A direct calculation gives 
+\begin{equation*}
+-\frac{\partial \Pi}{\partial z}(a,z)=z\mathcal{L}(y,z),
+\end{equation*}
+where 
+\begin{equation*}
+\begin{array}{l}
+\mathcal{L}(y,z)=-40y^3z^6-144y^2z^6+72y^3z^4+224y^2z^4+180yz^4+24z^4 \\ 
+\phantom{\mathcal L(y,z)=}{}-104y^2z^2-186yz^2-72z^2+37y+42.%
+\end{array}%
+\end{equation*}
+Since $z>0$, it suffices to prove that 
+\begin{equation*}
+\mathcal{L}(y,z)>0.
+\end{equation*}
+
+Differentiating with respect to $y$, 
+\begin{equation*}
+\begin{array}{l}
+\dfrac{\partial \mathcal{L}}{\partial y}%
+(y,z)=-120z^6y^2-288z^6y+216z^4y^2+448z^4y \\ 
+\phantom{\dfrac{\partial \mathcal L}{\partial y}(y,z)=}{}%
++180z^4-208z^2y-186z^2+37.%
+\end{array}%
+\end{equation*}
+Moreover, 
+\begin{equation*}
+\frac{\partial^2 \mathcal{L}}{\partial y^2}(y,z)=-16z^2%
+\left(15z^4y+18z^4-27z^2y-28z^2+13\right).
+\end{equation*}
+Let 
+\begin{equation*}
+B_z(y)=15z^4y+18z^4-27z^2y-28z^2+13.
+\end{equation*}
+The coefficient of $y$ in $B_z$ is 
+\begin{equation*}
+z^2(15z^2-27)<0.
+\end{equation*}
+Therefore, $B_z$ is decreasing in $y$. Since 
+\begin{equation*}
+y\geq \frac1{\sqrt2 z},
+\end{equation*}
+we have 
+\begin{equation*}
+B_z(y)\leq B_z\left(\frac1{\sqrt2 z}\right).
+\end{equation*}
+Now, 
+\begin{equation*}
+B_z\left(\frac1{\sqrt2 z}\right)=18z^4+\frac{15}{\sqrt2}z^3-28z^2-\frac{27}{%
+\sqrt2}z+13.
+\end{equation*}
+Denote 
+\begin{equation*}
+\Phi(z)=18z^4+\frac{15}{\sqrt2}z^3-28z^2-\frac{27}{\sqrt2}z+13.
+\end{equation*}
+Then 
+\begin{equation*}
+\Phi^{\prime\prime}(z)=216z^2+45\sqrt2 z-56>0
+\end{equation*}
+for $1/\sqrt2\leq z\leq1$. Consequently, $\Phi$ is convex.
+Moreover, 
+\begin{equation*}
+\Phi\left(\frac1{\sqrt2}\right)=-\frac{25}{4}<0
+\end{equation*}
+and 
+\begin{equation*}
+\Phi(1)=3-6\sqrt2<0.
+\end{equation*}
+Being convex, $\Phi$ attains its maximum at the endpoints of the
+interval. Hence 
+\begin{equation*}
+\Phi(z)<0.
+\end{equation*}
+Therefore, 
+\begin{equation*}
+B_z(y)<0.
+\end{equation*}
+It follows that 
+\begin{equation*}
+\frac{\partial^2 \mathcal{L}}{\partial y^2}(y,z)>0.
+\end{equation*}
+Thus, the function $\partial \mathcal{L}/\partial y$ is increasing
+with respect to $y$. Consequently, 
+\begin{equation*}
+\frac{\partial \mathcal{L}}{\partial y}(y,z)\geq \frac{\partial \mathcal{L}}{%
+\partial y}\left(\frac1{\sqrt2 z},z\right).
+\end{equation*}
+A direct calculation gives 
+\begin{equation*}
+\begin{array}{l}
+\dfrac{\partial \mathcal{L}}{\partial y}\left(\dfrac1{\sqrt2
+z},z\right)=-144\sqrt2 z^5+120z^4+224\sqrt2 z^3 \\ 
+\phantom{\dfrac{\partial \mathcal L}{\partial y}\left(\dfrac1{\sqrt2
+z},z\right)=}{}-78z^2-104\sqrt2 z+37.%
+\end{array}%
+\end{equation*}
+Moreover, 
+\begin{equation*}
+\begin{array}{l}
+-144\sqrt2 z^5+120z^4+224\sqrt2 z^3-78z^2-104\sqrt2 z+37 \\ 
+=-144\sqrt2\left(z-\frac1{\sqrt2}\right)\left(z^4+\frac{\sqrt2}{12}z^3-\frac{%
+53}{36}z^2-\frac{67\sqrt2}{144}z+\frac{37}{144}\right).%
+\end{array}%
+\end{equation*}
+For $1/\sqrt2\leq z\leq1$, we have 
+\begin{equation*}
+\begin{array}{l}
+z^4+\dfrac{\sqrt2}{12}z^3-\dfrac{53}{36}z^2-\dfrac{67\sqrt2}{144}z+\dfrac{37%
+}{144} \\ 
+\leq z^2+\dfrac{\sqrt2}{12}z-\dfrac{53}{36}z^2-\dfrac{67\sqrt2}{144}z+\dfrac{%
+37}{144} \\ 
+=-\dfrac{17}{36}z^2-\dfrac{55\sqrt2}{144}z+\dfrac{37}{144} \\ 
+\leq -\dfrac{17}{72}-\dfrac{55}{144}+\dfrac{37}{144}<0.%
+\end{array}%
+\end{equation*}
+Therefore, 
+\begin{equation*}
+\frac{\partial \mathcal{L}}{\partial y}\left(\frac1{\sqrt2 z},z\right)\geq0.
+\end{equation*}
+Hence 
+\begin{equation*}
+\frac{\partial \mathcal{L}}{\partial y}(y,z)>0.
+\end{equation*}
+Thus, $\mathcal{L}$ is increasing with respect to $y$. Consequently, 
+\begin{equation*}
+\mathcal{L}(y,z)\geq \mathcal{L}\left(\frac1{\sqrt2 z},z\right).
+\end{equation*}
+A direct calculation gives 
+\begin{equation*}
+\mathcal{L}\left(\frac1{\sqrt2 z},z\right)=-48z^4+80\sqrt2
+z^3+40z^2-75\sqrt2 z-10+\frac{37\sqrt2}{2z}.
+\end{equation*}
+We define 
+\begin{equation*}
+\Lambda(z)=-48z^4+80\sqrt2 z^3+40z^2-75\sqrt2 z-10+\frac{37\sqrt2}{2z}.
+\end{equation*}
+Then 
+\begin{equation*}
+\Lambda\left(\frac1{\sqrt2}\right)=0.
+\end{equation*}
+Moreover, 
+\begin{equation*}
+\begin{array}{l}
+2z^2\Lambda^{\prime}(z)=-384z^5+480\sqrt2 z^4+160z^3-150\sqrt2 z^2-37\sqrt2
+\\ 
+=-384\left(z-\frac1{\sqrt2}\right)\left(z^4-\frac{3\sqrt2}{4}z^3-\frac76z^2-%
+\frac{37\sqrt2}{192}z-\frac{37}{192}\right).%
+\end{array}%
+\end{equation*}
+Since 
+\begin{equation*}
+z^4-\frac76z^2\leq -\frac16z^2<0,
+\end{equation*}
+we have 
+\begin{equation*}
+z^4-\frac{3\sqrt2}{4}z^3-\frac76z^2-\frac{37\sqrt2}{192}z-\frac{37}{192}<0.
+\end{equation*}
+Therefore, 
+\begin{equation*}
+\Lambda^{\prime}(z)\geq0
+\end{equation*}
+for $1/\sqrt2\leq z\leq1$. Since $z>1/\sqrt2$, we conclude that 
+\begin{equation*}
+\Lambda(z)>\Lambda\left(\frac1{\sqrt2}\right)=0.
+\end{equation*}
+Thus, 
+\begin{equation*}
+\mathcal{L}(y,z)>0.
+\end{equation*}
+Consequently, 
+\begin{equation*}
+-\frac{\partial \Pi}{\partial z}(a,z)>0.
+\end{equation*}
+Hence 
+\begin{equation*}
+\frac{\partial \Pi}{\partial z}(a,z)<0.
+\end{equation*}
+Therefore, $\Pi(a,z)$ is strictly decreasing with respect to $z$.
+Since $z\geq a$, we obtain 
+\begin{equation*}
+\Pi(a,z)\leq\Pi(a,a)<0.
+\end{equation*}
+Thus, 
+\begin{equation*}
+P_r(x)<0.
+\end{equation*}
+\end{proof}
+
+\begin{lemma}[The inequality $T(x)<r$]\label{supp:s2lemma10}
+For every $0\leq x<r$, we have 
+\begin{equation*}
+T(x)<r.
+\end{equation*}
+Equivalently, for every $0\leq u<t_*$, 
+\begin{equation*}
+T(u)<t_*.
+\end{equation*}
+\end{lemma}
+
+\begin{proof}
+A direct algebraic calculation gives 
+\begin{equation*}
+T(x)-r=\frac{2(r-x)^5P_r(x)}{(r-1)(2x^2-4x+1)^3D_r(x)Q_r(x)},
+\end{equation*}
+where 
+\begin{equation*}
+D_r(x)=2r^2x-2r^2-4rx+2r+3x-1.
+\end{equation*}
+We have already proved that 
+\begin{equation*}
+D_r(x)<0,
+\end{equation*}
+\begin{equation*}
+Q_r(x)>0,
+\end{equation*}
+and 
+\begin{equation*}
+P_r(x)<0.
+\end{equation*}
+Moreover, for $0\leq x<r$, 
+\begin{equation*}
+(r-x)^5>0.
+\end{equation*}
+Therefore, the numerator of $T(x)-r$ is negative.
+
+On the other hand, 
+\begin{equation*}
+r-1<0,
+\end{equation*}
+\begin{equation*}
+2x^2-4x+1>0,
+\end{equation*}
+\begin{equation*}
+D_r(x)<0,
+\end{equation*}
+and 
+\begin{equation*}
+Q_r(x)>0.
+\end{equation*}
+Hence the denominator is positive. Consequently, 
+\begin{equation*}
+T(x)-r<0.
+\end{equation*}
+That is, 
+\begin{equation*}
+T(x)<r.
+\end{equation*}
+Dividing by $\gamma>0$ gives 
+\begin{equation*}
+T(u)<t_*.
+\end{equation*}
+\end{proof}
+
+\subsection{Functional proposition and scalar sequence}
+
+\begin{proposition}[Functional properties]\label{supp:s2functional}
+For every $u\in[0,t_*)$, the following properties hold: 
+\begin{equation*}
+u<S(u)<t_*,
+\end{equation*}
+\begin{equation*}
+H(u)>0, \qquad H^{\prime}(u)<0,
+\end{equation*}
+\begin{equation*}
+t_*<V(u)<\frac1\gamma,
+\end{equation*}
+\begin{equation*}
+K(u)>-4H(u),
+\end{equation*}
+\begin{equation*}
+9H(u)+K(u)>0,
+\end{equation*}
+\begin{equation*}
+S(u)<T(u)<t_*,
+\end{equation*}
+and 
+\begin{equation*}
+V^{\prime}(u)<0.
+\end{equation*}
+In particular, $V$ is strictly decreasing on $[0,t_*)$.
+\end{proposition}
+
+\begin{proof}
+The first two properties follow from Lemma~\ref{supp:s2lemma2}.
+The location of $V$ follows from Lemma~\ref{supp:s2lemma5}.
+The inequalities 
+\begin{equation*}
+K(u)>-4H(u)
+\end{equation*}
+and 
+\begin{equation*}
+9H(u)+K(u)>0
+\end{equation*}
+follow from Lemma~\ref{supp:s2lemma6}. The inequality 
+\begin{equation*}
+S(u)<T(u)
+\end{equation*}
+follows from Lemma~\ref{supp:s2lemma7}, while 
+\begin{equation*}
+T(u)<t_*
+\end{equation*}
+follows from Lemma~\ref{supp:s2lemma10}. Finally, the strict
+monotonicity of $V$ follows from Lemma~\ref{supp:s2lemma4}, transferring
+the inequality from the normalized variable $x$ to the original
+variable $u$.
+\end{proof}
+
+We define 
+\begin{equation*}
+t_0=0,
+\end{equation*}
+\begin{equation*}
+s_n=S(t_n),
+\end{equation*}
+\begin{equation*}
+v_n=V(t_n),
+\end{equation*}
+and 
+\begin{equation*}
+t_{n+1}=T(t_n).
+\end{equation*}
+Equivalently, 
+\begin{equation*}
+s_n=t_n-\frac{g(t_n)}{g^{\prime}(t_n)},
+\end{equation*}
+\begin{equation*}
+v_n=s_n-5\frac{g(s_n)}{g^{\prime}(t_n)},
+\end{equation*}
+and 
+\begin{equation*}
+t_{n+1}=s_n-\frac{9g(s_n)+g(v_n)}{5g^{\prime}(t_n)}.
+\end{equation*}
+
+\begin{theorem}[Interlacing of the sequences]\label{supp:s2chain}
+The preceding sequence is well defined and, for every $n\geq0$,
+satisfies 
+\begin{equation*}
+0\leq t_n\leq s_n\leq t_{n+1}\leq s_{n+1}<t_*<v_{n+1}\leq v_n.
+\end{equation*}
+Moreover, 
+\begin{equation*}
+t_*<v_n<\frac1\gamma, \qquad n\geq0.
+\end{equation*}
+\end{theorem}
+
+\begin{proof}
+We proceed by induction.
+
+Since 
+\begin{equation*}
+t_0=0<t_*,
+\end{equation*}
+we can apply the preceding proposition with $u=t_0$. We obtain 
+\begin{equation*}
+t_0<S(t_0)<T(t_0)<t_*.
+\end{equation*}
+Since 
+\begin{equation*}
+s_0=S(t_0)
+\end{equation*}
+and 
+\begin{equation*}
+t_1=T(t_0),
+\end{equation*}
+we have 
+\begin{equation*}
+0\leq t_0\leq s_0\leq t_1<t_*.
+\end{equation*}
+Applying the proposition again, now with $u=t_1$, gives 
+\begin{equation*}
+t_1\leq s_1<t_*.
+\end{equation*}
+We also obtain 
+\begin{equation*}
+t_*<v_1<\frac1\gamma.
+\end{equation*}
+On the other hand, the proposition applied at $u=t_0$ gives 
+\begin{equation*}
+t_*<v_0<\frac1\gamma.
+\end{equation*}
+Since $V$ is decreasing and 
+\begin{equation*}
+t_0\leq t_1,
+\end{equation*}
+we deduce 
+\begin{equation*}
+v_1=V(t_1)\leq V(t_0)=v_0.
+\end{equation*}
+Therefore, 
+\begin{equation*}
+0\leq t_0\leq s_0\leq t_1\leq s_1<t_*<v_1\leq v_0.
+\end{equation*}
+This proves the base case.
+
+Now suppose that, for some $n\geq0$, we have 
+\begin{equation*}
+0\leq t_n<t_*.
+\end{equation*}
+Applying the proposition with $u=t_n$, we obtain 
+\begin{equation*}
+t_n<S(t_n)<T(t_n)<t_*.
+\end{equation*}
+Since 
+\begin{equation*}
+s_n=S(t_n)
+\end{equation*}
+and 
+\begin{equation*}
+t_{n+1}=T(t_n),
+\end{equation*}
+we obtain 
+\begin{equation*}
+0\leq t_n\leq s_n\leq t_{n+1}<t_*.
+\end{equation*}
+In particular, 
+\begin{equation*}
+0\leq t_{n+1}<t_*.
+\end{equation*}
+Applying the proposition again, now with $u=t_{n+1}$, gives 
+\begin{equation*}
+t_{n+1}\leq S(t_{n+1})<t_*.
+\end{equation*}
+Since 
+\begin{equation*}
+s_{n+1}=S(t_{n+1}),
+\end{equation*}
+we have 
+\begin{equation*}
+t_{n+1}\leq s_{n+1}<t_*.
+\end{equation*}
+Moreover, by the property of $V$, 
+\begin{equation*}
+t_*<V(t_{n+1})<\frac1\gamma.
+\end{equation*}
+That is, 
+\begin{equation*}
+t_*<v_{n+1}<\frac1\gamma.
+\end{equation*}
+Finally, since $V$ is decreasing and 
+\begin{equation*}
+t_n\leq t_{n+1},
+\end{equation*}
+it follows that 
+\begin{equation*}
+v_{n+1}=V(t_{n+1})\leq V(t_n)=v_n.
+\end{equation*}
+Collecting the preceding inequalities, we conclude that 
+\begin{equation*}
+0\leq t_n\leq s_n\leq t_{n+1}\leq s_{n+1}<t_*<v_{n+1}\leq v_n.
+\end{equation*}
+Moreover, at each step we have 
+\begin{equation*}
+v_n<\frac1\gamma,
+\end{equation*}
+so all terms $g(v_n)$ appearing in the definition of $t_{n+1}$ are
+well defined. This completes the induction.
+\end{proof}
+
+
+\subsection{Convergence and asymptotic constants}
+For the following references, we write the chain already proved as
+\begin{equation}
+0\leq t_n\leq s_n\leq t_{n+1}\leq s_{n+1}<t_*<v_{n+1}\leq v_n<1/\gamma.
+\label{supp:eq:scalar-chain}
+\end{equation}
+\begin{theorem}[Convergence and asymptotic constants]\label{supp:s2asymptotics}
+The sequences in Theorem~\ref{supp:s2chain} satisfy $t_n\uparrow t_*$,
+$s_n\uparrow t_*$, and $v_n\downarrow t_*$. Let $r=\gamma t_*$
+and let $d=2r^2-4r+1>0$. Then
+\begin{equation}
+\begin{aligned}
+\lim_{n\to\infty}\frac{t_*-s_n}{(t_*-t_n)^2}
+ &=\frac{\gamma}{(1-r)d},\qquad
+\lim_{n\to\infty}\frac{v_n-t_*}{(t_*-t_n)^2}
+ =\frac{4\gamma}{(1-r)d},\\
+\lim_{n\to\infty}\frac{t_*-t_{n+1}}{(t_*-t_n)^5}
+ &=\frac{2\gamma^4(1+2r)(5-2r)}{(1-r)^4d^4}.
+\end{aligned}
+\label{supp:eq:scalar-asymptotic-constants}
+\end{equation}
+In particular, there exist $C_s,C_v,C_5>0$ and $n_0\geq0$ such that,
+for $n\geq n_0$,
+\begin{equation}
+\begin{aligned}
+0\leq t_*-s_n&\leq C_s(t_*-t_n)^2,\qquad
+0\leq v_n-t_*\leq C_v(t_*-t_n)^2,\\
+0\leq t_*-t_{n+1}&\leq C_5(t_*-t_n)^5.
+\end{aligned}
+\label{supp:eq:scalar-error-bounds}
+\end{equation}
+\end{theorem}
+\begin{proof}
+\textit{Convergence of the three sequences.}
+The chain \eqref{supp:eq:scalar-chain} shows that $\{t_n\}$ and
+$\{s_n\}$ are increasing and bounded above by $t_*$, while $\{v_n\}$
+is decreasing and bounded below by $t_*$. Let
+$\ell=\lim_{n\to\infty}t_n\leq t_*$. The maps $S,V,T$ extend
+continuously to $t_*$ because $g'(t_*)\neq0$, and satisfy
+$S(t_*)=V(t_*)=T(t_*)=t_*$. Taking the limit in $t_{n+1}=T(t_n)$
+gives $\ell=T(\ell)$. If $\ell<t_*$,
+Proposition~\ref{supp:s2functional} would give $T(\ell)>\ell$,
+a contradiction. Therefore, $\ell=t_*$. Continuity now gives
+\[
+ s_n=S(t_n)\longrightarrow S(t_*)=t_*,\qquad
+ v_n=V(t_n)\longrightarrow V(t_*)=t_*.
+\]
+
+\textit{Asymptotic constants.}
+To distinguish the scales explicitly in this calculation, we write
+$\widetilde g=G$ and
+\[
+ \widehat S(x)=\gamma S(x/\gamma),\quad
+ \widehat V(x)=\gamma V(x/\gamma),\quad
+ \widehat T(x)=\gamma T(x/\gamma),
+\]
+where the right-hand sides contain the original functions of $g$.
+The hatted functions are the normalized maps used in the preceding
+factorizations. With $x=\gamma t$ and $r=\gamma t_*$, recall that
+\[
+ \widetilde g'(r)=-\frac{d}{(1-r)^2},\qquad
+ \widetilde g''(r)=\frac{2}{(1-r)^3},\qquad d=2r^2-4r+1>0.
+\]
+Set $\delta=r-x$ and $a=1/((1-r)d)$. The expansion of the Newton step
+at the simple zero $r$ gives
+\[
+ r-\widehat S(x)
+ =-\frac{\widetilde g''(r)}{2\widetilde g'(r)}\delta^2
+   +O(\delta^3)
+ =a\delta^2+O(\delta^3).
+\]
+In particular, $\widehat S(x)-r=O(\delta^2)$. Expanding $\widetilde g$
+at $r$ and using $\widetilde g'(x)=\widetilde g'(r)+O(\delta)$ yields
+\[
+ \frac{\widetilde g(\widehat S(x))}{\widetilde g'(x)}
+ =\widehat S(x)-r+O(\delta^3)
+ =-a\delta^2+O(\delta^3).
+\]
+Substituting into the second stage,
+\[
+ \widehat V(x)-r
+ =\widehat S(x)-r
+   -5\frac{\widetilde g(\widehat S(x))}{\widetilde g'(x)}
+ =4a\delta^2+O(\delta^3).
+\]
+For the third stage, the expansion at $x=r$ of the exact factorization
+of $\widehat T(x)-r$ used in the preceding proof gives
+\[
+ r-\widehat T(x)
+ =\frac{2(1+2r)(5-2r)}{(1-r)^4d^4}\delta^5+O(\delta^6).
+\]
+The identities yielding this constant are
+\[
+ D_r(r)=(r-1)d,\qquad Q_r(r)=(1-r)^2d^3,\qquad
+ P_r(r)=(2r-5)(2r+1)d^3.
+\]
+They are checked by substituting $x=r$ into the preceding polynomials.
+The program \path{code/symbolic_majorant_verification.py} verifies
+these three identities and the complete factorization of $T(x)-r$.
+
+To return to the original sequences, we take $x=\gamma t_n$, divide
+each expansion by $\gamma$, and substitute $\delta=\gamma(t_*-t_n)$.
+The constants of the quadratic terms are multiplied by $\gamma$, and
+that of the fifth-degree term by $\gamma^4$. This yields the three
+limits in \eqref{supp:eq:scalar-asymptotic-constants}. All are positive
+and finite, since $0<r<1-1/\sqrt2$. Finally, each quotient is bounded
+by a positive constant from some index onward; taking a common index
+gives the three estimates in \eqref{supp:eq:scalar-error-bounds}.
+\end{proof}
+\subsection{Summability of the scalar controls}
+
+To transfer the scalar control to the problem in the Banach space, we
+will need the lengths of the three stages and the residual combination
+appearing in the last step. We define
+\begin{equation*}
+\begin{aligned}
+a_n&=s_n-t_n,\qquad b_n=v_n-s_n,\qquad
+c_n=t_{n+1}-s_n,\\
+D_n&=9g(s_n)+g(v_n).
+\end{aligned}
+\end{equation*}
+
+\begin{corollary}[Summability of the scalar controls]
+\label{supp:cor:global-sums}
+For every $p>0$,
+\[
+\sum_{n=0}^{\infty}(t_*-t_n)^p<\infty.
+\]
+Moreover,
+\begin{equation}
+\begin{aligned}
+&\sum_{n=0}^{\infty}a_n\leq t_*,\qquad
+\sum_{n=0}^{\infty}c_n\leq t_*,\qquad
+\sum_{n=0}^{\infty}b_n<\infty,
+\qquad \sum_{n=0}^{\infty}b_n^2<\infty,\\
+&\sum_{n=0}^{\infty}g(t_n)\leq t_*,\qquad
+\sum_{n=0}^{\infty}D_n\leq5t_*.
+\end{aligned}
+\label{supp:eq:global-sums}
+\end{equation}
+\end{corollary}
+
+\begin{proof}
+Let $e_n=t_*-t_n$. By \eqref{supp:eq:scalar-error-bounds}, there exists
+$n_1$ such that $e_{n+1}\leq C_5e_n^5$ and $C_5e_n^4\leq1/2$ for
+$n\geq n_1$. Hence $e_{n+1}\leq e_n/2$, and geometric comparison
+gives the convergence of $\sum e_n^p$ for every $p>0$.
+
+Interlacing gives $0\leq a_n,c_n\leq t_{n+1}-t_n$; on summing, the
+first two bounds in \eqref{supp:eq:global-sums} are telescopic.
+Moreover,
+\[
+b_n=(v_n-t_*)+(t_*-s_n)=O(e_n^2),
+\]
+and the summability of $e_n^2$ and $e_n^4$ gives the assertions about
+$b_n$. Finally,
+\[
+g(t_n)=(-g'(t_n))a_n\leq a_n,
+\qquad
+D_n=5(-g'(t_n))c_n\leq5c_n,
+\]
+because $0<-g'(t_n)\leq1$. Summing gives the two remaining bounds.
+\end{proof}
+
+
+
+\section{Radius controls, first cycle, and quantitative comparison}
+\label{supp:radial}
+This section develops the rational verification of the criterion
+$0<\alpha=\beta\gamma\leq1547/10000$ and the quantitative comparisons.
+The rational recurrences $\tau_n,\varepsilon_n$ are distinguished
+from the sequences $\widehat\tau_n,\widehat\varepsilon_n$, which use
+a specific estimate for the first cycle. Both retain the same scalar
+majorant $g$ and the same method; the hats do not denote a change
+of algorithm.
+
+\subsection{Assumptions and estimates in the normalized scale}
+Let $G(x)=F'(x_0)^{-1}F(x)$,
+$\rho=1-1/\sqrt2$, $R_\gamma=\rho/\gamma$, and
+$g(t)=\beta-t+\gamma t^2/(1-\gamma t)$. We assume
+$B[x_0,R_\gamma]\subset\Omega$, $\|G(x_0)\|\leq\beta$,
+$\|G''(x_0)\|\leq2\gamma$, and, for
+$x,z\in B[x_0,R_\gamma]$ and $u,v\in[0,R_\gamma]$ with
+$\|x-z\|\leq|u-v|$,
+\[
+ \|G''(x)-G''(z)\|\leq|g''(u)-g''(v)|.
+\]
+Set $\mathcal F(\xi)=\gamma G(x_0+\xi/\gamma)$. Then
+$\mathcal F'(0)=I$, $\|\mathcal F(0)\|\leq\alpha=\beta\gamma$,
+and $\|\mathcal F''(0)\|\leq2$. The difference condition above implies
+\begin{equation}
+ \|\mathcal F''(\xi)-\mathcal F''(\zeta)\|\leq6\|\xi-\zeta\|,
+ \qquad \xi,\zeta\in B[0,\rho].
+ \label{supp:eq:normalized-Lipschitz}
+\end{equation}
+Indeed, subdividing the segment between the points into $N$ parts and
+applying the gamma condition with parameters $d/N$ and $0$ gives
+$N(M(d/N)-M(0))\to6d$, where $d=\|\xi-\zeta\|$ and
+$M(t)=2/(1-t)^3$. For large $N$, the parameters belong to the required
+domain. The converse uses $M'(t)\geq6$.
+Only $F\in C^2$ is assumed, not the existence of $F'''$.
+
+The rational functions used in the cycles are
+\begin{equation}
+ \begin{aligned}
+ k(t)&=\frac{t^2}{1-t},&m(t)&=2-\frac1{(1-t)^2},&M(t)&=\frac2{(1-t)^3},\\
+ L(t,d)&=\frac{d(2(1-t)-d)}{(1-t)^2(1-t-d)^2},&
+ E_2(t,d)&=\frac{d^2}{(1-t)^2(1-t-d)},&
+ E_3(t,d)&=\frac{d^3}{(1-t)^3(1-t-d)}.
+ \end{aligned}\label{supp:eq:rational-controls}
+\end{equation}
+For $0\leq t<\rho$, $m(t)>0$. If $\|\xi\|\leq t$, then
+$\|\mathcal F'(\xi)^{-1}\|\leq1/m(t)$.
+The functions $L,E_2,E_3$ control, respectively, the variation of the
+derivative, the first-order remainder, and the remainder after
+subtracting the quadratic term. Their integral representations are
+\[
+ L(t,d)=\int_0^dM(t+s)\,ds,\quad
+ E_2(t,d)=\int_0^d(d-s)M(t+s)\,ds,
+\]
+\[
+ E_3(t,d)=\int_0^d(d-s)(M(t+s)-M(t))\,ds.
+\]
+They apply when $t+d\leq\rho$ and give
+\begin{equation}
+\begin{aligned}
+ \|\mathcal F'(\xi+h)-\mathcal F'(\xi)\|&\leq L(t,d),\\
+ \|\mathcal F(\xi+h)-\mathcal F(\xi)-\mathcal F'(\xi)h\|&\leq E_2(t,d),\\
+ \|\mathcal F(\xi+h)-\mathcal F(\xi)-\mathcal F'(\xi)h
+ -\tfrac12\mathcal F''(\xi)[h,h]\|&\leq E_3(t,d),
+\end{aligned}
+\label{supp:eq:remainder-bounds}
+\end{equation}
+whenever $\|\xi\|\leq t$ and $\|h\|\leq d$. The monotonicity and
+convexity of $M$ prove that $L,E_2,E_3$ are nondecreasing in each
+argument. When $t+d\leq\sigma<\rho$, we have
+$L(t,d)\leq M(\sigma)d$ and $E_2(t,d)\leq M(\sigma)d^2/2$.
+
+\subsection{Residual identities and rational recurrences}
+For a cycle, we write $J=\mathcal F'(\xi)$, $p=y-\xi$, $q=z-y$,
+$r=\xi^+-y$, $w=r-q/5$, $D=\mathcal F'(y)-J$, and
+\[
+ \mathcal B(d)=\mathcal F(y+d)-\mathcal F(y)-\mathcal F'(y)d,
+ \qquad \mathcal E(d)=\mathcal B(d)-\tfrac12\mathcal F''(y)[d,d].
+\]
+The relations $Jq=-5\mathcal F(y)$ and
+$Jr=-(9\mathcal F(y)+\mathcal F(z))/5$ give the identities
+\begin{equation}
+ \begin{aligned}
+ w&=-\tfrac15J^{-1}(Dq+\mathcal B(q)),\\
+ \mathcal F(\xi^+)&=Dw+\mathcal B(r)-\tfrac15\mathcal B(q)\\
+ &=Dw+\tfrac12\mathcal F''(y)[w,w]+\tfrac15\mathcal F''(y)[w,q]
+   -\tfrac2{25}\mathcal F''(y)[q,q]+\mathcal E(r)-\tfrac15\mathcal E(q).
+ \end{aligned}\label{supp:eq:residual-identities}
+\end{equation}
+The last equality uses $r=w+q/5$ and bilinear symmetry, without
+reassociating compositions of $\mathcal F''$. First, $y,z$ are placed
+in the domain; the first identity controls $\xi^+$ before its
+residual is evaluated.
+
+Given controls $(\tau_n,\varepsilon_n)$, the rational recurrences are
+\begin{equation}
+ \begin{aligned}
+ m_n&=m(\tau_n),&A_n&=\varepsilon_n/m_n,&S_n&=\tau_n+A_n,\\
+ Y_n&=E_2(\tau_n,A_n),&B_n&=5Y_n/m_n,&V_n&=S_n+B_n,\\
+ \ell_n&=L(\tau_n,A_n),&W_n&=\frac{\ell_nB_n+E_2(S_n,B_n)}{5m_n},&
+ C_n&=B_n/5+W_n,\\
+ \tau_{n+1}&=S_n+C_n.&&&&
+ \end{aligned}\label{supp:eq:radial-recursion}
+\end{equation}
+We define
+\begin{equation}
+ \begin{aligned}
+ P_n^{(2)}&=\ell_nW_n+E_2(S_n,C_n)+\tfrac15E_2(S_n,B_n),\\
+ P_n^{(3)}&=\ell_nW_n+M(S_n)\left(\tfrac12W_n^2+
+  \tfrac15W_nB_n+\tfrac2{25}B_n^2\right)
+  +E_3(S_n,C_n)+\tfrac15E_3(S_n,B_n),\\
+ \varepsilon_{n+1}&=\min\{P_n^{(2)},P_n^{(3)}\}.
+ \end{aligned}\label{supp:eq:radial-residual}
+\end{equation}
+A cycle is admissible if its quantities are constructed in the indicated
+order, $\varepsilon_n\geq0$, and $\tau_n,S_n,V_n,\tau_{n+1}<\rho$.
+For an admissible cycle with
+$\|\xi_n\|\leq\tau_n$ and
+$\|\mathcal F(\xi_n)\|\leq\varepsilon_n$, the inverse bound,
+\eqref{supp:eq:remainder-bounds}, and
+\eqref{supp:eq:residual-identities} give
+\begin{equation}
+\begin{aligned}
+ \|\bar p_n\|&\leq A_n,& \|\upsilon_n\|&\leq S_n,&
+ \|\mathcal F(\upsilon_n)\|&\leq Y_n,\\
+ \|\bar q_n\|&\leq B_n,& \|\zeta_n\|&\leq V_n,&
+ \|\bar r_n-\bar q_n/5\|&\leq W_n,\\
+ \|\bar r_n\|&\leq C_n,& \|\xi_{n+1}\|&\leq\tau_{n+1},&
+ \|\mathcal F(\xi_{n+1})\|&\leq\varepsilon_{n+1}.
+\end{aligned}
+\label{supp:eq:one-step-bounds}
+\end{equation}
+Monotonicity of the controls follows successively from that of
+$1/m,L,E_2,E_3$ and the nonnegativity of all products; the minimum of
+two nondecreasing quantities is also nondecreasing. Thus, the upper
+data of an admissible cycle dominate those of any cycle started below
+them.
+
+\subsection{Specific estimate for the first cycle}
+We fix
+\[
+ \alpha_{\rm c}=\frac{1547}{10000},\qquad
+ \sigma_{\rm all}=\frac{3661}{12500},\qquad
+ \sigma_{\rm tail}=\frac6{25}.
+\]
+
+For the initial cycle, we use the sharper consequence of
+\eqref{supp:eq:normalized-Lipschitz}, namely
+$\|\mathcal F''(\xi)\|\leq2+6\|\xi\|$. By integration, the
+three remainder estimates in \eqref{supp:eq:remainder-bounds} also
+hold, for $t+d\leq\rho$, with the controls
+\begin{equation}
+\begin{aligned}
+ M_*(t)&=2+6t,& L_*(t,d)&=(2+6t)d+3d^2,\\
+ E_{2,*}(t,d)&=(1+3t)d^2+d^3,& E_{3,*}(d)&=d^3.
+\end{aligned}
+\label{supp:eq:first-polynomial-controls}
+\end{equation}
+Indeed, we integrate $2+6t+6\theta d$ and
+$(1-\theta)(2+6t+6\theta d)$, respectively; for the second-order
+remainder we integrate $6\theta(1-\theta)d^3$. No $F'''$ is required.
+
+We use hats to distinguish the sequences that employ these bounds only
+at $n=0$. We define
+\begin{equation}
+\begin{aligned}
+ \widehat\tau_0&=0,&
+ \widehat\varepsilon_0=\widehat A_0=\widehat S_0&=\alpha,&
+ \widehat m_0&=1,\\
+ \widehat Y_0&=\alpha^2+\alpha^3,&
+ \widehat B_0&=5\widehat Y_0,&
+ \widehat V_0&=\alpha+\widehat B_0,\\
+ \widehat\ell_0&=2\alpha+3\alpha^2,&
+ \widehat W_0&=\frac{\widehat\ell_0\widehat B_0+
+ E_{2,*}(\alpha,\widehat B_0)}5,&
+ \widehat C_0&=\widehat Y_0+\widehat W_0,\\
+ \widehat\tau_1&=\alpha+\widehat C_0.&&&
+\end{aligned}
+\label{supp:eq:first-cycle-controls}
+\end{equation}
+The next residual is controlled by
+\begin{equation}
+\begin{aligned}
+ \widehat\varepsilon_1={}&\widehat\ell_0\widehat W_0
+ +(2+6\alpha)\left(\frac{\widehat W_0^2}{2}
+ +\frac{\widehat W_0\widehat B_0}{5}
+ +\frac{2\widehat B_0^2}{25}\right)
+ +\widehat C_0^3+\frac{\widehat B_0^3}{5}.
+\end{aligned}
+\label{supp:eq:first-cycle-residual}
+\end{equation}
+For $n\geq1$, we use exactly
+\eqref{supp:eq:radial-recursion}--\eqref{supp:eq:radial-residual},
+placing a hat on every quantity in the cycle. The functions
+$m,M,L,E_2,E_3$ and the iteration of $F$ do not change.
+
+\begin{lemma}[Control of the first cycle]\label{supp:lem:first-cycle-controls}
+If $F$ satisfies the gamma condition and $0<\alpha\leq\alpha_{\rm c}$,
+the initial stages are well defined and satisfy
+\eqref{supp:eq:one-step-bounds} with the controls in
+\eqref{supp:eq:first-cycle-controls}--\eqref{supp:eq:first-cycle-residual}.
+In particular,
+\begin{equation}
+ \widehat V_0\leq0.292871921615<\sigma_{\rm all}<\rho,\qquad
+ \widehat\tau_1<\frac15,\qquad
+ \widehat\varepsilon_1<\frac1{75}.
+\label{supp:eq:first-cycle-upper-bounds}
+\end{equation}
+\end{lemma}
+\begin{proof}
+Since $\mathcal F'(0)=I$, $\|\upsilon_0\|\leq\alpha$, and the
+Newton cancellation gives
+\[
+ \|\mathcal F(\upsilon_0)\|
+ \leq\alpha^2\int_0^1(1-\theta)(2+6\theta\alpha)\,d\theta
+ =\alpha^2+\alpha^3=\widehat Y_0.
+\]
+Then $\|\bar q_0\|\leq\widehat B_0$ and
+$\|\zeta_0\|\leq\widehat V_0=\alpha+5\alpha^2+5\alpha^3$.
+This polynomial is increasing, and its value at $\alpha_{\rm c}$ is
+$0.292871921615$. The inequality $\sigma_{\rm all}<\rho$ is checked
+exactly through $2(1-\sigma_{\rm all})^2-1=2921/78125000>0$.
+Thus, $\mathcal F(\zeta_0)$ can be evaluated within the domain.
+
+The first identity in \eqref{supp:eq:residual-identities}, together
+with \eqref{supp:eq:first-polynomial-controls}, gives
+$\|\bar r_0-\bar q_0/5\|\leq\widehat W_0$ and
+$\|\bar r_0\|\leq\widehat C_0$. Thus,
+$\|\xi_1\|\leq\widehat\tau_1$ before its residual is evaluated.
+All quantities in
+\eqref{supp:eq:first-cycle-controls}--\eqref{supp:eq:first-cycle-residual}
+are polynomials in $\alpha$ with nonnegative coefficients. Their
+rational evaluation at $\alpha_{\rm c}$ gives
+\[
+ \widehat\tau_1<0.198986457<1/5,\qquad
+ \widehat\varepsilon_1<0.013187894<1/75.
+\]
+The first bound also places the segment from $\upsilon_0$ to $\xi_1$
+inside the ball. Applying \eqref{supp:eq:residual-identities}, with
+the remainders bounded by $\widehat C_0^3$ and $\widehat B_0^3$,
+then gives $\|\mathcal F(\xi_1)\|\leq\widehat\varepsilon_1$.
+The fractions are recorded in the results file described below.
+\end{proof}
+
+We also define
+\begin{equation}
+\begin{aligned}
+ \widehat\Phi_{\rm ef}(\alpha)&=\sup_{n\geq0}
+  \max\{\widehat V_n,\widehat\tau_{n+1}\},\\
+ \widehat\Delta_n&=\frac{[\widehat\varepsilon_n-\gamma g(t_n)]_+}{\gamma},&
+ \widehat E_n&=\frac{[\widehat A_n+\widehat C_n-
+ \gamma(t_{n+1}-t_n)]_+}{\gamma}.
+\end{aligned}
+\label{supp:eq:first-cycle-defects}
+\end{equation}
+The same admissibility convention is adopted for
+$\widehat\Phi_{\rm ef}$. For $0<\alpha\leq\alpha_{\rm c}$,
+\eqref{supp:eq:one-step-bounds} holds at $n=0$ by
+Lemma~\ref{supp:lem:first-cycle-controls} and for $n\geq1$ by the
+standard cycle estimates above. Moreover,
+$\widehat\tau_{n+1}-\widehat\tau_n=\widehat A_n+\widehat C_n$ and
+$\widehat\varepsilon_n\leq\widehat A_n$ also hold at $n=0$.
+Hence boundedness of the hatted radii gives telescopic summability of
+$\widehat A_n+\widehat C_n$ and of the corresponding nonnegative
+defects. The one-step bounds then make $\{x_n\}$ a Cauchy sequence;
+continuity gives a zero of $F$, and the standard averaged-derivative
+argument with $k'(t)<1$ gives uniqueness in the gamma ball. The same
+telescoping argument yields the a priori error bounds, while the
+residual-distance estimate gives the residual error bound. These are
+the properties used in the finite tail verification below, which
+starts at an index $N\geq1$.
+
+\subsection{Finite verification and control of all remaining indices}
+The tail control is based on the uniform constants $m=m(\sigma)$,
+$M=M(\sigma)$ and the polynomials
+\begin{equation}
+ \begin{aligned}
+ a(e)&=e/m,&b(e)&=\frac{5M}{2m}a(e)^2,\\
+ w(e)&=\frac{Ma(e)b(e)+Mb(e)^2/2}{5m},&c(e)&=b(e)/5+w(e),\\
+ P(e)&=Ma(e)w(e)+\frac M2\bigl(c(e)^2+b(e)^2/5\bigr).
+ \end{aligned}\label{supp:eq:tail-controls}
+\end{equation}
+We have
+\begin{equation}
+ \begin{aligned}
+ P(e)={}&\frac{5M^3}{4m^6}e^4+\frac{7M^4}{8m^8}e^5+
+ \frac{7M^5}{16m^{10}}e^6+\frac{5M^6}{16m^{12}}e^7+
+ \frac{25M^7}{128m^{14}}e^8.
+ \end{aligned}\label{supp:eq:tail-polynomial}
+\end{equation}
+The program \path{code/verify_algebra.py} checks this
+identity symbolically.
+
+If $\widehat\tau_N\leq T$ and $\widehat\varepsilon_N\leq e$, it
+suffices to find $q\in(0,1)$ and $\sigma<\rho$ such that
+\begin{equation}
+ P(e)\leq qe,\qquad
+ T+\max\{(a(e)+c(e))/(1-q),a(e)+b(e)\}<\sigma.
+ \label{supp:eq:tail-test}
+\end{equation}
+To explain why all indices are controlled, set $D=a(e)+c(e)$,
+$H=a(e)+b(e)$. The nonnegative coefficients give
+$a(q^je)+c(q^je)\leq q^jD$, $a(q^je)+b(q^je)\leq q^jH$, and
+$P(q^je)\leq q^jP(e)$. Assuming inductively that
+\[
+ \widehat\tau_{N+j}\leq T+D\frac{1-q^j}{1-q},\qquad
+ \widehat\varepsilon_{N+j}\leq q^je,
+\]
+we obtain
+\[
+ \widehat\tau_{N+j}+a(q^je)+b(q^je)
+ \leq T+\frac D{1-q}(1-q^j)+Hq^j<\sigma.
+\]
+This places the first two stages before their remainders are estimated.
+Then $\widehat W_{N+j}\leq w(q^je)$ and
+$\widehat C_{N+j}\leq c(q^je)$ allow the third stage to be placed and
+the residual to be bounded by $P(q^je)\leq q^{j+1}e$. Induction gives
+\begin{equation}
+ \widehat\tau_\infty\leq T+\frac D{1-q},\qquad
+ \sum_{i=j}^{\infty}(\widehat A_{N+i}+\widehat C_{N+i})
+ \leq\frac{Dq^j}{1-q}.
+ \label{supp:eq:tail-consequence}
+\end{equation}
+This is the uniform estimate, not an extrapolation from a finite sample.
+
+\subsection{Rational states and value of the criterion}
+The polynomials of the first cycle are evaluated at $\alpha_{\rm c}$.
+All the following comparisons are between exact fractions. We obtain
+\[
+ \widehat V_0=0.292871921615,\quad
+ \widehat\tau_1<0.198986457<1/5,\quad
+ \widehat\varepsilon_1<0.013187894<1/75.
+\]
+We therefore start the upper sequence of the cycles $n=1,2$ at
+$(\overline\tau_1,\overline\varepsilon_1)=(1/5,1/75)$.
+At the end of each cycle, $\mathcal R(u)=10^{-24}\lceil10^{24}u\rceil$
+is applied to the data passed to the next cycle. The exact transmitted
+states are
+\begin{equation}
+ \begin{aligned}
+ \overline\tau_2&=\frac{236509841095667281330063}{10^{24}},&
+ \overline\varepsilon_2&=\frac{426195191308547945528}{10^{24}},\\
+ \overline\tau_3&=\frac{238026135303284715478357}{10^{24}},&
+ \overline\varepsilon_3&=\frac{5818357024425655}{10^{24}}.
+ \end{aligned}\label{supp:eq:exact-states}
+\end{equation}
+The numerators and denominators of all intermediate quantities, not
+only these four states, are included in
+\path{results/criterion_alpha1547.json}.
+
+We take $T=238026136/10^9$, $e=6/10^9$, $\sigma=6/25$, and $q=1/2$.
+In this case, $m(\sigma)=97/361$ and $M(\sigma)=31250/6859$.
+The computed fractions satisfy
+\begin{equation}
+ \begin{aligned}
+ P(e)/e&<6.8\times10^{-20}<1/2,\\
+ T+2(a(e)+c(e))&<0.238026181<0.24,\\
+ T+a(e)+b(e)&<0.238026159<0.24.
+ \end{aligned}\label{supp:eq:tail-values}
+\end{equation}
+We also verify that
+\[
+ (3-\alpha_{\rm c})^2-8=\frac{9573209}{10^8}>0,\qquad
+ 2(1-\sigma_{\rm all})^2-1=\frac{2921}{78125000}>0.
+\]
+All radii of the cycles $n=1,2$ are less than $0.253$.
+Together with the first cycle and \eqref{supp:eq:tail-values}, this
+gives $\widehat\Phi_{\rm ef}(\alpha_{\rm c})\leq\sigma_{\rm all}<\rho$.
+Monotonicity extends the result to $0<\alpha\leq\alpha_{\rm c}$.
+The hatted version of the semilocal theorem gives, in particular,
+\[
+ \|x_*-x_0\|<\frac{0.238026181}{\gamma},\qquad
+ x_n,y_n,z_n\in B[x_0,0.24/\gamma]\quad(n\geq3).
+\]
+For $n=3+j$, we also have the bound
+$\|x_*-x_{3+j}\|\leq2(a(e)+c(e))2^{-j}/\gamma$.
+
+\subsection{Quantitative comparison with Cordero et al. (2015)}
+We retain the functions of \cite{CorderoSemilocal2015}:
+\[
+ h_{15}(a)=a/2+a^2/2+5a^3/8,\quad
+ f_{15}(a)=[1-a(1+h_{15}(a))]^{-1},
+\]
+\[
+ g_{15}(a)=a/2+(1+a)h_{15}(a)+ah_{15}(a)^2/2.
+\]
+The first positive zero of $f_{15}(a)^2g_{15}(a)-1$ on the admissible
+branch satisfies
+\[
+ a_{15}^*\in(0.29313992158369,0.29313992158370).
+\]
+The endpoints are rational; the signs are checked exactly. On the
+positive branch, $h_{15},f_{15},g_{15}$ are increasing, and
+$f_{15}^2g_{15}$ is strictly increasing; therefore, the sign change
+identifies the endpoint of the interval starting from zero.
+
+For $F_\alpha(u,v)=(u+v^2-\alpha,v+u^2-\alpha/2)$, with the maximum
+norm and $x_0=0$, the gamma condition uses $\beta=\alpha$, $\gamma=1$.
+The smallest constants for the 2015 criterion are $\beta_{15}=1$,
+$\eta_{15}=\alpha$, $K=2$, so $a=2\alpha$.
+The admitted interval is $0<\alpha<a_{15}^*/2\simeq0.146569960792$,
+strictly contained in $0<\alpha\leq0.1547$.
+For $\alpha=3/20$, $a=3/10$ and
+$f_{15}(3/10)^2g_{15}(3/10)>1.06695>1$.
+Failure of a sufficient condition does not imply divergence of the method.
+
+For the location comparison, we use the unhatted rational controls,
+started at $(0,\alpha)$, as indicated in the table in this section.
+Their limit $\tau_\infty$ is not identified with $\widehat\tau_\infty$.
+The program \path{code/compare_cordero2015.py} performs a finite
+verification for each datum and applies \eqref{supp:eq:tail-test}
+to that sequence. The 2015 bounds for the limit and for all stages are
+\[
+ L_{15}(a)=\frac{(1+h_{15}(a))\alpha}{1-f_{15}(a)g_{15}(a)},\qquad
+ R_{15}(a)\alpha=\left(\frac{5a}{2}+
+ \frac{1+h_{15}(a)}{1-f_{15}(a)g_{15}(a)}\right)\alpha.
+\]
+The recurrence-based sum for the location is
+$\sum_{n\geq0}(1+h_{15}(a_n))d_n$, with $a_0=a$, $d_0=\alpha$,
+$a_{n+1}=a_nf_{15}(a_n)^2g_{15}(a_n)$, and
+$d_{n+1}=f_{15}(a_n)g_{15}(a_n)d_n$.
+Its first two terms sum to
+\[
+ Q_{15}^{[2]}=(1+h_{15}(a))\alpha+
+ (1+h_{15}(a_1))f_{15}(a)g_{15}(a)\alpha.
+\]
+In all common tabulated cases, fractions are used to check
+$U_\alpha<Q_{15}^{[2]}<L_{15}<R_{15}\alpha$, where
+$\tau_\infty\leq U_\alpha$. Thus, the improvement does not come from
+comparing only with a larger geometric majorization.
+
+\begin{table}[htbp]
+\centering\small
+\begin{tabular}{@{}lccc@{}}\toprule
+$\alpha$ & Upper bound for $\tau_\infty$ & $Q_{15}^{[2]}$ & $L_{15}$\\\midrule
+$0.01$ & $0.010103200647$ & $0.010310404439$ & $0.010316962789$\\
+$0.02$ & $0.020427400093$ & $0.021286724646$ & $0.021344357094$\\
+$0.05$ & $0.053036118831$ & $0.059049322277$ & $0.060285803938$\\
+$0.1$ & $0.116956870642$ & $0.146445008466$ & $0.166567164179$\\
+$0.14$ & $0.195079729913$ & $0.262956274107$ & $0.406176058866$\\
+$0.15$ & $0.230706675248$ & -- & --\\
+\bottomrule\end{tabular}
+\caption{The bound in the first numerical column is rounded upward;
+the other two columns are approximations. The signs are checked using
+complete fractions in the program and the JSON file, not these rounded
+values. The 2015 criterion does not apply at $\alpha=0.15$.}
+\label{supp:tab:localization}
+\end{table}
+
+\subsection{Programs and scope of the verification}
+\path{code/verify_gamma_criterion.py} verifies the first cycle,
+the rational states of the subsequent cycles, and all tail inequalities.
+\path{code/compare_cordero2015.py} checks the separation of the
+criteria and the location bounds. Both verifications use
+\texttt{fractions.Fraction}; they do not decide signs through
+floating-point arithmetic. Decimals are generated after the comparisons.
+The justification for all indices is the tail induction, not the
+execution of a finite number of steps.
+
+
+\section{Audit of the previous works from 2015, 2016, and 2022}\label{supp:audit}
+We examine the published results of Cordero et
+al.~\cite{CorderoSemilocal2015}, Singh et al.\ \cite{SinghEtAl2016},
+and Maroju, Behl, and Motsa \cite{MarojuBehlMotsa2022}.
+The cited pages are the printed pages of those works. The aim is to
+clarify which assertions can be used and which corrections their
+proofs require. No intentions are attributed to the authors, and the
+falsity of an entire theorem is not inferred from any typographical error.
+
+Four situations are distinguished: an identity or inequality refuted
+by exact calculation; an insufficient argument; a false conclusion
+with a counterexample satisfying the assumptions; and a numerical
+value that does not agree with the published formula. The programs
+separate rational and symbolic checks from multiprecision reproductions;
+the latter are not interval-arithmetic results.
+
+\subsection{Equivalence of the method and obstruction to fifth order}
+In the three articles, the last stage is written as
+\[
+ x^+=z-\tfrac15\Gamma(-16F(y)+F(z)),\qquad
+ z=y-5\Gamma F(y),\qquad \Gamma=F'(x)^{-1}.
+\]
+Substituting $z$ gives $x^+=y-\Gamma(9F(y)+F(z))/5$, exactly the scheme
+studied here. The different expressions do not produce different
+methods. The expansion in Section~\ref{supp:local-error} contains
+\[
+ \mathcal Q_4(e)=4\{H_2(e,H_2(e,H_2(e,e)))-H_2(H_2(e,e),H_2(e,e))\}.
+\]
+For $F(u,v)=(u+v^2,v+u^2)$, $H_2(p,q)=(p_2q_2,p_1q_1)$ and
+$\mathcal Q_4(u,v)=4(v^3-u^3)(u,-v)$.
+By \eqref{supp:eq:path-expansion},
+$\|T(t,2t)\|_\infty/\|(t,2t)\|_\infty^4\to7/2$, whereas the
+quotient with the fifth power diverges. The root is simple and the
+operator is polynomial. Uniform local fifth order cannot be assigned
+to the general class. This does not determine a single order for all
+trajectories or by itself refute semilocal convergence.
+
+\subsection{Cordero et al. (2015): corrections and valid semilocal content}
+\paragraph{A1. The function $h$ retains the factor of the second stage.}
+On pages 206--207 of \cite{CorderoSemilocal2015}, the definition is
+\[
+ h(a)=a/2+a^2/2+5a^3/8=\frac a{10}\bigl[4+(1+5a/2)^2\bigr].
+\]
+This identity is exact. For $F_a(u)=u-1-au^2/2$ and $x_0=0$, we
+obtain $y_0=1$, $z_0=1+5a/2$, and $x_1=1+h(a)$. The bound is exact
+in that example. The missing factor identified in the 2022 work
+should not be attributed to the 2015 work.
+
+\paragraph{A2. An intermediate inequality in (6) is false.}
+The chain on page 207 includes
+\[
+ \|\Gamma_0\|\,\|F(x_0)+(9F(y_0)+F(z_0))/5\|
+ \leq(1+h(a_0))\|\Gamma_0F(x_0)\|.
+\]
+Take $F(u,v)=(u,100v)$, the maximum norm, $x_0=(0,1)$,
+$\Gamma_0=\operatorname{diag}(1,1/100)$, $\beta=\eta=1$, and $K=1/10$.
+We have $a_0=1/10$ and $y_0=z_0=x_1=0$. The constant derivative
+satisfies the Lipschitz bound with this $K$. The inequality would
+require $100\leq1+h(1/10)=1689/1600$, which is false. The necessary
+bound retains $\Gamma_0$ inside the norm and is proved by first
+performing the Newton cancellation. The example does not refute
+convergence: the root is reached in the first cycle.
+
+\paragraph{A3. Application of a remainder to a vector.}
+In the proof of $(\mathrm{II}_1)$, page 207, a vector appears
+multiplied on the right by an integral of operators. In Banach spaces,
+the integral must be written as applied to the vector
+$-\Gamma_0(9F(y_0)+F(z_0))/5$. The printed identity does not respect
+the input and output spaces; correcting it preserves the norm bounds.
+
+\paragraph{Reconstruction of the semilocal step.}
+Fix an iteration and set $d=\|\Gamma F(x)\|$, $b\geq\|\Gamma\|$,
+$\eta\geq d$, and $a=Kb\eta$. If $Q=(9F(y)+F(z))/5$, the remainders
+from $x$ give
+\[
+ F(y)=E_y,\qquad F(z)=-5F(y)+E_z,\qquad Q=(4F(y)+E_z)/5,
+\]
+\[
+ \|E_y\|\leq Kd^2/2,\quad \|E_z\|\leq K\|z-x\|^2/2,
+ \quad \|z-x\|\leq(1+5a/2)d.
+\]
+Consequently, $\|\Gamma Q\|\leq h(a)d$ and
+$\|x^+-x\|\leq(1+h(a))d$. The remainder $E_+$ from $y$ to $x^+$ gives
+\[
+ \Gamma F(x^+)=\Gamma F(y)-\Gamma Q
+ -\Gamma(F'(y)-F'(x))\Gamma Q+\Gamma E_+.
+\]
+Taking norms,
+\[
+ \|\Gamma F(x^+)\|\leq[a/2+(1+a)h(a)+ah(a)^2/2]d=g(a)d.
+\]
+The variation of the derivative and the Banach lemma give
+\[
+ \|\Gamma^+F'(x)\|\leq f(a),\qquad
+ \|\Gamma^+F(x^+)\|\leq f(a)g(a)d,\qquad
+ f(a)=[1-a(1+h(a))]^{-1}.
+\]
+The published functions are recovered without using a fifth-order
+assumption. The recurrence $a_{n+1}=a_nf(a_n)^2g(a_n)$ is decreasing
+on the interval in Section~\ref{supp:radial}. Formula (8), page 209,
+retains a geometric tail that tends to zero. The control of $z_n$
+retains $(f(a_0)^3g(a_0)^2)^n$, and the radius includes $5a_0/2$.
+The dependence between the domain and the inverses is resolved by
+induction over the stages with these same estimates; the limit belongs
+to a ball smaller than the one required for the domain.
+
+\paragraph{A4. Uniqueness is indeed proved.}
+Theorem 1 states it, and pages 209--210 use the averaged operator
+between roots. With the open balls, we obtain
+\[
+ K\beta\int_0^1\|x_*+t(y_*-x_*)-x_0\|\,dt
+ <\frac{K\beta}{2}\left(R\eta+\frac2{K\beta}-R\eta\right)=1.
+\]
+The Banach lemma applies. Uniqueness is not a conclusion missing from
+that work. The remark on its page 210 discusses the scope of the
+radii near the threshold.
+
+\paragraph{A5. Order and efficiency indices.}
+Theorem 1 does not prove fifth order, although section 4 uses it to
+compute indices in finite dimensions. In dimension three, with the
+costs of that section, generic order four gives $4^{1/35}<2^{1/17}$;
+the claimed superiority over Newton for every dimension greater than
+two is not retained. This does not exclude competitiveness in other
+problems. Table 2 also computes indices using the total cost, although
+the definition uses the cost per iteration. For M5, $640$ operations
+per step and four steps produce $2560$ operations: the published value
+$1.000629$ corresponds to $5^{1/2560}$, not $5^{1/640}$.
+The other rows exhibit the same change of convention.
+
+\paragraph{A6. Reproduction of the eight-node example.}
+Gauss--Legendre with $2000$ digits gives
+\[
+\begin{aligned}
+ K&\simeq0.247117984146368,& \beta&\simeq1.596943933144693,\\
+ \eta&\simeq0.591064523238323,& a_0&\simeq0.233253900277713.
+\end{aligned}
+\]
+The radii are approximately $1.516495240390509$ and $3.551497385109859$,
+in agreement with the published values. Extending the calculation
+gives ACOC values $4.7225706005$, $3.8727238969$, $4.0306205065$, and
+$3.9925100905$. The residual after four cycles is approximately
+$1.2044268509\times10^{-312}$, less than the published tolerance
+$10^{-180}$; the number of steps is not refuted. The reproduced first
+component is $1.0122394257\ldots$, compared with $1.01222\ldots$ in
+their table, a minor discrepancy. The data and the six updates are
+included in \path{results/audit/}.
+
+The semilocal core of the 2015 work can be justified with its own
+functions. The comparison below uses that core, not the
+incorrect order classification or the efficiency tables.
+
+\subsection{Singh et al. (2016): inequalities, radii, and a local counterexample}
+\paragraph{B1. H\"older generalization of the auxiliary functions.}
+With $q=1$, the functions $t,r,s$ on pages 268--269 of
+\cite{SinghEtAl2016} coincide with the 2015 functions $h,f,g$.
+For $0<q\leq1$, the estimate of $t$ uses $(1+u)^q\leq1+u^q$ and
+does not lose the factor five. The condition
+$r(c_0)^{1+q}s(c_0)^q<1$ is consistent with the decrease of $c_n$.
+
+\paragraph{B2. Incorrect power in the semilocal proof.}
+Relation (V) gives $(1+t(c_n))d_n$, but (2.17)--(2.20) use
+$(1+t(c_n))^qd_n$, which is smaller if $q<1$. The example
+\[
+\begin{gathered}
+ F(u)=u-1-u^2/2000,\quad x_0=0,\quad D=(-1.01,1.01),\\
+ \beta=\eta=1,\quad q=1/2,\quad K=c_0=1/700
+\end{gathered}
+\]
+satisfies the semilocal setting. The H\"older condition holds because
+$(1/1000)^2(2.02)<(1/700)^2$. The auxiliary contraction also holds
+and the correct radius is less than $1.01$; the program checks them
+with rational bounds for the radicals. The exact stages give
+$x_1=1.000500500625$. If $w=1/1050$,
+\[
+ t(1/700)=w+w^2+\frac{w(1+5w)}{\sqrt{5250}}
+ <w+w^2+\frac{w(1+5w)}{72}<\frac{967}{10^6}.
+\]
+It follows that
+$(1+t(1/700))^{1/2}<1.0004835<1.000500500625=x_1$.
+Inequality (2.17) is false. The radius in Theorem 2.1 uses
+$1+t(c_0)$ without the power: removing the incorrect exponents
+reconstructs the semilocal chain with that radius. The counterexample
+refutes the printed inequality; it does not prove the semilocal
+conclusion false.
+
+\paragraph{B3. Local uniqueness: a false conclusion of Theorem 3.1.}
+The necessary condition $K_0R^q/(1+q)<1$ is equivalent to
+$R<((1+q)/K_0)^{1/q}$. Instead, $R<(1+q)/K_0$ is printed.
+Consider
+\[
+ G(u)=u-4u^2,\quad x_*=0,\quad D_0=(-3/10,3/10),\quad
+ q=1/2,\quad K_0=9/2,\quad K_1=25/4.
+\]
+On the domain, $8|u|\leq K_0|u|^{1/2}$ and
+$8|u-v|\leq K_1|u-v|^{1/2}$ hold, since
+$64(3/10)<(9/2)^2$ and $64(6/10)<(25/4)^2$.
+Moreover,
+\[
+ r_1=\left(\frac{1+q}{K_1+(1+q)K_0}\right)^{1/q}
+ =(3/26)^2<7/25.
+\]
+The local radius $\rho$ used here is less than $r_1$.
+The choice $R=7/25$ satisfies $\rho<R<(1+q)/K_0=1/3$ and
+$B[0,R]\subset D_0$, but contains the roots $0$ and $1/4$.
+Uniqueness in that ball is false. The corrected bound is $1/9$ and
+excludes the second root. The refutation specifically concerns local
+uniqueness with the printed radius.
+
+\paragraph{B4. Radii of the semilocal examples.}
+The expressions for $\eta$ have typographical errors: in Example 2.1,
+$16$ appears where $24$ is required in the denominator; in Example 2.2,
+a factor $1/4$ is missing from the numerator. Recalculating from the
+operators and using the formula in Theorem 2.1 gives:
+\begin{table}[htbp]\centering\small
+\begin{tabular}{@{}lrrrr@{}}\toprule
+Case & Published existence & Recomputed & Published uniqueness & Recomputed\\\midrule
+2.1, $q=.85$ & .04630 & .04632668 & 38.25348 & 38.11497803\\
+2.1, $q=1$ & .04620 & .04620900 & 21.99790 & 21.95379100\\
+2.2, $q=.7$ & .47873 & .49097189 & 6.85383 & 5.89723102\\
+2.2, $q=1$ & .44916 & .44915651 & 3.65166 & 3.32162365\\
+\bottomrule\end{tabular}
+\caption{Multiprecision reproduction of the 2016 radii; these are not
+rigorous intervals.}\label{supp:tab:singh-radii}
+\end{table}
+For $q<1$, the published existence radii are reproduced with the
+incorrect power $(1+t(c_0))^q$. The uniqueness radii are reproduced
+using
+\[
+ \eta\left(\frac{1+q}{c_0}-(R\eta)^q\right)^{1/q}
+ \quad\text{instead of}\quad
+ \eta\left(\frac{1+q}{c_0}-R^q\right)^{1/q}.
+\]
+The scale $\eta$ is applied twice. This does not exclude justifying
+some of the radii by another argument; it indicates that they do not
+agree with the theorem's formula. For Example 2.3, the initial vector
+yields $\beta\simeq26.5887634801$ and
+$\eta\simeq0.000375702982175$.
+
+\paragraph{B5. Local examples and table.}
+In Example 3.1, zero is also a root by the definition of $G$;
+$x_*=1$ is not the only root in the entire stated interval. This does
+not exclude local uniqueness near $1$. In Example 3.2,
+$G(u)=2u^{3/2}/3-u$, $x_*=9/4$, and $G'(x_*)=1/2$.
+The constant $K_1=1$, with $q=1/2$, does not control all of $[1,3]$,
+since $2(\sqrt3-1)>\sqrt2$; the inequality persists at interior points
+sufficiently close to the endpoints. The formulas give $r_1=.36$,
+not $.361$.
+For $q=1/2$, the local radii of Examples 3.1--3.4 are reproduced as
+$1.291615219\times10^{-6}$, $0.01206846112$, $0.00194510607$, and
+$6.843277886\times10^{-5}$. Table 2 assigns the last three values
+to other rows. Fractional powers require an explicit real domain;
+varying $q$ in $x^{1+q}$ also changes the equation, not only the theory
+applied to a fixed problem.
+
+\paragraph{B6. Recoverable content.}
+With $H=1+t(c_0)$ and $C=r(c_0)s(c_0)<1$, the corrected recurrence gives
+\[
+ \|x_{n+m}-x_n\|\leq H\eta C^n\frac{1-C^m}{1-C}.
+\]
+The stages are controlled by $H\eta/(1-C)$ and
+$5c_0C^n\eta/(1+q)$, which explains the radius in the statement
+without the incorrect power. An induction over the stages avoids
+circularity between the domain and the inverses. In semilocal
+uniqueness, the open balls and $q>0$ allow the strict inequality to be
+recovered. The objection concerning merely nondecreasing continuity
+in the 2022 work does not automatically transfer to this case.
+
+\subsection{Maroju, Behl, and Motsa (2022): semilocal and local flaws}
+\paragraph{C1. Incompatibility of C6 and the recurrence.}
+Page 23 of \cite{MarojuBehlMotsa2022} requires
+$\varphi\in C[0,1]$, $\varphi\geq1$, and defines
+$a_{n+1}=a_nf(a_n)\varphi(c_n)$, $c_n=f(a_n)g(a_n)$.
+When $a_n>0$, $f(a_n)>1$, and $c_n\in[0,1]$, we have
+$a_{n+1}>a_n$, contrary to Lemma 2.2. If $c_n$ lies outside that
+interval, the assumption does not define $\varphi(c_n)$.
+The auxiliary functions also use $\varphi(1+h(a))$ and
+$\varphi(1+a_0M)$ outside the domain. The condition
+$f(a_0)\varphi(a_0)<1$ is also incompatible in the stated regime.
+Changing a sign without reconstructing the domain and scaling does
+not resolve these dependencies.
+
+\paragraph{C2. Missing factor five and false bound (2.6).}
+The estimates on page 24 give
+$\|z_0-x_0\|\leq(1+5a_0M)\|y_0-x_0\|$, but (2.6) uses $1+a_0M$.
+For $F(u)=u-1-u^2/20$, $x_0=0$, $\beta=\eta=1$, and
+$\omega(t)=t/10$, extend $\varphi(s)=\max\{1,s\}$ to $s\geq0$
+to isolate that inequality. C6 is retained on $[0,1]$, and
+$M=\int_0^1\varphi(t)dt=1$.
+The stages are $y_0=1$, $z_0=5/4$, and $a_0=1/10$, but
+\[
+ \omega(|z_0-x_0|)|z_0-x_0|=\frac5{32}>
+ \frac{121}{1000}=\omega(\eta)\varphi(1+a_0M)(1+a_0M)\eta.
+\]
+The bound is refuted even when only the domain of $\varphi$ is
+repaired. No claim is made that the example satisfies the incompatible
+contraction conditions in C1.
+
+\paragraph{C3. The function $h$ underestimates the displacement.}
+If C6 is repaired as in the Lipschitz case, with $\varphi(s)=s$ and
+$M=1/2$, then for $F_a(u)=u-1-au^2/2$ we obtain
+\[
+ x_1=1+a/2+a^2/2+5a^3/8,\qquad
+ h_{\rm imp}(a)=a/2+a^2/10+a^3/40.
+\]
+Hence $x_1-(1+h_{\rm imp}(a))=a^2(3a+2)/5>0$. At $a=1/10$,
+(2.7) would require $1.055625\leq1.051025$.
+The choice $\varphi(s)=s$ does not literally satisfy C6: it shows
+that this isolated repair does not save the bound.
+
+\paragraph{C4. Residual propagation.}
+The definition of $h$ enters (2.11)--(2.12), which are intended to
+control $\|\Gamma_1F(x_1)\|$. An estimate compatible with the second
+stage would need to retain at least
+\[
+ h_{\rm corr}(a)=\tfrac45aM+\tfrac15aM\varphi(1+5aM)(1+5aM).
+\]
+The form $g(a)=aM+(1+a)h(a)+ah(a)M\varphi(h(a))$ may be a reasonable
+bound, but it requires a valid $h$ and appropriate scaling conditions.
+The missing factor affects the chain that must prove the decay of
+the normalized residual.
+
+\paragraph{C5. Mixing recurrences and the Cauchy tail.}
+Relation (II) gives factors $f(a_j)g(a_j)$ for $\|\Gamma_nF(x_n)\|$,
+not $f(a_0)\varphi(c_0)$, which belongs to another recurrence.
+The substitution in (2.15)--(2.17) mixes these quantities.
+The sum in (2.17) starts at zero and does not retain the tail that
+must tend to zero with its initial index. An appropriate bound would
+be of the form $C\eta c_0^m(1-c_0^n)/(1-c_0)$, after proving the
+contraction. The published bound does not by itself prove the
+Cauchy property.
+
+\paragraph{C6. Containment and domain.}
+In (2.19), $1+h(a_0)$ is replaced by $\varphi(1+h(a_0))$ without
+an identity that permits it. The last inequality in (2.21) requires
+$5Ma_0+R(1-c_0^{n+1})<R$. If $0<c_0<1$ and $Ma_0>0$, the left-hand
+side tends to $5Ma_0+R>R$: the estimate does not hold for every index.
+The statement does not clearly include containment of the full ball
+in the domain, and derivatives are used before containment is
+established. The induction needs to be reconstructed, not just a
+constant changed.
+
+\paragraph{C7. Mixed regularity assumptions.}
+Theorem 2.3 introduces $a_0=K\beta\eta^p$ and uses a H\"older bound
+for $F'(x_n)$, although the preceding framework uses
+$a_0=\beta\omega(\eta)$ and general $\omega$-continuity.
+The consistent bound would be
+$\|F'(x_n)\|\leq\|F'(x_0)\|+\omega(R\eta)$.
+The identity $F(x_n)=F'(x_n)\Gamma_nF(x_n)$ is correct; the decay
+of the second factor remains to be justified with the printed
+recurrences.
+
+\paragraph{C8. Semilocal uniqueness.}
+Formula (2.22) reaches a bound $\leq1$ and invokes the Banach lemma,
+which requires a strict inequality. Nondecreasing continuity of
+$\omega$ does not guarantee this merely by using open balls.
+Also, $R+r$ appears where the distances are bounded by $R\eta+r$.
+A consistent sufficient condition would be
+\[
+ \beta\int_0^1\omega((1-t)R\eta+tr)\,dt<1,
+\]
+with the domain inclusions. It is not claimed that uniqueness is
+false in every example, but that the printed argument does not
+prove it.
+
+\paragraph{C9. Identities and coefficients in the local part.}
+Formula (3.14) represents $F(y_0)$ by the segment ending at $x_0$,
+whose integral is $F(x_0)-F(x_*)$, not $F(y_0)$; $y_0$ must be used.
+There is a similar difficulty in (3.18). In (3.19), the coefficient
+$16$ disappears and expressions involving $F'(x_*)F(y_0)$ appear
+where the inverse is required to make the spaces compatible.
+
+This does not imply that the printed function $g_3$ cannot be a bound.
+Writing $D=1-\omega_0(t)$ and
+$A_i=\int_0^1[1+\omega_0(\theta g_i(t)t)]d\theta$, we have
+$g_2=g_1+5A_1g_1/D$. The combined stage allows
+$g_3^*=g_1+(9A_1g_1+A_2g_2)/(5D)$, whereas the printed formula,
+interpreted with the missing parenthesis, is
+$g_3=g_2+(A_1g_1+A_2g_2)/(5D)$.
+Hence $g_3-g_3^*=17A_1g_1/(5D)\geq0$; a bound can be recovered
+by another argument without validating the published identity.
+The uniqueness operator on page 31 integrates between $x_*$ and
+$2x_*-y_*$, not between the two roots. One must use
+$\int_0^1F'(y_*+\theta(x_*-y_*))d\theta$.
+The construction of radii does not cover $\omega_0=\omega=0$, when
+$g_1=0$ and $g_1-1$ has no positive zero. An infinite-radius
+convention or a region where $g_i<1$ is needed.
+
+\paragraph{C10. Local example 3.2 does not satisfy the equation.}
+Its operator satisfies $F(0)=-1$, although $x_*=0$ is identified as
+a root. The Green kernel vanishes at the endpoints, so every solution
+satisfies $x(0)=x(1)=1$ and does not belong to a ball centered at zero
+with radius $0.224209$. The real power $x^{3/2}$ is also not defined
+on any full open ball around the zero function. In $F'(x)u$, the
+factor $u(t)$ is missing under the integral. The printed functions give
+\[
+ r_0=\left(\frac{\sqrt{137}-3}{4}\right)^2\simeq4.73573753348,
+\]
+not $3.2000$. The values $r_1\simeq2.63030003815$ and
+$r_2\simeq0.448599953403$ are reproduced. For the printed $g_3$,
+we obtain $r_3\simeq0.336536461475$; $0.224209$ corresponds to
+restoring the coefficient $16$. No adjustment of these radii
+resolves $F(0)\neq0$.
+
+\paragraph{C11. Domain of semilocal example 2.5.}
+The constants $\beta=40/31$, $\eta=11/62$, and
+$a_0\simeq0.137224097318$ are consistent with the initial function
+$1$, but no $\varphi$ completing the assumptions is specified.
+If $u^{8/5}=|u|^{8/5}$ is interpreted on the whole real space,
+\[
+ \|F'(x)-F'(y)\|\leq(\|x-y\|^{3/5}+\|x-y\|)/5
+\]
+fails for the constant functions $x=.01$, $y=-.01$: the two sides
+are approximately $0.0257382937792$ and $0.0231270499958$.
+Restricting to the positive cone avoids that example, but requires
+an open domain and its verification. On a set of diameter $D$,
+$\omega(t)=(t^{3/5}+t)/5\leq(1+D^{2/5})t^{3/5}/5$ for $0\leq t\leq D$.
+One cannot claim without qualification that every H\"older condition
+fails; on a ball separated from zero, the derivative can be Lipschitz.
+
+The particular conclusions admit another check. For
+$Tx=1+\mathcal K(|x|^{8/5}+x^2/10)$, $\|\mathcal K\|=1/8$,
+on $B[1,0.238277]$, the approximate bounds are
+$\|Tx-1\|\leq0.19512846754$ and Lipschitz constant $0.25832039011<1$.
+On $B[1,2.54114]$, one constant is $0.51561500993<1$.
+\path{code/check_additional_2022.py} verifies with fractions
+$\|Tx-1\|<0.196<0.238277$ and constants less than $0.259$ and $0.516$.
+The fractional powers are enclosed by comparing integer powers.
+This justifies those particular conclusions by a fixed-point argument,
+not the general proof or the containment of the method's stages.
+
+\paragraph{C12. Order under weak regularity.}
+The local bounds $g_i$ are $O(t)$ in the Lipschitz case and give,
+through that route, a quadratic bound, not fifth order. Under
+H\"older conditions, they give an exponent $1+q$. Even in dimension
+one, $F(u)=u+u|u|$ has a Lipschitz derivative and a simple root, but
+from $t>0$ the scheme produces $T(t)=32t^4/5+O(t^5)$.
+Its lack of higher regularity matters. Regularity, local order of
+a smooth scheme, and order of a semilocal majorization are different
+assertions.
+
+\subsection{Assessment and relation to the quantitative comparison}
+The defects in the 2015 work are corrected while retaining its
+functions and semilocal mechanism, including uniqueness. In the
+2016 work, the incorrect power invalidates printed steps of the
+proof, but the semilocal radius in the statement admits a
+reconstruction; the counterexample in B3 refutes local uniqueness
+with the published radius. In the 2022 work, the incompatibilities
+of the assumptions and the chain of bounds require a more substantial
+reconstruction. In none of these cases does the designation
+``fifth order'' replace an independent proof for operators in
+Banach spaces.
+
+The comparison in Section~\ref{supp:radial} uses
+the corrected semilocal criterion of the 2015 work, not a weakened
+version. It distinguishes the radius for all stages, the location
+of the limit, and the recurrence-based sum. The advantage is proved
+on a common quadratic family and is not inferred from errors found
+in other works. The audit is also not an exhaustive priority search.
+
+
+\section{Applications: derivatives, histories, and reproducibility}\label{supp:applications}
+The five problems use the parameters specified below and are formulated
+in $C[0,1]$ with the uniform norm. The gamma conditions are checked
+for the continuous operators. The following histories come from
+solving their discretizations with $N=30$, five cycles, and $1000$
+digits. For Chandrasekhar and Bratu, $N=20,40,60$ are also included
+with the same precision and number of cycles. The eleven calculations
+and profiles are reproduced through
+\path{code/reproduce_experiments.py}.
+These multiprecision floating-point results are not identified with
+the rational checks in Section~\ref{supp:radial}.
+
+\subsection{Continuous verification and parameters of the five problems}
+
+
+In Problems~1--4 we take $\Omega=C[0,1]$; in the fifth, a positive
+domain is specified. By the Lipschitz form of the gamma difference condition established in Section~\ref{supp:radial},
+in addition to $\|G(x_0)\|\leq\beta$ and
+$B[x_0,R_\gamma]\subset\Omega$, it suffices to verify
+\[
+ \|G''(x_0)\|\leq2\gamma,\qquad
+ \|G''(x)-G''(z)\|\leq L\|x-z\|_\infty,\qquad L\leq6\gamma^2
+\]
+on $B[x_0,R_\gamma]$, and check
+$\alpha=\beta\gamma\leq\alpha_{\rm c}=1547/10000$.
+Products, quotients, and exponentials of functions are understood
+pointwise. For Problems~1 and~5 we define
+\[
+ (\mathcal K_0x)(s)=\int_0^1K_0(s,t)x(t)\,dt,\qquad
+ K_0(s,t)=\begin{cases}s/(s+t),&s>0,\\0,&s=0.\end{cases}
+\]
+Although $K_0$ is not continuous at $(0,0)$, $\mathcal K_0$ maps
+$C[0,1]$ into itself: continuity for $s>0$ is immediate, and
+\[
+ |(\mathcal K_0x)(s)|\leq\|x\|_\infty s\log\frac{1+s}{s}
+ \longrightarrow0\quad(s\to0^+).
+\]
+Moreover, $\|\mathcal K_0\|=\log2$.
+
+\medskip
+\noindent\textbf{Problem 1. Chandrasekhar's integral equation.}
+For the family in \cite{EzquerroHernandezMagrenan2021}, we take
+$\omega_0=1/2$, $x_0=1$, and
+\[
+\begin{aligned}
+ F(x)&=x-1-\tfrac{\omega_0}{2}x\mathcal K_0x,\\
+ F'(x)h&=h-\tfrac{\omega_0}{2}(h\mathcal K_0x+x\mathcal K_0h),\\
+ F''(x)[h,k]&=-\tfrac{\omega_0}{2}(h\mathcal K_0k+k\mathcal K_0h).
+\end{aligned}
+\]
+With $q=\omega_0\log2<1$, we have $\|I-F'(1)\|\leq q$,
+$\|F'(1)^{-1}\|\leq(1-q)^{-1}$, $\|F(1)\|_\infty\leq q/2$,
+and $\|F''(1)\|\leq q$. We choose
+\[
+ \beta=\gamma=\frac{q}{2(1-q)}\simeq0.265197109517,\qquad
+ \alpha\simeq0.0703295068963<\alpha_{\rm c}.
+\]
+Thus, $\|G(1)\|\leq\beta$ and $\|G''(1)\|\leq2\gamma$.
+Since $G''$ is constant, $L=0$.
+
+\medskip
+\noindent\textbf{Problem 2. Polynomial Hammerstein equation.}
+Consider the class in \cite{CardenasCastroSierra2022} with
+\[
+\begin{aligned}
+ \relax [F(x)](s)&=x(s)-\sin(s/3)
+  -s\int_0^1t^4\bigl(x(t)^3+x(t)^2/2\bigr)\,dt,\\
+ [F'(x)h](s)&=h(s)-s\int_0^1t^4(3x(t)^2+x(t))h(t)\,dt,\\
+ [F''(x)[h,k]](s)&=-s\int_0^1t^4(6x(t)+1)h(t)k(t)\,dt.
+\end{aligned}
+\]
+For $x_0=0$, $F'(0)=I$, $\|G(0)\|_\infty=\sin(1/3)$, and
+$\|G''(0)\|\leq1/5$. Moreover,
+$\|G''(x)-G''(z)\|\leq(6/5)\|x-z\|_\infty$. Therefore, we take
+\[
+ \beta=\sin(1/3),\qquad \gamma=1/\sqrt5,\qquad
+ \alpha=\frac{\sin(1/3)}{\sqrt5}\simeq0.146325916783<\alpha_{\rm c},
+\]
+with $L=6/5=6\gamma^2$ and $\|G''(0)\|<2\gamma$.
+
+The rank-one structure allows a scalar reduction. Let
+$\phi(s)=\sin(s/3)$, $\psi(s)=s$, and
+$\mathcal L=\{x_a=\phi+a\psi:a\in\mathbb R\}$. Define
+\[
+ h(a)=a-\int_0^1t^4\left[
+ (\phi(t)+a\psi(t))^3+\tfrac12(\phi(t)+a\psi(t))^2\right]dt.
+\]
+Then $F(x_a)=h(a)\psi$ and $F'(x_a)\psi=h'(a)\psi$.
+If $F'(x_a)$ is invertible, $h'(a)\neq0$ and
+$F'(x_a)^{-1}F(x_b)=h(b)\psi/h'(a)$ for $x_b\in\mathcal L$.
+Since $F'(0)=I$, the first step gives $y_0=\phi$, and also
+$z_0,x_1\in\mathcal L$. From $n=1$ onward, the three stages coincide
+with the scalar method for $h(a)=0$. Near a simple root, the order is
+at least five, and exactly five when the leading coefficient does not
+vanish. Quadrature preserves rank one and this reduction.
+
+\medskip
+\noindent\textbf{Problem 3. Bratu through Green's function.}
+For $x''+\lambda e^x=0$, $x(0)=x(1)=0$, we take $\lambda=2$.
+Its integral formulation uses
+\[
+ (\mathcal Kx)(s)=\int_0^1K(s,t)x(t)\,dt,\qquad
+ K(s,t)=\begin{cases}t(1-s),&t\leq s,\\s(1-t),&s\leq t,\end{cases}
+\]
+with $\|\mathcal K\|=1/8$; see \cite{AhmadArshadUllahMa2023}.
+The expressions for $F$ and its derivatives are
+\[
+ F(x)=x-\lambda\mathcal K(e^x),\quad
+ F'(x)h=h-\lambda\mathcal K(e^xh),\quad
+ F''(x)[h,k]=-\lambda\mathcal K(e^xhk).
+\]
+For $x_0=0$, $\|F'(0)^{-1}\|\leq(1-\lambda/8)^{-1}$ and
+$\|G(0)\|,\|G''(0)\|\leq\lambda/(8-\lambda)=1/3$.
+We choose $\beta=1/3$ and $\gamma=0.4$, so that
+$R_\gamma\simeq0.732233047034$ and
+\[
+ L=\frac{\lambda e^{R_\gamma}}{8-\lambda}
+ \simeq0.693239845939<6\gamma^2=0.96,\qquad
+ \alpha=\beta\gamma=\frac2{15}<\alpha_{\rm c}.
+\]
+The Lipschitz bound follows from
+$|e^{x(t)}-e^{z(t)}|\leq e^{R_\gamma}|x(t)-z(t)|$ in the ball.
+
+\medskip
+\noindent\textbf{Problem 4. Hammerstein with a nonseparable kernel.}
+As a specialization of the classes in \cite{EzquerroHernandez2024}, let
+$(\mathcal K_{\rm H}x)(s)=\int_0^1e^{st}x(t)\,dt$,
+$\lambda=10^{-2}$, and
+\[
+ [F(x)](s)=x(s)-\sin(s/3)
+ -\lambda[\mathcal K_{\rm H}(e^x-1-x)](s).
+\]
+We have $\|\mathcal K_{\rm H}\|=e-1$,
+$F'(x)h=h-\lambda\mathcal K_{\rm H}((e^x-1)h)$, and
+$F''(x)[h,k]=-\lambda\mathcal K_{\rm H}(e^xhk)$.
+For $x_0=0$, $F'(0)=I$. We take $\beta=\sin(1/3)$ and $\gamma=0.2$,
+with $R_\gamma\simeq1.46446609407$. Then
+\[
+ \|G''(0)\|\leq\lambda(e-1)<0.4=2\gamma,\qquad
+ L=\lambda(e-1)e^{R_\gamma}\simeq0.0743196987942<0.24=6\gamma^2,
+\]
+and $\alpha=\beta\gamma\simeq0.0654389393592<\alpha_{\rm c}$.
+
+\medskip
+\noindent\textbf{Problem 5. Reciprocal Hammerstein equation.}
+For this class see \cite{AmatBusquierGutierrez2011}. On the open convex
+set $\Omega=\{x\in C[0,1]:\min_{t\in[0,1]}x(t)>0\}$, we define
+\[
+\begin{aligned}
+ F(x)&=x-1+\mu\mathcal K_0(1/x),\qquad \mu=0.1,\\
+ F'(x)h&=h-\mu\mathcal K_0(h/x^2),\qquad
+ F''(x)[h,k]=2\mu\mathcal K_0(hk/x^3).
+\end{aligned}
+\]
+With $x_0=1$, we choose
+$\beta=\mu\log2/(1-\mu\log2)\simeq0.0744770755493$ and $\gamma=0.8$.
+The Banach lemma gives $\|G(1)\|\leq\beta$ and
+$\|G''(1)\|\leq2\beta<2\gamma$.
+Since $R_\gamma\simeq0.366116523517<1$, the gamma ball is contained
+in $\Omega$. With $\delta=1-R_\gamma$, the inequality
+$|x(t)^{-3}-z(t)^{-3}|\leq3\delta^{-4}|x(t)-z(t)|$ gives
+\[
+ L=\frac{6\mu\log2}{\delta^4(1-\mu\log2)}
+ \simeq2.76780915206<3.84=6\gamma^2.
+\]
+Therefore, $\alpha=\beta\gamma\simeq0.0595816604395<\alpha_{\rm c}$.
+
+\subsection{Discretization, linear solve, and stopping criterion}
+Let $(t_j,w_j)_{j=1}^N$ be the Gauss--Legendre nodes and weights on
+$[0,1]$, computed with the same precision as the iterations.
+The Nystr\"om matrix is defined by $K_{ij}=w_jK(t_i,t_j)$, with the
+kernel corresponding to each problem. For the kernel $K_0$, the point
+$(0,0)$ is not evaluated, since the Gauss--Legendre nodes are interior.
+For the polynomial problem, the coefficients $w_jt_j^4$ are used and
+the rank-one structure of the discrete system is preserved exactly.
+The Jacobians are evaluated using the preceding analytical formulas,
+not finite differences.
+
+In each cycle, the Jacobian $A=F_N'(x_n)$ is factored only once:
+$PA=LU$. The three right-hand sides are $F_N(x_n)$, $F_N(y_n)$,
+and $9F_N(y_n)+F_N(z_n)$.
+For each one, $Lv=Pb$ and $Uu=v$ are solved by reusing $P,L,U$.
+The code also records the numerical residual of these linear equations.
+This check differs from a proof of backward stability.
+
+We use multiprecision floating-point arithmetic from \texttt{mpmath},
+with $1000$ decimal working digits; no double-precision binary
+parameters or nodes from a lower-precision rule are introduced.
+Exactly five cycles are executed, regardless of the residual.
+If $d_n=\|x_n-x_{n-1}\|_\infty$, we compute
+\[
+ \widehat p_n=\frac{\log(d_n/d_{n-1})}{\log(d_{n-1}/d_{n-2})},\qquad n\geq3.
+\]
+The quotient is omitted if any of the three increments is zero,
+if the denominator is zero, or if an increment does not exceed the
+precautionary level $10^{-D+30}\max\{1,\|x_n\|_\infty\}$, where $D$
+is the decimal precision. The same comparison marks residuals near
+the precision limit; it does not turn them into a rigorous bound
+of $10^{-D}$.
+
+\subsection{Profile reconstruction and Bratu reference}
+To compare different dimensions, nodal vectors are not subtracted
+directly. In Chandrasekhar, we reconstruct
+\begin{equation}
+ u_N(s)=\left(1-\frac14\sum_{j=1}^Nw_j\frac{s}{s+t_j}x_{N,j}\right)^{-1}
+ \quad(s>0),\qquad u_N(0)=1,
+ \label{supp:eq:chandra-profile}
+\end{equation}
+and in Bratu,
+\begin{equation}
+ u_N(s)=2\sum_{j=1}^Nw_jK(s,t_j)e^{x_{N,j}}.
+ \label{supp:eq:bratu-profile}
+\end{equation}
+These expressions define the Nystr\"om discretizations used in the computations.
+The profiles are evaluated with $100$ digits on
+$\mathcal G=\{i/400:0\leq i\leq400\}$.
+
+The Bratu reference is
+\begin{equation}
+ u_*(s)=2\log\frac{\cosh(a/2)}{\cosh(a(s-1/2))},\qquad
+ \frac{2a^2}{\cosh(a/2)^2}=2,\quad 0<a<2.
+ \label{supp:eq:bratu-exact}
+\end{equation}
+Indeed, $u_*(0)=u_*(1)=0$,
+$u_*''(s)=-2a^2\operatorname{sech}^2(a(s-1/2))$, and
+$e^{u_*(s)}=\cosh^2(a/2)\operatorname{sech}^2(a(s-1/2))$;
+the relation for $a$ gives $u_*''+2e^{u_*}=0$.
+The function $2a^2/\cosh^2(a/2)$ is strictly increasing on $(0,2)$,
+since its logarithmic derivative is $2/a-\tanh(a/2)>0$.
+The chosen root corresponds to the small branch and is computed
+with $100$ digits.
+
+For Chandrasekhar, we report
+$\max_{s\in\mathcal G}|u_N(s)-u_{60}(s)|$; for Bratu,
+$\max_{s\in\mathcal G}|u_N(s)-u_*(s)|$.
+These are maxima on a finite grid. The first uses a numerical
+reference, and neither constitutes a bound for the continuous
+supremum. The change of slope of the Green kernel along $s=t$ is
+retained in the global quadrature used; spectral convergence of
+that rule is not assumed.
+
+\subsection{Complete histories for \texorpdfstring{$N=30$}{N=30}}
+The tables show the six states $x_0,\ldots,x_5$.
+The sign $\dagger$ indicates that the residual reached the
+precautionary precision level and is not interpreted as an exact
+bound. The ACOC of the fifth update uses the preceding increments,
+which do remain above that level. The vectors of all stages and
+the values without presentation rounding are included in the
+JSON and CSV files.
+
+\begin{table}[htbp]\centering\small
+\begin{tabular}{@{}rlll@{}}\toprule
+$n$ & $\|F_N(x_n)\|_\infty$ & $d_n$ & $\widehat p_n$\\\midrule
+0 & $1.732117\times10^{-1}$ & -- & --\\
+1 & $1.583097\times10^{-6}$ & $2.51117\times10^{-1}$ & --\\
+2 & $7.980421\times10^{-27}$ & $2.358968\times10^{-6}$ & --\\
+3 & $1.832861\times10^{-111}$ & $9.793127\times10^{-27}$ & $4.054341706$\\
+4 & $1.486176\times10^{-450}$ & $1.991172\times10^{-111}$ & $4.15526647$\\
+5 & $\dagger$ & $1.80824\times10^{-450}$ & $4.003242371$\\
+\bottomrule\end{tabular}
+\caption{Chandrasekhar: $N=30$, five cycles, and $1000$ digits.}\label{supp:tab:history-chandrasekhar}
+\end{table}
+\begin{table}[htbp]\centering\small
+\begin{tabular}{@{}rlll@{}}\toprule
+$n$ & $\|F_N(x_n)\|_\infty$ & $d_n$ & $\widehat p_n$\\\midrule
+0 & $3.267054\times10^{-1}$ & -- & --\\
+1 & $8.26069\times10^{-6}$ & $3.400329\times10^{-1}$ & --\\
+2 & $3.491167\times10^{-28}$ & $9.104126\times10^{-6}$ & --\\
+3 & $4.706249\times10^{-140}$ & $3.847615\times10^{-28}$ & $4.893408432$\\
+4 & $2.095062\times10^{-699}$ & $5.186758\times10^{-140}$ & $5.000002792$\\
+5 & $\dagger$ & $2.308968\times10^{-699}$ & $5.0$\\
+\bottomrule\end{tabular}
+\caption{Polynomial Hammerstein: $N=30$, five cycles, and $1000$ digits.}\label{supp:tab:history-polinomico}
+\end{table}
+\begin{table}[htbp]\centering\small
+\begin{tabular}{@{}rlll@{}}\toprule
+$n$ & $\|F_N(x_n)\|_\infty$ & $d_n$ & $\widehat p_n$\\\midrule
+0 & $2.497788\times10^{-1}$ & -- & --\\
+1 & $2.523014\times10^{-6}$ & $3.288667\times10^{-1}$ & --\\
+2 & $2.896231\times10^{-26}$ & $3.553876\times10^{-6}$ & --\\
+3 & $1.165631\times10^{-105}$ & $3.38339\times10^{-26}$ & $4.031427609$\\
+4 & $1.329004\times10^{-423}$ & $1.620031\times10^{-105}$ & $3.961762207$\\
+5 & $\dagger$ & $1.549674\times10^{-423}$ & $4.009328914$\\
+\bottomrule\end{tabular}
+\caption{Bratu--Green: $N=30$, five cycles, and $1000$ digits.}\label{supp:tab:history-bratu}
+\end{table}
+\begin{table}[htbp]\centering\small
+\begin{tabular}{@{}rlll@{}}\toprule
+$n$ & $\|F_N(x_n)\|_\infty$ & $d_n$ & $\widehat p_n$\\\midrule
+0 & $3.267054\times10^{-1}$ & -- & --\\
+1 & $4.771053\times10^{-10}$ & $3.271316\times10^{-1}$ & --\\
+2 & $1.276932\times10^{-45}$ & $4.787416\times10^{-10}$ & --\\
+3 & $1.467877\times10^{-187}$ & $1.279543\times10^{-45}$ & $4.026550214$\\
+4 & $1.155496\times10^{-755}$ & $1.472923\times10^{-187}$ & $3.990068027$\\
+5 & $\dagger$ & $1.157858\times10^{-755}$ & $4.002458988$\\
+\bottomrule\end{tabular}
+\caption{Nonseparable Hammerstein: $N=30$, five cycles, and $1000$ digits.}\label{supp:tab:history-no_separable}
+\end{table}
+\begin{table}[htbp]\centering\small
+\begin{tabular}{@{}rlll@{}}\toprule
+$n$ & $\|F_N(x_n)\|_\infty$ & $d_n$ & $\widehat p_n$\\\midrule
+0 & $6.928469\times10^{-2}$ & -- & --\\
+1 & $4.112001\times10^{-10}$ & $7.287908\times10^{-2}$ & --\\
+2 & $2.875395\times10^{-44}$ & $4.298189\times10^{-10}$ & --\\
+3 & $9.334016\times10^{-179}$ & $2.963562\times10^{-44}$ & $4.151191393$\\
+4 & $7.602065\times10^{-719}$ & $9.75626\times10^{-179}$ & $3.936672652$\\
+5 & $\dagger$ & $7.835002\times10^{-719}$ & $4.016099651$\\
+\bottomrule\end{tabular}
+\caption{Reciprocal Hammerstein: $N=30$, five cycles, and $1000$ digits.}\label{supp:tab:history-reciproco}
+\end{table}
+\subsection{Refinement of Chandrasekhar and Bratu}
+The following table is computed using the reconstructions
+\eqref{supp:eq:chandra-profile}--\eqref{supp:eq:bratu-profile}.
+All iterations use $1000$ digits; only the evaluation of the
+profiles and the Bratu reference uses $100$ digits.
+\begin{table}[htbp]\centering\small
+\begin{tabular}{@{}lrrl@{}}\toprule
+Problem & $N$ & $\widehat p_5$ & Difference on $\mathcal G$\\\midrule
+Chandrasekhar & 20 & 4.003222946 & $5.697734303\times10^{-5}$\\
+Chandrasekhar & 30 & 4.0032423709 & $8.08036804\times10^{-6}$\\
+Chandrasekhar & 40 & 4.0029442845 & $1.100911601\times10^{-6}$\\
+Chandrasekhar & 60 & 4.0031870353 & reference\\
+Bratu--Green & 20 & 4.0098824137 & $1.770558072\times10^{-3}$\\
+Bratu--Green & 30 & 4.0093289144 & $7.862010152\times10^{-4}$\\
+Bratu--Green & 40 & 4.00912517 & $4.431748795\times10^{-4}$\\
+Bratu--Green & 60 & 4.008982179 & $1.990539703\times10^{-4}$\\
+\bottomrule\end{tabular}
+\caption{Maxima on the grid of $401$ points. The reference is $N=60$
+for Chandrasekhar and the explicit small branch for Bratu.}
+\label{supp:tab:refinement}
+\end{table}
+The rounded values in this table agree with the stored histories and profiles. The observed stability of the ACOC
+and reduction of the profile differences do not replace a rigorous
+analysis of the Nystr\"om error.
+
+\subsection{Files, environment, and scope}
+The directory \path{results/experiments/} contains eleven
+subdirectories, one per problem, number of nodes, and precision.
+Each includes \path{result.json} (parameters, environment, and
+summary), \path{history.csv}, \path{nodes_weights_solution.csv},
+and \path{complete_iterates.json}. The latter also contains the
+intermediate stages of the five cycles. The aggregate files are
+\path{five_problems_N30.csv}, \path{refinement.csv},
+\path{profiles_grid401.csv}, and \path{Bratu_reference.json}.
+
+The included execution uses Python 3.13.5, \texttt{mpmath} 1.3.0 and
+its Python backend, on Linux x86\_64. Each record stores the platform,
+the full version, and the SHA-256 hash of the program. No performance
+conclusions are drawn from the times, since the hardware conditions
+and system load were not controlled.
+
+The programs allow the observations for the discrete system to be
+reproduced, but do not certify rounding errors, quadrature errors,
+or errors in the continuous supremum. Such validation would require
+additional bounds or interval arithmetic. The conclusions for the
+exact iteration in $C[0,1]$ follow from the verified assumptions and
+the semilocal criterion.
+
+
+\section{Methodological distinction from previous perturbed majorizations}
+\label{supp:perturbations}
+We document the comparison with Argyros \cite{Argyros1996} and
+Ferreira--Svaiter \cite{FerreiraSvaiter2012}. The formulas from
+those sources are distinguished from the algebraic correspondences
+we establish for the scheme studied here. The comparison is
+limited to the identified constructions and results; the letters
+used to describe each previous work belong to that context and
+are not automatically identified with our controls.
+
+\subsection{The framework of Argyros includes exact corrections}
+On pages 120 and 132 of \cite{Argyros1996}, a Newton stage and a
+Newton-like stage, respectively, are followed by a correction.
+Calling this correction $d_n$, the structure is
+\[
+ y_n=x_n-A(x_n)^{-1}F(x_n),\qquad x_{n+1}=y_n-d_n.
+\]
+The author includes $A(x_n)=F'(x_n)$ and exact choices of $d_n$.
+It is not appropriate to describe that entire framework as an
+analysis of external computational errors.
+Section II, page 121, incorporates an additive term $\alpha_n$
+into the scalar remainder:
+\[
+ t_{n+1}=s_n+I_n,\qquad
+ h_{n+1}=\frac L2(t_{n+1}-s_n)^2+\alpha_n,\qquad
+ s_{n+1}=t_{n+1}+\frac{h_{n+1}}{1-Lt_{n+1}}.
+\]
+Accumulated bounds for $\sum\alpha_i$ and $\sum I_i$ are required.
+In the application in its Section VI, page 136, it provides
+\[
+ \alpha_n=\frac N6(s_n-t_n)^3+M(s_n-t_n)(t_{n+1}-s_n),
+\]
+with derivative control constants. This is an explicit precedent
+for additive terms constructed with scalar increments for an exact
+correction. Its Remark 1(a), page 123, also uses radial functions
+instead of a fixed Lipschitz constant.
+
+\paragraph{Correspondence with our scheme.}
+This observation is a deduction from the comparison, not an assertion
+in \cite{Argyros1996}. For our method, let
+\[
+ Q_n=\frac{9F(y_n)+F(z_n)}5,\qquad
+ \Gamma_n=F'(x_n)^{-1},\qquad d_n=\Gamma_nQ_n.
+\]
+Then $x_{n+1}=y_n-d_n$ formally has the preceding structure.
+This does not verify the assumptions on majorants, sums, and domains
+of Argyros's theorem, nor does it automatically locate the additional
+point $z_n$.
+
+The relation also appears in the remainder. Set $p_n=y_n-x_n$,
+$q_n=z_n-y_n$, $r_n=x_{n+1}-y_n$, $D_n=F'(y_n)-F'(x_n)$,
+\[
+ \mathcal B_n(d)=F(y_n+d)-F(y_n)-F'(y_n)d,\qquad w_n=r_n-q_n/5.
+\]
+The term in condition (4) of \cite{Argyros1996}, evaluated at
+$(x_n,y_n,x_{n+1})$, contains
+\[
+ F(y_n)-F(x_n)-F'(x_n)(y_n-x_n)+F'(y_n)r_n
+ =F(y_n)+F'(y_n)r_n,
+\]
+because the Newton step cancels $F(x_n)+F'(x_n)p_n$.
+For the scheme studied, the residual identity gives
+\[
+ F(y_n)+F'(y_n)r_n=D_nw_n-\tfrac15\mathcal B_n(q_n).
+\]
+Its estimate can use the cancellations in \eqref{supp:eq:residual-identities}.
+The distinction is not the prior absence of an additive remainder,
+but its specific control together with the location of the three
+stages and the comparison with the fixed scalar trajectory.
+
+\subsection{The Ferreira--Svaiter slack is not the realized residual}
+In sections 4 and 5 of \cite{FerreiraSvaiter2012}, a step $s$ from
+$x$ with tolerance $\theta\geq0$ satisfies
+\[
+ \|F'(x_0)^{-1}(F(x)+F'(x)s)\|
+ \leq\theta\|F'(x_0)^{-1}F(x)\|.
+\]
+The analysis introduces
+\[
+ K(t,\epsilon)=\{x:\|x-x_0\|\leq t,\quad
+ \|F'(x_0)^{-1}F(x)\|\leq f(t)+\epsilon\}
+\]
+and, in formula (4.3) of that source,
+\begin{equation}
+ t^+=t-(1+\theta)\frac{f(t)+\epsilon}{f'(t)},\qquad
+ \epsilon^+=\epsilon+2\theta(f(t)+\epsilon).
+ \label{supp:eq:FS-update}
+\end{equation}
+The relation $N_\theta(K(t,\epsilon))\subset K(t^+,\epsilon^+)$
+is the invariance mechanism of its Proposition 4.5. It is not merely
+a similarity in notation with $g(t_n)+\widehat\Delta_n$: there is
+a coupled construction of a radius and a residual slack.
+
+The variable $\epsilon$ belongs to the proof; it is not the residual
+$F(x)+F'(x)s$ or its norm. Its increment depends on the allowed
+tolerance and the preceding residual bound. With $\theta=0$ and
+$\epsilon_0=0$, the recurrence gives $\epsilon_n=0$. This does not
+extend to an initial value $\epsilon_0>0$, nor does it mean that
+choosing an exact step under a positive tolerance forces the slack
+to vanish.
+
+Its Theorem 5.1 establishes that $\epsilon_n$ is nondecreasing and
+bounded. For $\theta>0$ and a positive initial residual bound,
+$\epsilon_1>\epsilon_0\geq0$, so $\sum\epsilon_n$ does not converge.
+The increments can, however, be summable. The quantity tending to
+zero is $f(t_n)+\epsilon_n$, not necessarily $\epsilon_n$ separately.
+Here, instead, $\sum\widehat\Delta_n<\infty$ and
+$\sum\widehat E_n<\infty$ are proved.
+The difference describes the role of the variables; it does not
+by itself establish superiority between the theorems.
+
+In its application to analytic functions, page 361, it uses
+\[
+ f(t)=\frac{t}{1-\gamma t}-2t+b
+ =b-t+\frac{\gamma t^2}{1-\gamma t},
+\]
+the same rational form as our majorant. The assumptions and the
+methods controlled are different, so their criteria are not
+identified, but this rational form is not claimed as a new feature
+of the present construction.
+
+\subsection{Rewriting as inexact Newton: scope and limits}
+For the total step $s_n^{\rm tot}=x_{n+1}-x_n=p_n+r_n$, we have
+$F'(x_n)p_n=-F(x_n)$ and $F'(x_n)r_n=-Q_n$. Hence
+\begin{equation}
+ F(x_n)+F'(x_n)s_n^{\rm tot}=-Q_n.
+ \label{supp:eq:inexact-rewriting}
+\end{equation}
+The exact execution of a multipoint method does not prevent its
+total step from being represented as an inexact correction relative
+to another algorithm, in this case one-step Newton.
+A uniform admissible relative tolerance does not follow from
+\eqref{supp:eq:inexact-rewriting}. One would also have to check
+\[
+ \|F'(x_0)^{-1}Q_n\|\leq\theta\|F'(x_0)^{-1}F(x_n)\|
+\]
+at all indices, with a tolerance satisfying the assumptions of the
+result invoked. Two separate upper bounds for the numerator and
+denominator do not prove that relative comparison. The existence
+and location of $y_n,z_n$ needed to construct $Q_n$ also require
+their own argument. Neither the impossibility nor the general
+validity of that semilocal reduction is claimed here.
+
+\subsection{Meaning and logical role of our defects}
+The hatted quantities are constructed from $\alpha$ through the
+polynomial first cycle and the rational recurrences in
+Section~\ref{supp:radial}. The sequences $t_n,s_n,v_n$ are obtained
+by applying the same scalar scheme to $g$. They are compared through
+\[
+ \widehat\Delta_n=\frac{[\widehat\varepsilon_n-\gamma g(t_n)]_+}{\gamma},
+ \qquad
+ \widehat E_n=\frac{[\widehat A_n+\widehat C_n-
+ \gamma(t_{n+1}-t_n)]_+}{\gamma}.
+\]
+For these fixed controls, they are the smallest nonnegative slacks,
+since
+\begin{equation}
+ \begin{aligned}
+ \gamma(g(t_n)+\widehat\Delta_n)
+ &=\max\{\gamma g(t_n),\widehat\varepsilon_n\},\\
+ \gamma(t_{n+1}-t_n+\widehat E_n)
+ &=\max\{\gamma(t_{n+1}-t_n),\widehat A_n+\widehat C_n\}.
+ \end{aligned}\label{supp:eq:defect-identities}
+\end{equation}
+The actual norms can be smaller than their bounds: a positive defect
+does not prove that the actual residual violates exact majorization.
+Nor is it a realized physical or computational perturbation.
+
+Summability is not obtained merely by writing
+\eqref{supp:eq:defect-identities}. First, closure of the controls and
+$\sum_{n\geq0}(\widehat A_n+\widehat C_n)=\widehat\tau_\infty<\infty$
+are proved. The inequalities
+$\widehat\varepsilon_n\leq\widehat A_n$,
+$\gamma\widehat\Delta_n\leq\widehat\varepsilon_n$, and
+$\gamma\widehat E_n\leq\widehat A_n+\widehat C_n$
+then give the convergent series, also from $n=0$.
+
+The error bounds have different roles. Summing the second identity
+in \eqref{supp:eq:defect-identities},
+\begin{equation}
+ \begin{aligned}
+ \gamma\left(t_*-t_n+\sum_{k=n}^{\infty}\widehat E_k\right)
+ ={}&\widehat\tau_\infty-\widehat\tau_n\\
+ &+\sum_{k=n}^{\infty}
+ [\gamma(t_{k+1}-t_k)-(\widehat A_k+\widehat C_k)]_+.
+ \end{aligned}\label{supp:eq:two-bounds}
+\end{equation}
+The radius bound does not exceed the one written with defects.
+The latter retains the reference to the scalar trajectory; the
+former uses the constructed controls directly. Both depend only
+on the initial data and are a priori. The estimate using a verified
+residual $\|G(x_n)\|$ is a posteriori. The quantitative improvement
+is not attributed to the mere use of the positive part.
+
+\subsection{Contribution supported by these comparisons}
+The previous works contain ingredients of a perturbed majorization
+theory. We do not claim that every additive term is new or that the
+literature lacks deterministic controls for exact algorithms.
+Reading two articles is also not sufficient to prove priority
+throughout a whole class.
+
+The construction combines a fixed scalar reference of the three-step
+method, residual bounds that retain the cancellations, stage radii,
+a specific estimate for the first cycle, and finite tail control.
+Its result is the criterion $\beta\gamma\leq1547/10000$, the error
+bounds, and the quantitative comparison in Section~\ref{supp:radial}.
+Applying a more general formalism might require precisely these
+estimates. Until such an application is proved, neither complete
+equivalence nor irreducibility is claimed.
+
+\begin{thebibliography}{99}
+\interlinepenalty=10000 % Keep each bibliographic entry on one page.
+\bibitem{CorderoSemilocal2015} A. Cordero, M. A. Hern\'andez-Ver\'on, N. Romero and J. R. Torregrosa, Semilocal convergence by using recurrence relations for a fifth-order method in Banach spaces, \textit{Journal of Computational and Applied Mathematics}, 273, 205--213, 2015. \url{https://doi.org/10.1016/j.cam.2014.06.008}.
+
+\bibitem{SinghEtAl2016} S. Singh, D. K. Gupta, E. Mart\'inez and J. L. Hueso, Semilocal and local convergence of a fifth order iteration with Fr\'echet derivative satisfying H\"older condition, \textit{Applied Mathematics and Computation}, 276, 266--277, 2016. \url{https://doi.org/10.1016/j.amc.2015.11.062}.
+
+\bibitem{MarojuBehlMotsa2022} P. Maroju, R. Behl and S. S. Motsa, Semilocal and local convergence of a three step fifth order iterative methods under general continuity condition in Banach spaces, \textit{Thai Journal of Mathematics}, 20(1), 21--33, 2022. \url{https://thaijmath.com/index.php/thaijmath/article/view/1307}.
+
+\bibitem{Argyros1996} I. K. Argyros, Results on Newton methods: Part I. A unified approach for constructing perturbed Newton-like methods in Banach space and their applications, \textit{Applied Mathematics and Computation}, 74(2--3), 119--141, 1996. \url{https://doi.org/10.1016/0096-3003(95)00090-9}.
+
+\bibitem{FerreiraSvaiter2012} O. P. Ferreira and B. F. Svaiter, A robust Kantorovich's theorem on the inexact Newton method with relative residual error tolerance, \textit{Journal of Complexity}, 28(3), 346--363, 2012. \url{https://doi.org/10.1016/j.jco.2012.02.002}.
+
+\bibitem{AhmadArshadUllahMa2023} J. Ahmad, M. Arshad, K. Ullah and Z. Ma, Numerical solution of Bratu's boundary value problem based on Green's function and a novel iterative scheme, \textit{Boundary Value Problems}, 2023, Article 102, 2023. \url{https://doi.org/10.1186/s13661-023-01791-6}.
+
+\bibitem{AmatBusquierGutierrez2011} S. Amat, S. Busquier and J. M. Guti\'errez, Third-order iterative methods with applications to Hammerstein equations: A unified approach, \textit{Journal of Computational and Applied Mathematics}, 235(9), 2936--2943, 2011. \url{https://doi.org/10.1016/j.cam.2010.12.011}.
+
+\bibitem{CardenasCastroSierra2022} E. C\'ardenas, R. Castro and W. Sierra, Convergence analysis for the King--Werner method under gamma-conditions, \textit{Journal of Applied Mathematics and Computing}, 68, 4605--4620, 2022. \url{https://doi.org/10.1007/s12190-022-01720-3}.
+
+\bibitem{EzquerroHernandez2024} J. A. Ezquerro and M. A. Hern\'andez-Ver\'on, Location, separation and approximation of solutions of nonlinear Hammerstein-type integral equations, \textit{Applied Numerical Mathematics}, 198, 1--10, 2024. \url{https://doi.org/10.1016/j.apnum.2023.12.010}.
+
+\bibitem{EzquerroHernandezMagrenan2021} J. A. Ezquerro, M. A. Hern\'andez-Ver\'on and A. A. Magre\~n\'an, On an efficient modification of the Chebyshev method, \textit{Computational and Mathematical Methods}, 3(6), e1187, 2021. \url{https://doi.org/10.1002/cmm4.1187}.
+\end{thebibliography}
+\end{document}

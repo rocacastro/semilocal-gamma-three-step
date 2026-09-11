@@ -1,0 +1,36 @@
+cff-version: 1.2.0
+message: "If you use this repository, please cite the archived repository release once its DOI is available."
+title: "Semilocal convergence beyond exact majorization for an efficient three-step method under gamma conditions: supplementary material and reproducibility package"
+type: software
+version: 1.0.0
+authors:
+  - family-names: "Castro Marín"
+    given-names: "Rodrigo"
+    orcid: "https://orcid.org/0000-0003-0010-7775"
+    affiliation: "Universidad de Valparaíso"
+  - family-names: "Guzmán Pinto"
+    given-names: "Lía Paz"
+    affiliation: "Universidad de Valparaíso"
+  - family-names: "Echeverri Delgado"
+    given-names: "Luis Fernando"
+    orcid: "https://orcid.org/0000-0002-5185-6074"
+    affiliation: "Universidad de Antioquia"
+  - family-names: "Restrepo Gutiérrez"
+    given-names: "Óscar Antonio"
+    orcid: "https://orcid.org/0000-0001-8546-0687"
+    affiliation: "Universidad de Antioquia"
+  - family-names: "Honorato Gutiérrez"
+    given-names: "Gerardo Andrés"
+    orcid: "https://orcid.org/0009-0006-1647-5600"
+    affiliation: "Universidad de Valparaíso"
+keywords:
+  - semilocal convergence
+  - gamma conditions
+  - perturbed majorization
+  - summable defects
+  - Banach spaces
+  - multipoint methods
+abstract: >-
+  Reproducibility package containing complete Supplementary Material S1-S6,
+  exact and symbolic verification programs, high-precision numerical experiments,
+  and generated data for the sufficient criterion beta*gamma <= 0.1547.

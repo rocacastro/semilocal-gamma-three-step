@@ -1,0 +1,12 @@
+{
+  "L_integrated": true,
+  "E2_integrated": true,
+  "E3_integrated": true,
+  "tail_polynomial_P": true,
+  "first_majorant_iterate": true,
+  "rational_majorant_residual": true,
+  "residual_coefficient_10": true,
+  "fourth_degree_coefficient_component_1": true,
+  "fourth_degree_coefficient_component_2": true,
+  "all": true
+}

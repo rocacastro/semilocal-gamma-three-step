@@ -1,0 +1,8 @@
+Rational and symbolic checks: OK.
+Numerical roots, not intervals:
+r0 4.7357375334801405841
+r1 2.6303000381510457337
+r2 0.44859995340341771816
+r3_printed 0.33653646147498440932
+r3_coefficient16 0.22420896343740195334
+Output: /mnt/data/semilocal-gamma-three-step_repository/results/additional_2022.json

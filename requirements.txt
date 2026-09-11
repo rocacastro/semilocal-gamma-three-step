@@ -1,0 +1,4 @@
+# Environment of the supplied runs: Python 3.13.5.
+# The programs are written for Python >= 3.10.
+mpmath==1.3.0
+sympy==1.14.0
