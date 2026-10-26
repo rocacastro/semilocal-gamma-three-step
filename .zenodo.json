@@ -1,7 +1,7 @@
 {
   "title": "Semilocal convergence beyond exact majorization for an efficient three-step method under gamma conditions: supplementary material and reproducibility package",
   "upload_type": "software",
-  "description": "Research compendium containing Supplementary Material S1-S6, exact rational and symbolic verification programs, high-precision numerical experiments, and generated data for the sufficient criterion beta*gamma <= 0.1547.",
+ "description": "Research compendium containing the mathematical supplement S1-S6, exact rational and symbolic verification programs, coupled-field order counterexamples, high-precision Nystrom experiments, and complete generated data for the sufficient criterion 0 < beta*gamma <= 0.1547. File-level licensing terms are specified in LICENSE.md.",
   "creators": [
     {
       "name": "Castro Marín, Rodrigo",
@@ -36,7 +36,7 @@
     "Banach spaces",
     "multipoint methods"
   ],
-  "version": "1.0.0",
+  "version": "1.1.0",
   "language": "eng",
   "access_right": "open",
   "license": "other-open"
