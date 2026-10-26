@@ -1,8 +1,8 @@
 cff-version: 1.2.0
-message: "If you use this repository, please cite the archived repository release once its DOI is available."
+message: "Please cite this supplementary material and reproducibility package when using its proofs, programs or data."
 title: "Semilocal convergence beyond exact majorization for an efficient three-step method under gamma conditions: supplementary material and reproducibility package"
 type: software
-version: 1.0.0
+version: 1.1.0
 authors:
   - family-names: "Castro Marín"
     given-names: "Rodrigo"
@@ -33,4 +33,5 @@ keywords:
 abstract: >-
   Reproducibility package containing complete Supplementary Material S1-S6,
   exact and symbolic verification programs, high-precision numerical experiments,
-  and generated data for the sufficient criterion beta*gamma <= 0.1547.
+  and generated data for the sufficient criterion 0 < beta*gamma <= 0.1547.
+repository-code: "https://github.com/rocacastro/semilocal-gamma-three-step"

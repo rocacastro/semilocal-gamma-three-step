@@ -180,7 +180,7 @@ $\mathcal Q_4(u,v)=4(v^3-u^3)(u,-v)$. An iteration from $(t,2t)$ gives
  T(t,2t)=(28t^4+224t^5,-56t^4+70t^5)+O(t^6).
  \label{supp:eq:path-expansion}
 \end{equation}
-The program \path{code/verify_audit.py} checks this expansion
+The program \path{code/verify_published_results.py} checks this expansion
 and the equivalence of the two expressions for the third stage exactly.
 
 The condition $\mathcal Q_4\not\equiv0$ rules out uniform local order
@@ -198,8 +198,7 @@ positive finite limit. This distinction is used throughout this document.
 Two assertions are distinguished. A residual bound along all indices
 has consequences for the complete sequence. An expansion of a single
 iteration in a direction proves a property of the iteration map, but
-does not automatically determine the order of every sequence. The
-this distinction is retained throughout the analysis.
+does not automatically determine the order of every sequence. This distinction is retained throughout the analysis.
 
 \noindent\textbf{Consequence of exact majorization.}
 Let $A_0=F'(x_0)^{-1}$, $G=A_0F$, and let $x_*$ be a simple root.
@@ -208,31 +207,35 @@ provide constants $c,C>0$ such that
 \[
  c\|x_n-x_*\|\leq\|G(x_n)\|\leq C\|x_n-x_*\|
 \]
-for every sufficiently large index. If $g(t_*)=0$, $g'(t_*)<0$,
-$t_n\uparrow t_*$, and $\delta_n=t_*-t_n$, then
-$g(t_n)=-g'(t_*)\delta_n+O(\delta_n^2)$.
+for every sufficiently large index. If $g$ is differentiable at $t_*$,
+$g(t_*)=0$, $g'(t_*)<0$, $t_n<t_*$, $t_n\uparrow t_*$, and
+$\delta_n=t_*-t_n$, then
+$g(t_n)=-g'(t_*)\delta_n+o(\delta_n)$.
 Therefore, $\|G(x_n)\|\leq g(t_n)$ implies
-$\|x_n-x_*\|\leq C_0\delta_n$.
+$\|x_n-x_*\|\leq C_0\delta_n$ eventually.
 
-If $\delta_n$ has $Q$-order five, this domination gives $R$-order at
-least five. It does not by itself provide $Q$-order five for $x_n$.
-The additional bound $\delta_n\leq C_1\|x_n-x_*\|$ would suffice to
-obtain the corresponding $Q$-order inequality.
+If $\delta_n$ has $Q$-order at least $p>1$, this domination gives
+$R$-order at least $p$, not automatically $Q$-order at least $p$.
+The additional bound $\delta_n\leq C_1\|x_n-x_*\|$ would suffice
+to obtain the corresponding $Q$-order inequality.
 
-The incompatibility with a fourth-degree lower bound can be seen
-without an informal comparison of orders. If $u_{n+1}\geq c u_n^4>0$
-and $\delta_{n+1}\leq C\delta_n^5$, where $u_n=\|x_n-x_*\|$, choose
-an index $N$ with $c^{1/3}u_N<1$ and $C^{1/4}\delta_N<1$.
-For $a=-\log(c^{1/3}u_N)>0$ and
-$b=-\log(C^{1/4}\delta_N)>0$, we obtain
+Suppose in addition that $u_n=\|x_n-x_*\|>0$ eventually and
+$u_{n+1}\geq c u_n^q$ eventually, with $c>0$ and $1<q<p$.
+The scalar order gives $\delta_{n+1}\leq C\delta_n^p$ eventually.
+Choose $N$ sufficiently large that both
+$c^{1/(q-1)}u_N$ and $C^{1/(p-1)}\delta_N$ lie in $(0,1)$.
+For $a=-\log(c^{1/(q-1)}u_N)>0$ and
+$b=-\log(C^{1/(p-1)}\delta_N)>0$, iteration gives
 \[
- u_{N+j}\geq c^{-1/3}e^{-a4^j},\qquad
- \delta_{N+j}\leq C^{-1/4}e^{-b5^j}.
+ u_{N+j}\geq c^{-1/(q-1)}e^{-a q^j},\qquad
+ \delta_{N+j}\leq C^{-1/(p-1)}e^{-b p^j}.
 \]
-Hence $u_{N+j}/\delta_{N+j}\to+\infty$. This contradicts domination
-by $C_0\delta_n$. The lower-bound assumption must be checked for the
-sequence under consideration; it does not follow from $\mathcal Q_4$
-being nonzero in some direction.
+Since $q<p$, the quotient $u_{N+j}/\delta_{N+j}$ tends to infinity,
+contradicting exact domination. For the three-step method, the
+nondegenerate fourth-degree term gives $q=4$, whereas the scalar
+gamma reference has $p=5$. The trajectory-level lower bound must
+be checked separately; it does not follow from $\mathcal Q_4$ being
+nonzero in some direction.
 
 \medskip\noindent\textbf{A counterexample to universal validity under gamma conditions.}
 Consider $F(u,v)=(u+v^2,v+u^2)$, the maximum norm, and $x_0=(h,2h)$,
@@ -317,8 +320,128 @@ the method.
 
 
 
+\subsection{Uniform local order bounds for the Lotfi maps}
+\label{supp:lotfi}
+We examine the maps $M6$, $M9$, and $M12$ in
+\cite{LotfiEtAl2015}, equations (5), (22), and (24), respectively.
+The corresponding Theorems 2.1, 3.1, and 3.2 state orders six, nine,
+and twelve. With $J(x)=F'(x)$, their stages can be written as
+\begin{equation}
+\begin{aligned}
+ y&=x-J(x)^{-1}F(x),&
+ z&=x-2\bigl(J(x)+J(y)\bigr)^{-1}F(x),\\
+ B&=J(x)^{-1}J(y),&
+ H&=\tfrac72 I-4B+\tfrac32 B^2,\qquad K=HJ(x)^{-1},\\
+ M6(x)&=z-KF(z),&
+ M9(x)&=M6(x)-KF(M6(x)),\\
+ &&M12(x)&=M9(x)-KF(M9(x)).
+\end{aligned}
+\label{supp:eq:lotfi-maps}
+\end{equation}
+The matrices $H$ and $K$ are kept fixed during the three corrections.
+In particular, the order of the matrix products in
+\eqref{supp:eq:lotfi-maps} is not changed.
+
+\begin{proposition}\label{supp:prop:lotfi-orders}
+Let
+\[
+ F(a,b)=(a+ab,\ b+a^2+ab),\qquad x(t)=(t,2t).
+\]
+The root $x_*=0$ is simple, all inverses in
+\eqref{supp:eq:lotfi-maps} exist for sufficiently small $|t|$, and
+\begin{equation}
+\begin{aligned}
+ M6(t,2t)&=(-\tfrac34,\tfrac34)t^5+O(t^6),\\
+ M9(t,2t)&=(\tfrac98,-\tfrac98)t^7+O(t^8),\\
+ M12(t,2t)&=(-\tfrac{27}{16},\tfrac{27}{16})t^9+O(t^{10}).
+\end{aligned}
+\label{supp:eq:lotfi-leading}
+\end{equation}
+Consequently, these maps do not satisfy uniform local bounds of
+orders six, nine, and twelve, respectively, for all smooth systems
+with a simple root.
+\end{proposition}
+
+\begin{proof}
+The field is polynomial, $F(0)=0$, and $J(0)=I$.
+Along $x(t)$, both $J(x(t))$ and $J(x(t))+J(y(t))$ are invertible
+near zero, since their values at zero are $I$ and $2I$.
+Put $v=(1,2)^T$ and $q=(2,3)^T$, so that
+$F(tv)=tv+t^2q$. The Jacobian and the Newton stage satisfy
+\[
+ J(x(t))=I+tA,\qquad
+ A=\begin{pmatrix}2&1\\4&1\end{pmatrix},\qquad
+ y(t)=t^2q+O(t^3).
+\]
+It follows that
+\[
+ J(y(t))=I+t^2C+O(t^3),\qquad
+ C=\begin{pmatrix}3&2\\7&2\end{pmatrix}.
+\]
+Using $Av=2q$ in the expansion of
+$2(J(x(t))+J(y(t)))^{-1}F(x(t))$ gives
+\[
+ z(t)=\tfrac12 Cv\,t^3+O(t^4)
+     =\begin{pmatrix}7/2\\11/2\end{pmatrix}t^3+O(t^4).
+\]
+Furthermore,
+\[
+\begin{aligned}
+ B&=I-tA+t^2(A^2+C)+O(t^3),\\
+ H&=I+tA+t^2(\tfrac12 A^2-C)+O(t^3),\\
+ I-K&=t^2D+O(t^3),\qquad
+ D=C-\tfrac12 A^2=\begin{pmatrix}-1&1/2\\1&-1/2\end{pmatrix}.
+\end{aligned}
+\]
+Write $F(w)=w+Q(w)$, where $Q$ is homogeneous quadratic.
+For a point $w(t)=c\,t^r+O(t^{r+1})$ with $r\geq3$, the frozen
+correction obeys
+\[
+ w(t)-KF(w(t))=Dc\,t^{r+2}+O(t^{r+3}),
+\]
+since $K=I+O(t^2)$ and $Q(w(t))=O(t^{2r})$ with $2r\geq r+3$.
+Starting with $c=(7/2,11/2)^T$ and $r=3$, successive multiplication
+by $D$ gives
+\[
+ \begin{pmatrix}-3/4\\3/4\end{pmatrix},\qquad
+ \begin{pmatrix}9/8\\-9/8\end{pmatrix},\qquad
+ \begin{pmatrix}-27/16\\27/16\end{pmatrix}.
+\]
+This proves \eqref{supp:eq:lotfi-leading}. Since every leading
+coefficient is nonzero and $\|x(t)\|$ is proportional to $|t|$,
+the respective quotients by $\|x(t)\|^6$, $\|x(t)\|^9$, and
+$\|x(t)\|^{12}$ are unbounded as $t\to0$. The announced uniform
+local estimates therefore fail for this field.
+\end{proof}
+
+These are statements about the iteration maps. They do not assign
+exact $Q$-orders five, seven, and nine to every complete sequence.
+Trajectory-level nondegeneracy must be checked separately.
+The same computation for the field $F_0(a,b)=(a+b^2,b+a^2)$ used in
+Section~\ref{supp:exact-obstruction} instead gives
+\[
+\begin{aligned}
+ M6(t,2t)&=(360,-36)t^6+O(t^7),\\
+ M9(t,2t)&=(-1512,3024)t^8+O(t^9),\\
+ M12(t,2t)&=(12096,-24192)t^{10}+O(t^{11}).
+\end{aligned}
+\]
+Thus that field, on this path, does not refute the sixth-order
+bound for $M6$. The two fields have distinct roles.
+
+The program \path{code/verify_lotfi_orders.py} performs every series
+operation with \texttt{fractions.Fraction} in
+$\mathbb Q[t]/(t^{12})$. It checks all six leading coefficients,
+the absence of lower-degree terms, and the coefficients of $z(t)$
+and $I-K$ used in the proof. Results are stored in
+\path{results/lotfi_orders.json}.
+The independent direct evaluations in
+\path{code/check_lotfi_numerically.py} use 200-digit arithmetic;
+they are consistency checks, not substitutes for the exact proof.
+
+
 \section{Complete proof for the majorant sequences}\label{supp:scalar}
-The algebraic sign proof for the scalar maps is retained. All formulas
+This section gives the algebraic sign proof for the scalar maps. All formulas
 in this section correspond to the rational majorant, not to the hatted
 controls of the semilocal criterion.
 \subsection{Majorant function and normalization}
@@ -1841,8 +1964,7 @@ and $\|\mathcal F''(0)\|\leq2$. The difference condition above implies
 Indeed, subdividing the segment between the points into $N$ parts and
 applying the gamma condition with parameters $d/N$ and $0$ gives
 $N(M(d/N)-M(0))\to6d$, where $d=\|\xi-\zeta\|$ and
-$M(t)=2/(1-t)^3$. For large $N$, the parameters belong to the required
-domain. The converse uses $M'(t)\geq6$.
+$M(t)=2/(1-t)^3$. Choose $N$ sufficiently large that $d/N\leq\rho$, so both parameters belong to $[0,\rho]$. The converse uses $M'(t)\geq6$.
 Only $F\in C^2$ is assumed, not the existence of $F'''$.
 
 The rational functions used in the cycles are
@@ -2071,7 +2193,7 @@ Lemma~\ref{supp:lem:first-cycle-controls} and for $n\geq1$ by the
 standard cycle estimates above. Moreover,
 $\widehat\tau_{n+1}-\widehat\tau_n=\widehat A_n+\widehat C_n$ and
 $\widehat\varepsilon_n\leq\widehat A_n$ also hold at $n=0$.
-Hence boundedness of the hatted radii gives telescopic summability of
+Under the corresponding hypotheses expressed with the hatted controls, in particular $\widehat\Phi_{\rm ef}(\alpha)\leq\sigma<\rho$, the same arguments apply. This global bound is verified in Section~\ref{supp:rational-states}. It gives telescopic summability of
 $\widehat A_n+\widehat C_n$ and of the corresponding nonnegative
 defects. The one-step bounds then make $\{x_n\}$ a Cauchy sequence;
 continuity gives a zero of $F$, and the standard averaged-derivative
@@ -2134,7 +2256,7 @@ the residual to be bounded by $P(q^je)\leq q^{j+1}e$. Induction gives
 \end{equation}
 This is the uniform estimate, not an extrapolation from a finite sample.
 
-\subsection{Rational states and value of the criterion}
+\subsection{Rational states and value of the criterion}\label{supp:rational-states}
 The polynomials of the first cycle are evaluated at $\alpha_{\rm c}$.
 All the following comparisons are between exact fractions. We obtain
 \[
@@ -2269,7 +2391,7 @@ The justification for all indices is the tail induction, not the
 execution of a finite number of steps.
 
 
-\section{Audit of the previous works from 2015, 2016, and 2022}\label{supp:audit}
+\section{Verification of published semilocal analyses}\label{supp:published-analyses}
 We examine the published results of Cordero et
 al.~\cite{CorderoSemilocal2015}, Singh et al.\ \cite{SinghEtAl2016},
 and Maroju, Behl, and Motsa \cite{MarojuBehlMotsa2022}.
@@ -2414,7 +2536,7 @@ $1.2044268509\times10^{-312}$, less than the published tolerance
 $10^{-180}$; the number of steps is not refuted. The reproduced first
 component is $1.0122394257\ldots$, compared with $1.01222\ldots$ in
 their table, a minor discrepancy. The data and the six updates are
-included in \path{results/audit/}.
+included in \path{results/literature_checks/}.
 
 The semilocal core of the 2015 work can be justified with its own
 functions. The comparison below uses that core, not the
@@ -2693,7 +2815,7 @@ $Tx=1+\mathcal K(|x|^{8/5}+x^2/10)$, $\|\mathcal K\|=1/8$,
 on $B[1,0.238277]$, the approximate bounds are
 $\|Tx-1\|\leq0.19512846754$ and Lipschitz constant $0.25832039011<1$.
 On $B[1,2.54114]$, one constant is $0.51561500993<1$.
-\path{code/check_additional_2022.py} verifies with fractions
+\path{code/verify_maroju_bounds.py} verifies with fractions
 $\|Tx-1\|<0.196<0.238277$ and constants less than $0.259$ and $0.516$.
 The fractional powers are enclosed by comparing integer powers.
 This justifies those particular conclusions by a fixed-point argument,
@@ -2726,7 +2848,7 @@ the corrected semilocal criterion of the 2015 work, not a weakened
 version. It distinguishes the radius for all stages, the location
 of the limit, and the recurrence-based sum. The advantage is proved
 on a common quadratic family and is not inferred from errors found
-in other works. The audit is also not an exhaustive priority search.
+in other works. The analysis is limited to the results examined here.
 
 
 \section{Applications: derivatives, histories, and reproducibility}\label{supp:applications}
@@ -2791,7 +2913,7 @@ Since $G''$ is constant, $L=0$.
 
 \medskip
 \noindent\textbf{Problem 2. Polynomial Hammerstein equation.}
-Consider the class in \cite{CardenasCastroSierra2022} with
+We use the equation in \cite[Example~2, equation~(3.3), p.~4617]{CardenasCastroSierra2022}:
 \[
 \begin{aligned}
  \relax [F(x)](s)&=x(s)-\sin(s/3)
@@ -2823,7 +2945,13 @@ Since $F'(0)=I$, the first step gives $y_0=\phi$, and also
 $z_0,x_1\in\mathcal L$. From $n=1$ onward, the three stages coincide
 with the scalar method for $h(a)=0$. Near a simple root, the order is
 at least five, and exactly five when the leading coefficient does not
-vanish. Quadrature preserves rank one and this reduction.
+vanish. Since $F''$ takes values in $\operatorname{span}\{\psi\}$ and
+$F'(x_*)^{-1}$ preserves that direction, the errors on the invariant
+affine line also satisfy $e\cdot e\in\operatorname{span}\{e\}$ for
+$u\cdot v=\tfrac12 F'(x_*)^{-1}F''(x_*)[u,v]$.
+Thus the fourth-degree term vanishes along this sequence, as in
+Proposition~2.4 of the article. Quadrature preserves rank one and
+this reduction.
 
 \medskip
 \noindent\textbf{Problem 3. Bratu through Green's function.}
@@ -2874,7 +3002,11 @@ and $\alpha=\beta\gamma\simeq0.0654389393592<\alpha_{\rm c}$.
 
 \medskip
 \noindent\textbf{Problem 5. Reciprocal Hammerstein equation.}
-For this class see \cite{AmatBusquierGutierrez2011}. On the open convex
+The reciprocal equation in \cite[equation~(6), p.~2941]{AmatBusquierGutierrez2011}
+has the same kernel and nonlinearity with coefficient $1/4$; here
+we use $\mu=0.1$ and $x_0=1$. The numerical protocol is the one
+specified in this section, not a reproduction of the cited experiment.
+On the open convex
 set $\Omega=\{x\in C[0,1]:\min_{t\in[0,1]}x(t)>0\}$, we define
 \[
 \begin{aligned}
@@ -3074,7 +3206,7 @@ intermediate stages of the five cycles. The aggregate files are
 \path{five_problems_N30.csv}, \path{refinement.csv},
 \path{profiles_grid401.csv}, and \path{Bratu_reference.json}.
 
-The included execution uses Python 3.13.5, \texttt{mpmath} 1.3.0 and
+The included executions use Python 3.13.5, \texttt{mpmath} 1.3.0 and
 its Python backend, on Linux x86\_64. Each record stores the platform,
 the full version, and the SHA-256 hash of the program. No performance
 conclusions are drawn from the times, since the hardware conditions
@@ -3286,8 +3418,7 @@ is not attributed to the mere use of the positive part.
 The previous works contain ingredients of a perturbed majorization
 theory. We do not claim that every additive term is new or that the
 literature lacks deterministic controls for exact algorithms.
-Reading two articles is also not sufficient to prove priority
-throughout a whole class.
+The comparison does not assert priority throughout the literature.
 
 The construction combines a fixed scalar reference of the three-step
 method, residual bounds that retain the cancellations, stage radii,
@@ -3299,25 +3430,27 @@ estimates. Until such an application is proved, neither complete
 equivalence nor irreducibility is claimed.
 
 \begin{thebibliography}{99}
-\interlinepenalty=10000 % Keep each bibliographic entry on one page.
+\interlinepenalty=10000
+\bibitem{LotfiEtAl2015} T. Lotfi, P. Bakhtiari, A. Cordero, K. Mahdiani and J. R. Torregrosa, Some new efficient multipoint iterative methods for solving nonlinear systems of equations, \textit{International Journal of Computer Mathematics}, 92(9), 1921--1934, 2015. \url{https://doi.org/10.1080/00207160.2014.946412}.
+
 \bibitem{CorderoSemilocal2015} A. Cordero, M. A. Hern\'andez-Ver\'on, N. Romero and J. R. Torregrosa, Semilocal convergence by using recurrence relations for a fifth-order method in Banach spaces, \textit{Journal of Computational and Applied Mathematics}, 273, 205--213, 2015. \url{https://doi.org/10.1016/j.cam.2014.06.008}.
 
 \bibitem{SinghEtAl2016} S. Singh, D. K. Gupta, E. Mart\'inez and J. L. Hueso, Semilocal and local convergence of a fifth order iteration with Fr\'echet derivative satisfying H\"older condition, \textit{Applied Mathematics and Computation}, 276, 266--277, 2016. \url{https://doi.org/10.1016/j.amc.2015.11.062}.
 
 \bibitem{MarojuBehlMotsa2022} P. Maroju, R. Behl and S. S. Motsa, Semilocal and local convergence of a three step fifth order iterative methods under general continuity condition in Banach spaces, \textit{Thai Journal of Mathematics}, 20(1), 21--33, 2022. \url{https://thaijmath.com/index.php/thaijmath/article/view/1307}.
 
-\bibitem{Argyros1996} I. K. Argyros, Results on Newton methods: Part I. A unified approach for constructing perturbed Newton-like methods in Banach space and their applications, \textit{Applied Mathematics and Computation}, 74(2--3), 119--141, 1996. \url{https://doi.org/10.1016/0096-3003(95)00090-9}.
-
-\bibitem{FerreiraSvaiter2012} O. P. Ferreira and B. F. Svaiter, A robust Kantorovich's theorem on the inexact Newton method with relative residual error tolerance, \textit{Journal of Complexity}, 28(3), 346--363, 2012. \url{https://doi.org/10.1016/j.jco.2012.02.002}.
-
-\bibitem{AhmadArshadUllahMa2023} J. Ahmad, M. Arshad, K. Ullah and Z. Ma, Numerical solution of Bratu's boundary value problem based on Green's function and a novel iterative scheme, \textit{Boundary Value Problems}, 2023, Article 102, 2023. \url{https://doi.org/10.1186/s13661-023-01791-6}.
-
-\bibitem{AmatBusquierGutierrez2011} S. Amat, S. Busquier and J. M. Guti\'errez, Third-order iterative methods with applications to Hammerstein equations: A unified approach, \textit{Journal of Computational and Applied Mathematics}, 235(9), 2936--2943, 2011. \url{https://doi.org/10.1016/j.cam.2010.12.011}.
+\bibitem{EzquerroHernandezMagrenan2021} J. A. Ezquerro, M. A. Hern\'andez-Ver\'on and A. A. Magre\~n\'an, On an efficient modification of the Chebyshev method, \textit{Computational and Mathematical Methods}, 3(6), e1187, 2021. \url{https://doi.org/10.1002/cmm4.1187}.
 
 \bibitem{CardenasCastroSierra2022} E. C\'ardenas, R. Castro and W. Sierra, Convergence analysis for the King--Werner method under gamma-conditions, \textit{Journal of Applied Mathematics and Computing}, 68, 4605--4620, 2022. \url{https://doi.org/10.1007/s12190-022-01720-3}.
 
+\bibitem{AhmadArshadUllahMa2023} J. Ahmad, M. Arshad, K. Ullah and Z. Ma, Numerical solution of Bratu's boundary value problem based on Green's function and a novel iterative scheme, \textit{Boundary Value Problems}, 2023, Article 102, 2023. \url{https://doi.org/10.1186/s13661-023-01791-6}.
+
 \bibitem{EzquerroHernandez2024} J. A. Ezquerro and M. A. Hern\'andez-Ver\'on, Location, separation and approximation of solutions of nonlinear Hammerstein-type integral equations, \textit{Applied Numerical Mathematics}, 198, 1--10, 2024. \url{https://doi.org/10.1016/j.apnum.2023.12.010}.
 
-\bibitem{EzquerroHernandezMagrenan2021} J. A. Ezquerro, M. A. Hern\'andez-Ver\'on and A. A. Magre\~n\'an, On an efficient modification of the Chebyshev method, \textit{Computational and Mathematical Methods}, 3(6), e1187, 2021. \url{https://doi.org/10.1002/cmm4.1187}.
+\bibitem{AmatBusquierGutierrez2011} S. Amat, S. Busquier and J. M. Guti\'errez, Third-order iterative methods with applications to Hammerstein equations: A unified approach, \textit{Journal of Computational and Applied Mathematics}, 235(9), 2936--2943, 2011. \url{https://doi.org/10.1016/j.cam.2010.12.011}.
+
+\bibitem{Argyros1996} I. K. Argyros, Results on Newton methods: Part I. A unified approach for constructing perturbed Newton-like methods in Banach space and their applications, \textit{Applied Mathematics and Computation}, 74(2--3), 119--141, 1996. \url{https://doi.org/10.1016/0096-3003(95)00090-9}.
+
+\bibitem{FerreiraSvaiter2012} O. P. Ferreira and B. F. Svaiter, A robust Kantorovich's theorem on the inexact Newton method with relative residual error tolerance, \textit{Journal of Complexity}, 28(3), 346--363, 2012. \url{https://doi.org/10.1016/j.jco.2012.02.002}.
 \end{thebibliography}
 \end{document}
