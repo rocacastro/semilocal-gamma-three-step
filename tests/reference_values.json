@@ -1,0 +1,14 @@
+{
+  "scope": "Rounded values printed in Tables 3 and 4 of the article; not interval bounds.",
+  "table3": {
+    "chandrasekhar": {"residual_4": "1.486176e-450", "acoc_5": "4.0032"},
+    "polynomial": {"residual_4": "2.095062e-699", "acoc_5": "5.0000"},
+    "bratu": {"residual_4": "1.329004e-423", "acoc_5": "4.0093"},
+    "nonseparable": {"residual_4": "1.155496e-755", "acoc_5": "4.0025"},
+    "reciprocal": {"residual_4": "7.602065e-719", "acoc_5": "4.0161"}
+  },
+  "table4": {
+    "chandrasekhar": {"20": "5.70e-5", "30": "8.08e-6", "40": "1.10e-6"},
+    "bratu": {"20": "1.77e-3", "30": "7.86e-4", "40": "4.43e-4", "60": "1.99e-4"}
+  }
+}

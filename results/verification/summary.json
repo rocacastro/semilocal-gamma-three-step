@@ -1,0 +1,205 @@
+[
+  {
+    "check": "criterion",
+    "arithmetic": "exact rational",
+    "command": [
+      "python",
+      "-B",
+      "code/verify_gamma_criterion.py",
+      "--out",
+      "results"
+    ],
+    "script_sha256": "09afa12265fe87477684ec3a7f8b4e6fe707fbaee5b296a019d06c7bbb895d91",
+    "returncode": 0,
+    "elapsed_seconds": 0.9903671700000132
+  },
+  {
+    "check": "comparison_2015",
+    "arithmetic": "exact rational",
+    "command": [
+      "python",
+      "-B",
+      "code/compare_cordero2015.py",
+      "--out",
+      "results"
+    ],
+    "script_sha256": "7a375707e609156aa526bcf810bd6430ec8c377f225202109b84edb77a64a7ca",
+    "returncode": 0,
+    "elapsed_seconds": 0.7058985630000052
+  },
+  {
+    "check": "obstruction",
+    "arithmetic": "exact rational",
+    "command": [
+      "python",
+      "-B",
+      "code/verify_exact_obstruction.py"
+    ],
+    "script_sha256": "b4d5af053e4879cb0e529fd3e9fe5a7570ba13b0e87c587772e362c6dfd5fd9e",
+    "returncode": 0,
+    "elapsed_seconds": 0.6851992880000353
+  },
+  {
+    "check": "lotfi_orders",
+    "arithmetic": "exact rational series",
+    "command": [
+      "python",
+      "-B",
+      "code/verify_lotfi_orders.py"
+    ],
+    "script_sha256": "8808ddd7e1e88e7c999b12339709485ad01d6ff276c632e5c465b72992e643a0",
+    "returncode": 0,
+    "elapsed_seconds": 0.6747379769999498
+  },
+  {
+    "check": "algebra",
+    "arithmetic": "symbolic exact",
+    "command": [
+      "python",
+      "-B",
+      "code/verify_algebra.py"
+    ],
+    "script_sha256": "d3d2ebabc67a3962a39341ca5bfa4fa0ff535b0dd1493ca5d040b8bf1a5f6980",
+    "returncode": 0,
+    "elapsed_seconds": 10.802310773000045
+  },
+  {
+    "check": "symbolic_majorant",
+    "arithmetic": "symbolic exact",
+    "command": [
+      "python",
+      "-B",
+      "code/symbolic_majorant_verification.py"
+    ],
+    "script_sha256": "4f59e689a6b58e73c0da99c8a74e18578b6e22cfb206a2634f88031a40e86163",
+    "returncode": 0,
+    "elapsed_seconds": 6.193851418999998
+  },
+  {
+    "check": "published_results",
+    "arithmetic": "exact checks and labelled multiprecision reproductions",
+    "command": [
+      "python",
+      "-B",
+      "code/verify_published_results.py",
+      "--dps",
+      "2000",
+      "--out",
+      "results/literature_checks"
+    ],
+    "script_sha256": "43b68ec60c46aafa9741a64fb5e08674b85934b77543d07ae45171f676b20c1d",
+    "returncode": 0,
+    "elapsed_seconds": 2.5114293899999893
+  },
+  {
+    "check": "maroju2022",
+    "arithmetic": "symbolic exact",
+    "command": [
+      "python",
+      "-B",
+      "code/verify_maroju2022.py"
+    ],
+    "script_sha256": "ff95b416193cab142f1b126101ffbaefb230404a16219a8babc2bea7435a7ffc",
+    "returncode": 0,
+    "elapsed_seconds": 1.6483100639999293
+  },
+  {
+    "check": "maroju_bounds",
+    "arithmetic": "exact bounds and labelled multiprecision roots",
+    "command": [
+      "python",
+      "-B",
+      "code/verify_maroju_bounds.py",
+      "--out",
+      "results/maroju_bounds.json"
+    ],
+    "script_sha256": "0d9bc7b9c49ab56758e54a753cdeea62bee24be7954e737afd52887e1018b334",
+    "returncode": 0,
+    "elapsed_seconds": 1.2236191700000063
+  },
+  {
+    "check": "lotfi_numerical",
+    "arithmetic": "multiprecision consistency",
+    "command": [
+      "python",
+      "-B",
+      "code/check_lotfi_numerically.py"
+    ],
+    "script_sha256": "d66d1aa582cbc11d3ef060b481684407ec305e1b0a14c4178de2c713944a3857",
+    "returncode": 0,
+    "elapsed_seconds": 0.6829134719999956
+  },
+  {
+    "check": "experiments_all",
+    "arithmetic": "multiprecision floating point",
+    "command": [
+      "python",
+      "-B",
+      "code/reproduce_experiments.py",
+      "--problem",
+      "all",
+      "--N",
+      "30",
+      "--out",
+      "results/experiments"
+    ],
+    "script_sha256": "135891283f748ce2829213842d75be44e7441c70cbf29073080443072932a63d",
+    "returncode": 0,
+    "elapsed_seconds": 9.282955087999994
+  },
+  {
+    "check": "experiments_chandrasekhar",
+    "arithmetic": "multiprecision floating point",
+    "command": [
+      "python",
+      "-B",
+      "code/reproduce_experiments.py",
+      "--problem",
+      "chandrasekhar",
+      "--N",
+      "20",
+      "40",
+      "60",
+      "--out",
+      "results/experiments"
+    ],
+    "script_sha256": "135891283f748ce2829213842d75be44e7441c70cbf29073080443072932a63d",
+    "returncode": 0,
+    "elapsed_seconds": 14.612784515000044
+  },
+  {
+    "check": "experiments_bratu",
+    "arithmetic": "multiprecision floating point",
+    "command": [
+      "python",
+      "-B",
+      "code/reproduce_experiments.py",
+      "--problem",
+      "bratu",
+      "--N",
+      "20",
+      "40",
+      "60",
+      "--out",
+      "results/experiments"
+    ],
+    "script_sha256": "135891283f748ce2829213842d75be44e7441c70cbf29073080443072932a63d",
+    "returncode": 0,
+    "elapsed_seconds": 14.605973594000034
+  },
+  {
+    "check": "experiment_summary",
+    "arithmetic": "multiprecision profiles",
+    "command": [
+      "python",
+      "-B",
+      "code/reproduce_experiments.py",
+      "--summarize",
+      "--out",
+      "results/experiments"
+    ],
+    "script_sha256": "135891283f748ce2829213842d75be44e7441c70cbf29073080443072932a63d",
+    "returncode": 0,
+    "elapsed_seconds": 1.7292257719999498
+  }
+]

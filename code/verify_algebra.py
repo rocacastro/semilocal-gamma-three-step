@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Identities of the revision: SymPy, without numerical sampling tests."""
+"""Integrated remainders and residual identities: SymPy, without numerical sampling tests."""
 from pathlib import Path
 import json
 import sympy as s

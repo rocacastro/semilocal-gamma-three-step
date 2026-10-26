@@ -1,95 +1,87 @@
 {
-  "script_sha256": "991c8ea534efc8ebe4e303f64b48a949b46bb606722d2e72aa8aa5f2c0a4b1ef",
-  "all_present": true,
-  "all_script_hashes_match": true,
-  "experiments": [
+  "status": "PASS",
+  "experiment_count": 11,
+  "records": [
     {
-      "experiment": "bratu_N20_dps1000",
-      "present": true,
-      "script_sha256_matches": true,
-      "cycles": 5,
-      "precision_digits": 1000,
-      "N": 20
+      "problem": "bratu",
+      "N": 20,
+      "protocol_checked": true,
+      "source_hash_matches": true,
+      "increments_and_acoc_recomputed": true
     },
     {
-      "experiment": "bratu_N30_dps1000",
-      "present": true,
-      "script_sha256_matches": true,
-      "cycles": 5,
-      "precision_digits": 1000,
-      "N": 30
+      "problem": "bratu",
+      "N": 30,
+      "protocol_checked": true,
+      "source_hash_matches": true,
+      "increments_and_acoc_recomputed": true
     },
     {
-      "experiment": "bratu_N40_dps1000",
-      "present": true,
-      "script_sha256_matches": true,
-      "cycles": 5,
-      "precision_digits": 1000,
-      "N": 40
+      "problem": "bratu",
+      "N": 40,
+      "protocol_checked": true,
+      "source_hash_matches": true,
+      "increments_and_acoc_recomputed": true
     },
     {
-      "experiment": "bratu_N60_dps1000",
-      "present": true,
-      "script_sha256_matches": true,
-      "cycles": 5,
-      "precision_digits": 1000,
-      "N": 60
+      "problem": "bratu",
+      "N": 60,
+      "protocol_checked": true,
+      "source_hash_matches": true,
+      "increments_and_acoc_recomputed": true
     },
     {
-      "experiment": "chandrasekhar_N20_dps1000",
-      "present": true,
-      "script_sha256_matches": true,
-      "cycles": 5,
-      "precision_digits": 1000,
-      "N": 20
+      "problem": "chandrasekhar",
+      "N": 20,
+      "protocol_checked": true,
+      "source_hash_matches": true,
+      "increments_and_acoc_recomputed": true
     },
     {
-      "experiment": "chandrasekhar_N30_dps1000",
-      "present": true,
-      "script_sha256_matches": true,
-      "cycles": 5,
-      "precision_digits": 1000,
-      "N": 30
+      "problem": "chandrasekhar",
+      "N": 30,
+      "protocol_checked": true,
+      "source_hash_matches": true,
+      "increments_and_acoc_recomputed": true
     },
     {
-      "experiment": "chandrasekhar_N40_dps1000",
-      "present": true,
-      "script_sha256_matches": true,
-      "cycles": 5,
-      "precision_digits": 1000,
-      "N": 40
+      "problem": "chandrasekhar",
+      "N": 40,
+      "protocol_checked": true,
+      "source_hash_matches": true,
+      "increments_and_acoc_recomputed": true
     },
     {
-      "experiment": "chandrasekhar_N60_dps1000",
-      "present": true,
-      "script_sha256_matches": true,
-      "cycles": 5,
-      "precision_digits": 1000,
-      "N": 60
+      "problem": "chandrasekhar",
+      "N": 60,
+      "protocol_checked": true,
+      "source_hash_matches": true,
+      "increments_and_acoc_recomputed": true
     },
     {
-      "experiment": "nonseparable_N30_dps1000",
-      "present": true,
-      "script_sha256_matches": true,
-      "cycles": 5,
-      "precision_digits": 1000,
-      "N": 30
+      "problem": "nonseparable",
+      "N": 30,
+      "protocol_checked": true,
+      "source_hash_matches": true,
+      "increments_and_acoc_recomputed": true
     },
     {
-      "experiment": "polynomial_N30_dps1000",
-      "present": true,
-      "script_sha256_matches": true,
-      "cycles": 5,
-      "precision_digits": 1000,
-      "N": 30
+      "problem": "polynomial",
+      "N": 30,
+      "protocol_checked": true,
+      "source_hash_matches": true,
+      "increments_and_acoc_recomputed": true
     },
     {
-      "experiment": "reciprocal_N30_dps1000",
-      "present": true,
-      "script_sha256_matches": true,
-      "cycles": 5,
-      "precision_digits": 1000,
-      "N": 30
+      "problem": "reciprocal",
+      "N": 30,
+      "protocol_checked": true,
+      "source_hash_matches": true,
+      "increments_and_acoc_recomputed": true
     }
-  ]
+  ],
+  "table3_and_table4_roundings_match": true,
+  "profile_row_count": 3208,
+  "reproduction_script_sha256": "135891283f748ce2829213842d75be44e7441c70cbf29073080443072932a63d",
+  "scope": "Consistency of numerical records, not a discretization-error certificate."
 }

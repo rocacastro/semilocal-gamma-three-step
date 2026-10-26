@@ -1,0 +1,24 @@
+test_domain_rejection (test_exact_controls.RationalControlTests.test_domain_rejection) ... ok
+test_first_cycle (test_exact_controls.RationalControlTests.test_first_cycle) ... ok
+test_gamma_radius (test_exact_controls.RationalControlTests.test_gamma_radius) ... ok
+test_rational_transmitted_states (test_exact_controls.RationalControlTests.test_rational_transmitted_states) ... ok
+test_tail (test_exact_controls.RationalControlTests.test_tail) ... ok
+test_upper_rounding (test_exact_controls.RationalControlTests.test_upper_rounding) ... ok
+test_zero_residual_is_fixed (test_exact_controls.RationalControlTests.test_zero_residual_is_fixed) ... ok
+test_coupled_leading_terms (test_exact_controls.SeriesTests.test_coupled_leading_terms) ... ok
+test_matrix_inverse (test_exact_controls.SeriesTests.test_matrix_inverse) ... ok
+test_scalar_reciprocal (test_exact_controls.SeriesTests.test_scalar_reciprocal) ... ok
+test_singular_reciprocal (test_exact_controls.SeriesTests.test_singular_reciprocal) ... ok
+test_symmetric_leading_terms (test_exact_controls.SeriesTests.test_symmetric_leading_terms) ... ok
+test_citations_resolve (test_package.PackageTests.test_citations_resolve) ... ok
+test_labels_resolve (test_package.PackageTests.test_labels_resolve) ... ok
+test_lotfi_certificate (test_package.PackageTests.test_lotfi_certificate) ... ok
+test_no_external_tex_inputs (test_package.PackageTests.test_no_external_tex_inputs) ... ok
+test_package_version_consistency (test_package.PackageTests.test_package_version_consistency) ... ok
+test_referenced_local_paths_exist (test_package.PackageTests.test_referenced_local_paths_exist) ... ok
+test_six_supplementary_sections (test_package.PackageTests.test_six_supplementary_sections) ... ok
+
+----------------------------------------------------------------------
+Ran 19 tests in 0.012s
+
+OK

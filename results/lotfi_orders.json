@@ -1,0 +1,261 @@
+{
+  "source_doi": "10.1080/00207160.2014.946412",
+  "arithmetic": "fractions.Fraction; truncated power series modulo t**12",
+  "path": "(t, 2*t)",
+  "scope": "One-step expansions and uniform local bounds, not the exact Q-order of every orbit.",
+  "fields": {
+    "coupled_quadratic": {
+      "field": "(a + a*b, b + a**2 + a*b)",
+      "methods": {
+        "M6": {
+          "leading_degree": 5,
+          "leading_coefficient": [
+            "-3/4",
+            "3/4"
+          ],
+          "coefficients_through_degree_11": [
+            [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "-3/4",
+              "3053/8",
+              "-114941/16",
+              "2557217/32",
+              "-43418409/64",
+              "621187533/128",
+              "-7884135933/256"
+            ],
+            [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "3/4",
+              "4649/8",
+              "-179091/16",
+              "4010593/32",
+              "-68273491/64",
+              "977884713/128",
+              "-12416475435/256"
+            ]
+          ]
+        },
+        "M9": {
+          "leading_degree": 7,
+          "leading_coefficient": [
+            "9/8",
+            "-9/8"
+          ],
+          "coefficients_through_degree_11": [
+            [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "9/8",
+              "-2015/16",
+              "1433253/32",
+              "-89526387/64",
+              "3184159637/128"
+            ],
+            [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "-9/8",
+              "731/16",
+              "2094591/32",
+              "-136867237/64",
+              "4935865943/128"
+            ]
+          ]
+        },
+        "M12": {
+          "leading_degree": 9,
+          "leading_coefficient": [
+            "-27/16",
+            "27/16"
+          ],
+          "coefficients_through_degree_11": [
+            [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "-27/16",
+              "6435/32",
+              "-1321029/64"
+            ],
+            [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "27/16",
+              "-2583/32",
+              "-7423/64"
+            ]
+          ]
+        }
+      },
+      "jacobian_determinant_at_zero": "1",
+      "sum_jacobians_determinant_at_zero": "4"
+    },
+    "symmetric_quadratic": {
+      "field": "(a + b**2, b + a**2)",
+      "methods": {
+        "M6": {
+          "leading_degree": 6,
+          "leading_coefficient": [
+            "360",
+            "-36"
+          ],
+          "coefficients_through_degree_11": [
+            [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "360",
+              "-2864",
+              "35644",
+              "-200376",
+              "1323600",
+              "-6100344"
+            ],
+            [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "-36",
+              "-2956",
+              "20944",
+              "-183528",
+              "956868",
+              "-5233392"
+            ]
+          ]
+        },
+        "M9": {
+          "leading_degree": 8,
+          "leading_coefficient": [
+            "-1512",
+            "3024"
+          ],
+          "coefficients_through_degree_11": [
+            [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "-1512",
+              "9720",
+              "-488880",
+              "5298840"
+            ],
+            [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "3024",
+              "-216",
+              "-2520",
+              "3254400"
+            ]
+          ]
+        },
+        "M12": {
+          "leading_degree": 10,
+          "leading_coefficient": [
+            "12096",
+            "-24192"
+          ],
+          "coefficients_through_degree_11": [
+            [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "12096",
+              "127008"
+            ],
+            [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "-24192",
+              "84672"
+            ]
+          ]
+        }
+      },
+      "jacobian_determinant_at_zero": "1",
+      "sum_jacobians_determinant_at_zero": "4"
+    }
+  },
+  "proof_coefficients": {
+    "z_degree_3": [
+      "7/2",
+      "11/2"
+    ],
+    "I_minus_K_degree_2": [
+      [
+        "-1",
+        "1/2"
+      ],
+      [
+        "1",
+        "-1/2"
+      ]
+    ]
+  },
+  "status": "All six leading coefficients and the analytic proof coefficients agree exactly."
+}

@@ -1,0 +1,7 @@
+coupled_quadratic/M6: t^5 * (-3/4, 3/4)
+coupled_quadratic/M9: t^7 * (9/8, -9/8)
+coupled_quadratic/M12: t^9 * (-27/16, 27/16)
+symmetric_quadratic/M6: t^6 * (360, -36)
+symmetric_quadratic/M9: t^8 * (-1512, 3024)
+symmetric_quadratic/M12: t^10 * (12096, -24192)
+All six leading coefficients and the analytic proof coefficients agree exactly.

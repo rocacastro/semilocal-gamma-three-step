@@ -1,0 +1,16 @@
+Running: criterion
+Running: comparison_2015
+Running: obstruction
+Running: lotfi_orders
+Running: algebra
+Running: symbolic_majorant
+Running: published_results
+Running: maroju2022
+Running: maroju_bounds
+Running: lotfi_numerical
+Running: experiments_all
+Running: experiments_chandrasekhar
+Running: experiments_bratu
+Running: experiment_summary
+PASS: 11 experiments, 55 increments, 33 ACOC values, table roundings, source hashes and profile data.
+All requested checks completed successfully.

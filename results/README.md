@@ -1,15 +1,31 @@
-# Generated results
+# Results
 
-This directory is populated by the programs in `code/`.
+## Exact rational and symbolic material
 
-The version committed in this repository was regenerated with the included English programs. Exact/rational checks and numerical experiments are kept separate.
+- `criterion_alpha1547.json` and `.txt`: first-cycle values, rational states and tail inequalities.
+- `comparison_2015.json`: applicability intervals and location bounds for the fixed quadratic family.
+- `exact_obstruction.json`: exact-majorization counterexample.
+- `lotfi_orders.json`: all retained rational Taylor coefficients and leading terms for two quadratic fields.
+- `algebra_verification.json`: exact symbolic identities.
 
-- `criterion_alpha1547.*` — exact criterion output.
-- `comparison_2015.json` — quantitative comparison with the 2015 criterion.
-- `exact_obstruction.json` — exact-majorization obstruction check.
-- `algebra_verification.json` — algebraic identity checks.
-- `audit/` — audit calculations used by Supplementary Section S4.
-- `experiments/` — S5 numerical experiments and summary tables.
-- `combined_run/` — logs and return codes produced by `run_verifications.py`.
+## Published-results checks
 
-Generated timing fields depend on hardware and are not mathematical invariants.
+`literature_checks/published_results.json` separates exact assertions from multiprecision reproductions. `literature_checks/cordero2015_iterations.csv` contains the six-cycle eight-node reproduction. `maroju_bounds.json` distinguishes exact inequalities from numerically computed radii. These are mathematical checks of cited publications, with their scope explained in S4.
+
+`lotfi_numerical.json` contains direct high-precision evaluations of the Lotfi coupled example. They are not used to prove the exact Taylor orders.
+
+## Numerical experiments
+
+`experiments/` contains eleven experiment folders and the aggregate files:
+
+- `five_problems_N30.csv`: six-state histories for the five problems at N=30.
+- `refinement.csv`: eight Chandrasekhar/Bratu profile comparisons.
+- `profiles_grid401.csv`: reconstructed profiles on the common grid.
+- `Bratu_reference.json`: the lower-amplitude reference parameter and equation.
+- `RUN_STATUS.json`: protocol, source-digest, increment, ACOC and rounding checks.
+
+All reported numerical residuals and profile differences are multiprecision floating-point quantities, not interval certificates or quadrature-error bounds.
+
+## Execution records
+
+`verification/summary.json` identifies the arithmetic and exit status of the executed verification commands. Its accompanying logs give their output. `experiment_execution.json` records the separate eleven-experiment execution. `supplement_build.json` records the supplement's compilation checks. These records describe the distributed computation, not a performance benchmark.

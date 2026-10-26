@@ -144,8 +144,8 @@
   "python": "3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]",
   "mpmath": "1.3.0",
   "backend": "python",
-  "platform": "Linux-6.18.35-x86_64-with-glibc2.41",
+  "platform": "Linux-6.18.55-x86_64-with-glibc2.41",
   "machine": "x86_64",
-  "elapsed_seconds": 0.6762331760000961,
-  "script_sha256": "991c8ea534efc8ebe4e303f64b48a949b46bb606722d2e72aa8aa5f2c0a4b1ef"
+  "elapsed_seconds": 0.6841663249999783,
+  "script_sha256": "135891283f748ce2829213842d75be44e7441c70cbf29073080443072932a63d"
 }

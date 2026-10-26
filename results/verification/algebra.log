@@ -1,0 +1,10 @@
+L_integrated True
+E2_integrated True
+E3_integrated True
+tail_polynomial_P True
+first_majorant_iterate True
+rational_majorant_residual True
+residual_coefficient_10 True
+fourth_degree_coefficient_component_1 True
+fourth_degree_coefficient_component_2 True
+all True

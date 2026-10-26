@@ -1,0 +1,75 @@
+[
+  {
+    "check": "experiments_all",
+    "arithmetic": "multiprecision floating point",
+    "command": [
+      "python",
+      "-B",
+      "code/reproduce_experiments.py",
+      "--problem",
+      "all",
+      "--N",
+      "30",
+      "--out",
+      "results/experiments"
+    ],
+    "script_sha256": "135891283f748ce2829213842d75be44e7441c70cbf29073080443072932a63d",
+    "returncode": 0,
+    "elapsed_seconds": 9.282955087999994
+  },
+  {
+    "check": "experiments_chandrasekhar",
+    "arithmetic": "multiprecision floating point",
+    "command": [
+      "python",
+      "-B",
+      "code/reproduce_experiments.py",
+      "--problem",
+      "chandrasekhar",
+      "--N",
+      "20",
+      "40",
+      "60",
+      "--out",
+      "results/experiments"
+    ],
+    "script_sha256": "135891283f748ce2829213842d75be44e7441c70cbf29073080443072932a63d",
+    "returncode": 0,
+    "elapsed_seconds": 14.612784515000044
+  },
+  {
+    "check": "experiments_bratu",
+    "arithmetic": "multiprecision floating point",
+    "command": [
+      "python",
+      "-B",
+      "code/reproduce_experiments.py",
+      "--problem",
+      "bratu",
+      "--N",
+      "20",
+      "40",
+      "60",
+      "--out",
+      "results/experiments"
+    ],
+    "script_sha256": "135891283f748ce2829213842d75be44e7441c70cbf29073080443072932a63d",
+    "returncode": 0,
+    "elapsed_seconds": 14.605973594000034
+  },
+  {
+    "check": "experiment_summary",
+    "arithmetic": "multiprecision profiles",
+    "command": [
+      "python",
+      "-B",
+      "code/reproduce_experiments.py",
+      "--summarize",
+      "--out",
+      "results/experiments"
+    ],
+    "script_sha256": "135891283f748ce2829213842d75be44e7441c70cbf29073080443072932a63d",
+    "returncode": 0,
+    "elapsed_seconds": 1.7292257719999498
+  }
+]

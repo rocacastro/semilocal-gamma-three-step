@@ -27,7 +27,7 @@ def text(x,d=25):
 
 def csv_out(path,rows):
     with path.open('w',newline='',encoding='utf-8') as f:
-        w=csv.DictWriter(f,fieldnames=list(rows[0]));w.writeheader();w.writerows(rows)
+        w=csv.DictWriter(f,fieldnames=list(rows[0]),lineterminator="\n");w.writeheader();w.writerows(rows)
 
 def norm(v):return max((abs(z) for z in v),default=mp.mpf(0))
 

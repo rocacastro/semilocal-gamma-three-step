@@ -1,0 +1,10 @@
+{
+  "status": "PASS",
+  "pages": 45,
+  "passes": 3,
+  "source_sha256": "37357b5f347ab11ac9c657a02cbfcd15fbcd1c51039e6bf26578a4d8823c7f1d",
+  "undefined_references_or_citations": 0,
+  "duplicate_labels": 0,
+  "overfull_boxes": 0,
+  "external_source_dependencies": []
+}
