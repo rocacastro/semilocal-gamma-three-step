@@ -1,9 +1,2 @@
-* text=auto
-sn-jnl.cls -text
-sn-mathphys-num.bst -text
+* text=auto eol=lf
 *.pdf binary
-*.json text eol=lf
-*.csv text eol=lf
-*.py text eol=lf
-*.tex text eol=lf
-*.md text eol=lf
